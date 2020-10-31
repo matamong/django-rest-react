@@ -10,7 +10,7 @@
 ## **Autenticate**
 
 > **주요기능**
-- 회원가입 
+- 회원가입
 - 회원가입 메일인증
 - 로그인
 - 비밀번호변경
@@ -23,16 +23,16 @@
 - [`Django REST framework`](https://www.django-rest-framework.org/)
 - [`Djangorest Framework Simple JWT`](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/index.html)
 - [`Djoser`](http://django-rest-auth.readthedocs.org/en/latest/)
-- `Redux`
-- `Axios`
-- `React Hooks`
+- [`React`](https://ko.reactjs.org/)
+- [`Redux`](https://redux.js.org/)
+- [`Axios`](https://github.com/axios/axios)
 
 <br><br>
 
 # **REST API**
  GAME DUOS Git Book참조 <br>
 
-- [GAME DUOS Git Book Autentication REST API](https://app.gitbook.com/@matamatamong/s/game-duos-rest-api/rest-api/authenticate)
+- [GAME DUOS Git Book Autentication REST API](https://matamatamong.gitbook.io/game-duos-rest-api/)
 
 <br><br>
 
