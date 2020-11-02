@@ -1,0 +1,23 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f9f9f9;
+    height: 60px;
+}
+
+.header__log {
+    height: 30px;
+    object-fit: contain; /* keep the aspect-ratio while maintaining size */
+    width: 90px;
+}
+
+.header__profile{
+    width: 8rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header__icon {
+    padding: 7px;
+}
