@@ -10,17 +10,17 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const Navbar = ({ logout, isAuthenticated }) => {
     const guestLinks = () => (
-        <div className="header__profile">
+        <Fragment>
             <Link to="/login">
                 <IconButton>
                     <PersonIcon className="header__icon" fontSize="large" />
                 </IconButton>
             </Link>
-        </div>
+        </Fragment>
     );
 
     const authLinks = () => (
-        <div className="header__profile">
+        <Fragment>
             <Link to="/profile">
                 <IconButton>
                     <PersonIcon className="header__icon" fontSize="large" />
@@ -29,7 +29,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
             <IconButton>
                 <ExitToAppIcon className="header__icon" fontSize="large" onClick={logout} />
             </IconButton>
-        </div>
+        </Fragment>
     );
 
     return (
@@ -38,7 +38,9 @@ const Navbar = ({ logout, isAuthenticated }) => {
                 <img className="header__log" src="https://1000logos.net/wp-content/uploads/2018/07/tinder-logo.png"
                     alt="tinder logo"></img>
             </Link>
-            {isAuthenticated ? authLinks() : guestLinks()}
+            <div className="header__profile">
+                {isAuthenticated ? authLinks() : guestLinks()}
+            </div>
         </div>
     );
 };
