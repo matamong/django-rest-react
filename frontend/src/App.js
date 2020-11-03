@@ -6,6 +6,7 @@ import Signup from './containers/Signup';
 import Activate from './containers/Activate';
 import ResetPassword from './containers/ResetPassword';
 import ResetPasswordConfirm from './containers/ResetPasswordConfirm';
+import Cards from './containers/Cards';
 import Layout from './hocs/Layout';
 import { Provider } from 'react-redux';
 import store from './store'
@@ -21,6 +22,7 @@ const App = () => (
                     <Route exact path='/reset-password' component={ResetPassword} />
                     <Route exact path='/password/reset/confirm/:uid/:token' component={ResetPasswordConfirm} />
                     <Route exact path='/activate/:uid/:token' component={Activate} />
+                    <Route exact path='/matching' component={Cards} />
                 </Switch>
             </Layout>
         </Router>
