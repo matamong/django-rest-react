@@ -4,9 +4,9 @@ from .models import Game, UserGame
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
-        fields = ('__all__')
+        fields = '__all__'
 
 class UserGameSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserGame
-        fields = ('__all__')
+        exclude = ('user', 'game')
