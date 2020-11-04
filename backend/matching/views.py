@@ -7,6 +7,7 @@ from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
+from accounts.models import UserAccount
 
 # Create your views here.
 
@@ -24,14 +25,12 @@ class GameDetailView(generics.RetrieveAPIView):
 class UserGameView(APIView):
     permission_classes = (permissions.AllowAny, )
 
-    def get_object_from_name(self, name):
-        try:
-            return Game.objects.get(name=name)
-        except Game.DoesNotExist:
-            return False
+    def get(self, request):
+        queryset = UserGame.objects.all()
+        serializer = UserGameSerializer(queryset, many=True)
+        return Response(serializer.data)
 
     def post(self, request, format=None):
-        permission_classes = (permissions.AllowAny, )
         data = self.request.data
         serializer = UserGameSerializer(data=data)
         name=data['gameName']
@@ -52,4 +51,14 @@ class UserGameView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
-
+    
+    def get_object_from_name(self, name):
+        try:
+            return Game.objects.get(name=name)
+        except Game.DoesNotExist:
+            return False
+    def get_user_from_email(self, email):
+        try:
+            return UserAccount.objects.filter(email=email)
+        except UserAccount.DoesNotExist:
+            return False
