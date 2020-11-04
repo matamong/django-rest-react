@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken', # djoser 전에 넣어줘야함
     'djoser',
     'accounts',
+    'matching',
     'corsheaders',
 ]
 
@@ -151,13 +152,14 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication'
         'rest_framework_simplejwt.authentication.JWTAuthentication'
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 3
 }
 SIMPLE_JWT = {
-   'AUTH_HEADER_TYPES': ('JWT',),
+#    'AUTH_HEADER_TYPES': ('JWT',),  # 이거 때문에 django에서 jwt token user를 인식하지못한다.
    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
