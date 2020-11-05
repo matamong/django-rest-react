@@ -46,7 +46,7 @@ class UserGameDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserGameSerializer
 
 class UserGameView(APIView):
-    permission_classes = (permissions.AllowAny, )
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         queryset = UserGame.objects.all()
@@ -58,11 +58,10 @@ class UserGameView(APIView):
         serializer = UserGameSerializer(data=data)
         name=data['gameName']
         user = self.request.user
-        print('>>>>>>>>>>>>>>', user)
         if serializer.is_valid():
             usergame = UserGame(
             user = user,
-            game = self.get_object_from_name(name),
+            game = Game.objects.get(name=name),
             game_nickname = data['game_nickname'],
             is_random_agreed = data['is_random_agreed'],
             is_profile_agreed = data['is_profile_agreed'],
@@ -74,15 +73,3 @@ class UserGameView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    def get_object_from_name(self, name):
-        try:
-            return Game.objects.get(name=name)
-        except Game.DoesNotExist:
-            return False
-    
-    def get_user_from_email(self, email):
-        try:
-           return UserAccount.objects.filter(email=email)
-        except UserAccount.DoesNotExist:
-            return False
