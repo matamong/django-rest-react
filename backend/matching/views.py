@@ -13,6 +13,22 @@ from rest_framework.exceptions import PermissionDenied, ValidationError
 from .permissions import IsOwnerAndAdminOnly
 
 # Create your views here.
+
+class MatchingListView(generics.ListAPIView):
+    """
+    Get the list of user who have a same game_name in DB
+    """
+    queryset = UserGame.objects.all()
+    serializer_class = UserGameSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        game_name = self.kwargs['game_name']
+        game_id = Game.objects.get(name=game_name)
+
+        return UserGame.objects.filter(game=game_id)
+
+    
 class GameListView(generics.ListAPIView):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
@@ -22,7 +38,7 @@ class GameDetailView(generics.RetrieveAPIView):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
     permission_classes = (permissions.AllowAny, )
-    lookup_field = 'name'
+    lookup_field = 'name' 
 
 class UserGameDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated, IsOwnerAndAdminOnly]
@@ -67,6 +83,6 @@ class UserGameView(APIView):
     
     def get_user_from_email(self, email):
         try:
-            return UserAccount.objects.filter(email=email)
+           return UserAccount.objects.filter(email=email)
         except UserAccount.DoesNotExist:
             return False
