@@ -36,3 +36,9 @@ class GameModelTestCase(BaseModelTestCase):
     def test_created_properly(self):
         self.assertEqual(self.game.name, 'lol')
         self.assertEqual(self.game.genre, 'AOS')
+
+class UserGameModelTestCase(BaseModelTestCase):
+    def test_created_propery(self):
+        self.assertEqual(self.usergame.game_nickname, '마석용')
+        self.assertEqual(self.game.id ,self.usergame.game.id)
+        self.assertEqual(self.user.id, self.usergame.user.id)
