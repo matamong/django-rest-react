@@ -4,7 +4,7 @@
 
 # Secrets
 secrets.json
-
+.idea
 ### Django ###
 *.log
 *.pot
