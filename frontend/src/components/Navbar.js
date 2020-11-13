@@ -45,6 +45,13 @@ const Navbar = ({ logout, isAuthenticated }) => {
                         <FaceIcon className="header__icon" fontSize="large" />
                     </IconButton>
                 </Link>
+                <Link to="/lol">
+                    <IconButton>
+                        <img className="header__icon" 
+                        src="http://ddragon.leagueoflegends.com/cdn/10.23.1/img/spell/SummonerFlash.png" 
+                        alt="lol" ></img>
+                    </IconButton>
+                </Link>
             </div>
             <div className="header__profile">
                 {isAuthenticated ? authLinks() : guestLinks()}
