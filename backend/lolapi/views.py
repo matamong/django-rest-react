@@ -17,7 +17,7 @@ class LolUserGameRetrieveView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'lol_name'
 
     def perform_update(self, serializer):
-        lol_watcher = LolWatcher('RGAPI-a99bcdb7-0767-42a6-98f6-146f719bfa73')
+        lol_watcher = LolWatcher('RGAPI-26c9fa1b-3c4f-4536-9774-f1de5d82af54')
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
         
@@ -53,7 +53,7 @@ class LolUserGameRenewalView(generics.UpdateAPIView):
     lookup_field = 'lol_name'
 
     def perform_update(self, serializer):
-        lol_watcher = LolWatcher('RGAPI-a99bcdb7-0767-42a6-98f6-146f719bfa73')
+        lol_watcher = LolWatcher('RGAPI-26c9fa1b-3c4f-4536-9774-f1de5d82af54')
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
 
@@ -88,7 +88,7 @@ class LolUserGameListView(generics.ListCreateAPIView):
     # https://stackoverflow.com/questions/35518273/how-to-set-current-user-to-user-field-in-django-rest-framework
     def perform_create(self, serializer):
         # setting 값 다 되어있는 RiotAPI클래스 불러와서 API 로 정보가져오기.
-        lol_watcher = LolWatcher('RGAPI-a99bcdb7-0767-42a6-98f6-146f719bfa73')
+        lol_watcher = LolWatcher('RGAPI-26c9fa1b-3c4f-4536-9774-f1de5d82af54')
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
         
