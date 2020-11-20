@@ -22,7 +22,7 @@ class LolUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSeri
 
     class Meta:
         model = LolUserGame
-        fields = ['lol_name', 'region', 'perfer_style', 'prefer_time', 'intro', 'lol_position', 'lol_prefer_mode']
+        fields = ['lol_name', 'region', 'prefer_style', 'prefer_time', 'intro', 'lol_position', 'lol_prefer_mode']
     
     def create(self, validated_data):
         lol_position_data = validated_data.pop('lol_position')

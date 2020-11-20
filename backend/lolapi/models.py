@@ -54,7 +54,7 @@ class LolUserGame(models.Model):
     solo_rank = models.CharField(max_length=10, choices=Rank.choices, default=Tier.UNRANKED)
     flex_tier = models.CharField(max_length=50, choices=Tier.choices, default=Tier.UNRANKED)
     flex_rank = models.CharField(max_length=10, choices=Rank.choices, default=Tier.UNRANKED)
-    perfer_style = models.IntegerField(choices=Style.choices)
+    prefer_style = models.IntegerField(choices=Style.choices)
     prefer_time = models.CharField(max_length=200)
     main_champ_key = models.IntegerField(blank=True, null=True) # 프론트에서 고평가 챔프 api 불러와서 선택하게 해주기
     intro = models.TextField()
