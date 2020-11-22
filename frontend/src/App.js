@@ -12,6 +12,8 @@ import LolMatching from './containers/LolMatching';
 import Layout from './hocs/Layout';
 import { Provider } from 'react-redux';
 import store from './store'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => (
     <Provider store={store}>
@@ -29,6 +31,7 @@ const App = () => (
                     <Route exact path='/lol-matching' component={LolMatching} />
                 </Switch>
             </Layout>
+            <ToastContainer />
         </Router>
     </Provider>
 )
