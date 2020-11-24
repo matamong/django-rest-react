@@ -3,22 +3,17 @@ import './lolform.scss';
 import { connect } from 'react-redux';
 import { save_lol_usergame } from '../actions/lolMatching';
 import './lolform.scss'
+import { TextField } from '@material-ui/core'
 
-//const LolForm = () => {
-//    const [checked, setChecked] = useState(false);
-//
-//
-//    return (
-//        <div className="checkbox">
-//            <input type="checkbox" checked={checked}></input>
-//            <button onClick={() => {setChecked(old => !old)}}> {checked ? 'uncheck' : 'check'} </button>
-//        </div>
-//    )
-//}
 
 // https://stackoverflow.com/questions/58889116/updating-nested-object-in-react-hooks
 
 const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
+    const [valueData, setValueData] = useState({
+        nameEntered: '',
+        isNameValid: false 
+    })
+
     const [generalFormData, setGeneralFormData] = useState({
         lol_name: '',
         region: '',
@@ -26,9 +21,7 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
         prefer_time: '',
         intro: ''
     })
-    // 나중에 action에 들어갈때는 값을 끄집어내자.
-    // cosnt body = JSON.stringify({ generalFormData.lol_name , ..., posionFormData, modeFormData}) 이렇게@
-
+    
     const {lol_name, region, prefer_style, prefer_time, intro} = generalFormData
 
     const [positionFormData, setPositionFormData] = useState({
@@ -53,6 +46,47 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
 
     const { ai, normal, solo_duo_rank, flex_rank, howling_abyss, team_fight_tactics, team_fight_tactics_rank } = modeFormData
 
+    const validateName = (set, field, value) => {
+        if(value.length > 2) {
+            setValueData({
+                ...valueData,
+                    nameEntered: value,
+                    isNameValid: true
+            })
+            onChange(set, field, value)
+        }else {
+            setValueData({
+                ...valueData,
+                    nameEntered: value,
+                    isNameValid: false
+            })
+            onChange(set, field, value)
+        }
+    }
+
+    const isEnteredNameValid = () => {
+        const { nameEntered, isNameValid } = valueData
+        if(nameEntered) return isNameValid
+    }
+
+    const isNameFieldValid = () => {
+        const isNameValid = valueData.isNameValid
+        return isNameValid
+    }
+
+    const renderSubmitBtn = () => {
+        if(isNameFieldValid()){
+            return (
+                <button type="submit">등록하기</button>
+            )
+        }
+        return (
+            <button type="submit" disabled>
+                등록하기
+            </button>
+        )
+    }
+
     const onChange = (set, field, value) => {
         set(state => ({
           ...state,
@@ -72,27 +106,24 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
             positionFormData,
             modeFormData
         )
-
-        console.log(
-            generalFormData.lol_name,
-            generalFormData.region,
-            generalFormData.prefer_style,
-            generalFormData.prefer_time,
-            generalFormData.intro,
-            positionFormData,
-            modeFormData);
     }
       
 
     return (
         <div>
             <form onSubmit={e => onSubmit(e)}>
-                <input
+                <TextField
+                    id="outlined-error-helper-text"
                     type='text'
                     placeholder='lol_name'
                     name='lol_name'
                     value={lol_name}
-                    onChange={e => onChange(setGeneralFormData, 'lol_name', e.target.value)}
+                    label="롤 닉네임"
+                    error= {isEnteredNameValid() === false}
+                    helperText={isEnteredNameValid() === false ? '닉네임은 3글자 이상이어야 합니다.' : ''}
+                    onChange={e => validateName(setGeneralFormData, 'lol_name', e.target.value)}
+                    variant="outlined"
+                    required
                 />
                 <input
                     type='text'
@@ -100,6 +131,7 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
                     name='region'
                     value={region}
                     onChange={e => onChange(setGeneralFormData, 'region', e.target.value)}
+                    required
                 />
                 <input
                     type='text'
@@ -107,6 +139,7 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
                     name='prefer_style'
                     value={prefer_style}
                     onChange={e => onChange(setGeneralFormData, 'prefer_style', e.target.value)}
+                    required
                 />
                 <input
                     type='text'
@@ -114,6 +147,7 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
                     name='prefer_time'
                     value={prefer_time}
                     onChange={e => onChange(setGeneralFormData, 'prefer_time', e.target.value)}
+                    required
                 />
                 <input
                     type='text'
@@ -121,6 +155,7 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
                     name='intro'
                     value={intro}
                     onChange={e => onChange(setGeneralFormData, 'intro', e.target.value)}
+                    required
                 />
                 <input
                     type='text'
@@ -128,6 +163,7 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
                     name='is_top_possible'
                     value={is_top_possible}
                     onChange={e => onChange(setPositionFormData, 'is_top_possible', e.target.value)}
+                    required
                 />
                 <input
                     type='text'
@@ -135,6 +171,7 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
                     name='is_jungle_possible'
                     value={is_jungle_possible}
                     onChange={e => onChange(setPositionFormData, 'is_jungle_possible', e.target.value)}
+                    required
                 />
                 <input
                     type='text'
@@ -142,6 +179,7 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
                     name='is_mid_possible'
                     value={is_mid_possible}
                     onChange={e => onChange(setPositionFormData, 'is_mid_possible', e.target.value)}
+                    required
                 />
                 <input
                     type='text'
@@ -149,6 +187,7 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
                     name='is_ad_possible'
                     value={is_ad_possible}
                     onChange={e => onChange(setPositionFormData, 'is_ad_possible', e.target.value)}
+                    required
                 />
                 <input
                     type='text'
@@ -156,12 +195,12 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
                     name='is_sup_possible'
                     value={is_sup_possible}
                     onChange={e => onChange(setPositionFormData, 'is_sup_possible', e.target.value)}
+                    required
                 />
-                <button type="submit">
-                    submit
-                </button>
+                {renderSubmitBtn()}
             </form>
         </div>
+        
         
         // <form>
         // <ul className="lolform__`checkbox_container">
