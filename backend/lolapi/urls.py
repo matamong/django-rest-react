@@ -3,6 +3,6 @@ from .views import LolUserGameListView, LolUserGameRetrieveView, LolUserGameRene
 
 urlpatterns = [
     path('usergame', LolUserGameListView.as_view()),
-    path('usergame/<lol_name>', LolUserGameRetrieveView.as_view()),
+    path('usergame/<user>', LolUserGameRetrieveView.as_view()),
     path('usergame/renew/<lol_name>', LolUserGameRenewalView.as_view())
 ]
