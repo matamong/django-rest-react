@@ -16,6 +16,8 @@ import {
     RESET_PASSWORD_CONFIRM_FAIL,
     LOGOUT
 } from'./types';
+import { load_lol_usergame } from '../actions/lolMatching';
+
 
 export const checkAuthenticated = () => async dispatch => {
     if (typeof window == 'undefined') {
@@ -57,7 +59,6 @@ export const checkAuthenticated = () => async dispatch => {
     }
 };
 export const load_user = () => async dispatch => {
-    console.log(localStorage)
     if (localStorage.getItem('access')) {
         const config = {
             headers: {
@@ -74,6 +75,8 @@ export const load_user = () => async dispatch => {
                 type: USER_LOADED_SUCCESS,
                 payload: res.data
             });
+            console.log(res.data.id)
+            dispatch(load_lol_usergame(res.data.id))            
         } catch (err) {
             dispatch({
                 type: USER_LOADED_FAIL

@@ -16,7 +16,7 @@ const initialState = {
     access: localStorage.getItem('access'),
     refresh: localStorage.getItem('refresh'),
     isAuthenticated: null,
-    user: null
+    user: localStorage.getItem('user')
 };
 
 export default function(state = initialState, action) {
@@ -37,6 +37,7 @@ export default function(state = initialState, action) {
                 refresh: payload.refresh
             }
         case USER_LOADED_SUCCESS:
+            localStorage.setItem('user', payload.access);
             return {
                 ...state,
                 user: payload
@@ -60,6 +61,7 @@ export default function(state = initialState, action) {
         case LOGOUT:
             localStorage.removeItem('access');
             localStorage.removeItem('refresh');
+            localStorage.removeItem('user');
             return {
                 ...state,
                 access: null,
