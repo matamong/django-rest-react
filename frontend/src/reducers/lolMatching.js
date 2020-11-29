@@ -1,12 +1,15 @@
 import {
     LOL_USER_GAME_SAVE_SUCCESS,
     LOL_USER_GAME_SAVE_FAIL,
+    LOL_USER_GAME_LOAD_SUCCESS,
+    LOL_USER_GAME_LOAD_FAIL,
     LOL_USER_GAME_UPDATE_SUCCESS,
     LOL_USER_GAME_DELETE_SUCCESS
 } from '../actions/types';
 
 const initialState = {
     isLolUsergameSaved: null,
+    lolProfile: localStorage.getItem('lolProfile')
 }
 
 export default function(state = initialState, action) {
@@ -23,6 +26,16 @@ export default function(state = initialState, action) {
                 ...state,
                 isLolUsergameSaved: false
             }
+        case LOL_USER_GAME_LOAD_SUCCESS:
+            return {
+                ...state,
+                lolProfile: payload
+            }
+            case LOL_USER_GAME_LOAD_FAIL:
+                return {
+                    ...state,
+                    lolProfile: null
+                }
         default:
             return state
     }
