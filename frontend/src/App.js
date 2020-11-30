@@ -9,6 +9,8 @@ import ResetPasswordConfirm from './containers/ResetPasswordConfirm';
 import Cards from './containers/Cards';
 import LolForm from './containers/LolForm'
 import LolMatching from './containers/LolMatching';
+import MyLOLCard from './components/MyLOLCard';
+import MyPage from './containers/MyPage'
 import Layout from './hocs/Layout';
 import { Provider } from 'react-redux';
 import store from './store'
@@ -29,6 +31,8 @@ const App = () => (
                     <Route exact path='/matching' component={Cards} />
                     <Route exact path='/lol-form' component={LolForm}></Route>
                     <Route exact path='/lol-matching' component={LolMatching} />
+                    <Route exact path='/my-lol-card' component={MyLOLCard} />
+                    <Route exact path='/my-page' component={MyPage} />
                 </Switch>
             </Layout>
             <ToastContainer />
