@@ -2,7 +2,6 @@ import React, { useState, useEffect  } from 'react'
 import axios from 'axios'
 import { connect, useDispatch } from 'react-redux';
 import LOLCard from './LOLCard'
-import { championInformation } from '../util/dataDragon'
 
 // Loading 만들기
 // 등록하기 만들기
