@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
 import './lolcard.scss';
 
 const useStyles = makeStyles({
@@ -44,8 +45,12 @@ const LOLCard = (props) => {
           빡즐겜수치: {props.prefer_style}
           <br />
           시간대ㅐㅐㅐ: {props.prefer_time}
+          <br />
+          메인 챔프: {props.main_champion_name}
+          
         </Typography>
       </CardContent>
+      <Avatar alt={props.main_champion} src={props.main_champion_avatar} />
     </Card>
     )
 }
