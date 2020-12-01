@@ -6,6 +6,7 @@ from rest_framework import permissions
 from riotwatcher import LolWatcher, ApiError
 from matching.permissions import IsOwnerAndAdminOnly, IsOwnerOrReadOnly
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from .datadragon import DataDragon
 
 
 # Create your views here.
@@ -15,9 +16,23 @@ class LolUserGameRetrieveView(generics.RetrieveUpdateDestroyAPIView):
     queryset = LolUserGame.objects.all()
     serializer_class = LolUserGameSerializer
     lookup_field = 'user'
+    lol_watcher = LolWatcher('RGAPI-0669dec5-bb00-4dd5-bafe-d9645fe11d70')
+
+    
+    # http://ddragon.leagueoflegends.com/cdn/10.24.1/data/en_US/champion.json
+    def get_serializer_context(self):
+        data_dragon = DataDragon()
+
+        usergame = LolUserGame.objects.get(user=self.request.user)
+        main_champion_key = usergame.main_champ_key
+        champion = data_dragon.get_champion_by_key(main_champion_key)
+        
+        return {"champion_name": champion['name'],
+                "champion_image": 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/' +champion['image']['full'],
+                "champion_avatar": 'http://ddragon.leagueoflegends.com/cdn/' + data_dragon.get_latest_version() + '/img/champion/' + champion['image']['full']
+        }
 
     def perform_update(self, serializer):
-        lol_watcher = LolWatcher('RGAPI-0669dec5-bb00-4dd5-bafe-d9645fe11d70')
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
         
@@ -25,6 +40,9 @@ class LolUserGameRetrieveView(generics.RetrieveUpdateDestroyAPIView):
         lol_id = user_account_data['id']
         user_rank_data = lol_watcher.league.by_summoner(request_region, lol_id)
         user_champion_mastery_data = lol_watcher.champion_mastery.by_summoner(request_region, lol_id)
+
+        # user_chamion_mastery 없으믄 기본값(아무것도 없는 사진)으로 저장.
+
 
         if len(user_rank_data) == 1 :
             flex_tier = 'UNRANKED'
