@@ -16,21 +16,7 @@ class LolUserGameRetrieveView(generics.RetrieveUpdateDestroyAPIView):
     queryset = LolUserGame.objects.all()
     serializer_class = LolUserGameSerializer
     lookup_field = 'user'
-    lol_watcher = LolWatcher('RGAPI-0669dec5-bb00-4dd5-bafe-d9645fe11d70')
-
-    
-    # http://ddragon.leagueoflegends.com/cdn/10.24.1/data/en_US/champion.json
-    def get_serializer_context(self):
-        data_dragon = DataDragon()
-
-        usergame = LolUserGame.objects.get(user=self.request.user)
-        main_champion_key = usergame.main_champ_key
-        champion = data_dragon.get_champion_by_key(main_champion_key)
-        
-        return {"champion_name": champion['name'],
-                "champion_image": 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/' +champion['image']['full'],
-                "champion_avatar": 'http://ddragon.leagueoflegends.com/cdn/' + data_dragon.get_latest_version() + '/img/champion/' + champion['image']['full']
-        }
+    lol_watcher = LolWatcher('RGAPI-4091ab3b-d92e-412b-bd84-d781af68f714')
 
     def perform_update(self, serializer):
         request_region = self.request.data['region']
@@ -43,7 +29,7 @@ class LolUserGameRetrieveView(generics.RetrieveUpdateDestroyAPIView):
 
         # user_chamion_mastery 없으믄 기본값(아무것도 없는 사진)으로 저장.
 
-
+        print(user_rank_data)
         if len(user_rank_data) == 1 :
             flex_tier = 'UNRANKED'
             flex_rank = 'UNRANKED'
@@ -71,7 +57,7 @@ class LolUserGameRenewalView(generics.UpdateAPIView):
     lookup_field = 'lol_name'
 
     def perform_update(self, serializer):
-        lol_watcher = LolWatcher('RGAPI-0669dec5-bb00-4dd5-bafe-d9645fe11d70')
+        lol_watcher = LolWatcher('RGAPI-4091ab3b-d92e-412b-bd84-d781af68f714')
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
 
@@ -80,6 +66,7 @@ class LolUserGameRenewalView(generics.UpdateAPIView):
         user_rank_data = lol_watcher.league.by_summoner(request_region, lol_id)
         user_champion_mastery_data = lol_watcher.champion_mastery.by_summoner(request_region, lol_id)
 
+        # 티어없는 사람 안걸리니까 다시 만들기
         if len(user_rank_data) == 1 :
             flex_tier = 'UNRANKED'
             flex_rank = 'UNRANKED'
@@ -102,11 +89,13 @@ class LolUserGameListView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = LolUserGame.objects.all()
     serializer_class = LolUserGameSerializer
+    
+    
 
     # https://stackoverflow.com/questions/35518273/how-to-set-current-user-to-user-field-in-django-rest-framework
     def perform_create(self, serializer):
         # setting 값 다 되어있는 RiotAPI클래스 불러와서 API 로 정보가져오기.
-        lol_watcher = LolWatcher('RGAPI-0669dec5-bb00-4dd5-bafe-d9645fe11d70')
+        lol_watcher = LolWatcher('RGAPI-4091ab3b-d92e-412b-bd84-d781af68f714')
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
         

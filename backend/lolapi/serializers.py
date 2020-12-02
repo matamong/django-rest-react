@@ -38,12 +38,14 @@ class LolUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSeri
     # https://stackoverflow.com/questions/38758962/how-to-append-extra-data-to-the-existing-serializer-in-django
     # https://www.django-rest-framework.org/api-guide/fields/#serializermethodfield
     # https://stackoverflow.com/questions/22988878/pass-extra-arguments-to-serializer-class-in-django-rest-framework
+    # 1. serializer에서 datadragon 가져와서 instance에다가 계속 append하자. https://stackoverflow.com/questions/60445973/how-to-get-all-instances-in-serializer-method-field
     def get_main_champ_info(self, obj):
-        name = self.context["champion_name"]
-        champion_image = self.context["champion_image"]
-        champion_avatar = self.context["champion_avatar"]
-        # here write the logic to compute the value based on object
+        
+        data_dragon = DataDragon()
+        champion = data_dragon.get_champion_by_key(obj.main_champ_key)
+        name = champion['name']
+
         return { 'name': name,
-                'champion_image': champion_image,
-                'champion_avatar': champion_avatar
-         }
+            'champion_image': 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/' +champion['image']['full'],
+            'champion_avatar': 'http://ddragon.leagueoflegends.com/cdn/' + data_dragon.get_latest_version() + '/img/champion/' + champion['image']['full']
+        }
