@@ -16,7 +16,7 @@ class LolUserGameRetrieveView(generics.RetrieveUpdateDestroyAPIView):
     queryset = LolUserGame.objects.all()
     serializer_class = LolUserGameSerializer
     lookup_field = 'user'
-    lol_watcher = LolWatcher('RGAPI-4091ab3b-d92e-412b-bd84-d781af68f714')
+    lol_watcher = LolWatcher('RGAPI-992772fa-4998-428e-a344-e1c0443d0c5b')
 
     def perform_update(self, serializer):
         request_region = self.request.data['region']
@@ -57,7 +57,7 @@ class LolUserGameRenewalView(generics.UpdateAPIView):
     lookup_field = 'lol_name'
 
     def perform_update(self, serializer):
-        lol_watcher = LolWatcher('RGAPI-4091ab3b-d92e-412b-bd84-d781af68f714')
+        lol_watcher = LolWatcher('RGAPI-992772fa-4998-428e-a344-e1c0443d0c5b')
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
 
@@ -65,12 +65,21 @@ class LolUserGameRenewalView(generics.UpdateAPIView):
         lol_id = user_account_data['id']
         user_rank_data = lol_watcher.league.by_summoner(request_region, lol_id)
         user_champion_mastery_data = lol_watcher.champion_mastery.by_summoner(request_region, lol_id)
+        print(user_rank_data)
 
-        # 티어없는 사람 안걸리니까 다시 만들기
         if len(user_rank_data) == 1 :
+            solo_rank = user_rank_data[0]['tier']
+            solo_tier = user_rank_data[0]['rank']
+            flex_tier = 'UNRANKED'
+            flex_rank = 'UNRANKED'
+        elif len(user_rank_data) == 0:
+            solo_tier = 'UNRANKED'
+            solo_rank = 'UNRANKED'
             flex_tier = 'UNRANKED'
             flex_rank = 'UNRANKED'
         else:
+            solo_rank = user_rank_data[0]['tier']
+            solo_tier = user_rank_data[0]['rank']
             flex_tier = user_rank_data[1]['tier']
             flex_rank = user_rank_data[1]['rank']
         
@@ -78,8 +87,8 @@ class LolUserGameRenewalView(generics.UpdateAPIView):
             user = self.request.user, 
             lol_id = lol_id,
             lol_lv = user_account_data['summonerLevel'],
-            solo_tier = user_rank_data[0]['tier'],
-            solo_rank = user_rank_data[0]['rank'],
+            solo_tier = solo_tier,
+            solo_rank = solo_rank,
             flex_tier = flex_tier,
             flex_rank = flex_rank,
             main_champ_key = user_champion_mastery_data[0]['championId']
@@ -95,7 +104,7 @@ class LolUserGameListView(generics.ListCreateAPIView):
     # https://stackoverflow.com/questions/35518273/how-to-set-current-user-to-user-field-in-django-rest-framework
     def perform_create(self, serializer):
         # setting 값 다 되어있는 RiotAPI클래스 불러와서 API 로 정보가져오기.
-        lol_watcher = LolWatcher('RGAPI-4091ab3b-d92e-412b-bd84-d781af68f714')
+        lol_watcher = LolWatcher('RGAPI-992772fa-4998-428e-a344-e1c0443d0c5b')
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
         
@@ -104,10 +113,21 @@ class LolUserGameListView(generics.ListCreateAPIView):
         user_rank_data = lol_watcher.league.by_summoner(request_region, lol_id)
         user_champion_mastery_data = lol_watcher.champion_mastery.by_summoner(request_region, lol_id)
 
+        print(user_rank_data)
+
         if len(user_rank_data) == 1 :
+            solo_rank = user_rank_data[0]['tier']
+            solo_tier = user_rank_data[0]['rank']
+            flex_tier = 'UNRANKED'
+            flex_rank = 'UNRANKED'
+        elif len(user_rank_data) == 0:
+            solo_tier = 'UNRANKED'
+            solo_rank = 'UNRANKED'
             flex_tier = 'UNRANKED'
             flex_rank = 'UNRANKED'
         else:
+            solo_rank = user_rank_data[0]['tier']
+            solo_tier = user_rank_data[0]['rank']
             flex_tier = user_rank_data[1]['tier']
             flex_rank = user_rank_data[1]['rank']
 
@@ -117,8 +137,8 @@ class LolUserGameListView(generics.ListCreateAPIView):
             user = self.request.user, 
             lol_id = lol_id,
             lol_lv = user_account_data['summonerLevel'],
-            solo_tier = user_rank_data[0]['tier'],
-            solo_rank = user_rank_data[0]['rank'],
+            solo_tier = solo_tier,
+            solo_rank = solo_rank,
             flex_tier = flex_tier,
             flex_rank = flex_rank,
             main_champ_key = user_champion_mastery_data[0]['championId']
