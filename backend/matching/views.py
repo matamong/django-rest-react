@@ -1,7 +1,9 @@
 from rest_framework.views import APIView
-from rest_framework import generics
+from rest_framework import generics, viewsets
 from .models import Game, UserGame
-from .serializers import GameSerializer, UserGameSerializer
+from lolapi.models import LolUserGame
+from lolapi.serializers import LolUserGameSerializer
+from .serializers import GameSerializer, UserGameSerializer, MyUserGamesSerializer
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework import permissions
@@ -11,8 +13,7 @@ from rest_framework.authtoken.models import Token
 from accounts.models import UserAccount
 from rest_framework.exceptions import PermissionDenied, ValidationError
 from .permissions import IsOwnerAndAdminOnly
-
-# Create your views here.
+from drf_multiple_model.views import ObjectMultipleModelAPIView
 
 class MatchingListView(generics.ListAPIView):
     """
@@ -27,6 +28,20 @@ class MatchingListView(generics.ListAPIView):
         game_id = Game.objects.get(name=game_name)
 
         return UserGame.objects.filter(game=game_id)
+
+# https://django-rest-multiple-models.readthedocs.io/en/latest/index.html
+class MyUsergamesListView(ObjectMultipleModelAPIView):
+    print('view 들어옴!')
+    permission_classes = [IsOwnerAndAdminOnly]
+    pagination_class = None
+    def get_querylist(self):
+        querylist = [
+            {'queryset': LolUserGame.objects.filter(user=self.request.user), 'serializer_class': LolUserGameSerializer},
+            {'queryset': UserGame.objects.filter(user=self.request.user), 'serializer_class': UserGameSerializer},
+        ]
+
+        return querylist
+    
 
     
 class GameListView(generics.ListAPIView):
