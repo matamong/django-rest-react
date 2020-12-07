@@ -16,7 +16,6 @@ import {
     RESET_PASSWORD_CONFIRM_FAIL,
     LOGOUT
 } from'./types';
-import { load_lol_usergame } from '../actions/lolMatching';
 
 
 export const checkAuthenticated = () => async dispatch => {
@@ -76,7 +75,6 @@ export const load_user = () => async dispatch => {
                 payload: res.data
             });
             console.log(res.data.id)
-            dispatch(load_lol_usergame())            
         } catch (err) {
             dispatch({
                 type: USER_LOADED_FAIL
