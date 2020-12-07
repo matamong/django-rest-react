@@ -4,12 +4,20 @@ from .models import LolUserGame, LolPosition, LolPreferMode
 from .serializers import LolUserGameSerializer, LolPositionSerializer, LolPreferModeSerializer
 from rest_framework import permissions
 from riotwatcher import LolWatcher, ApiError
-from matching.permissions import IsOwnerAndAdminOnly, IsOwnerOrReadOnly
+from matching.permissions import IsOwnerAndAdminOnly, IsOwnerOrReadOnly, IsOwnerOnly
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from .datadragon import DataDragon
 
 
 # Create your views here.
+class LolUserGameMyRetrieveView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsOwnerOnly]
+    # queryset = LolUserGame.objects.all()
+    serializer_class = LolUserGameSerializer
+
+    def get_object(self):
+        return LolUserGame.objects.get(user=self.request.user)
+
 
 class LolUserGameRetrieveView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]
