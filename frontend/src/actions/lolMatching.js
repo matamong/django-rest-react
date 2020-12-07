@@ -50,7 +50,7 @@ export const save_lol_usergame = ( lol_name, region, prefer_style, prefer_time, 
     }
 }
 
-export const load_lol_usergame = (user_id) => async dispatch => {
+export const load_lol_usergame = () => async dispatch => {
     if (localStorage.getItem('access')) {
         const config = {
             headers: {
@@ -61,7 +61,7 @@ export const load_lol_usergame = (user_id) => async dispatch => {
         }
 
         try {
-            const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/matching/lol/usergame/`+ user_id, config)
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/matching/lol/my/usergame`, config)
             dispatch({
                 type: LOL_USER_GAME_LOAD_SUCCESS,
                 payload: res.data

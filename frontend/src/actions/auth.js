@@ -76,7 +76,7 @@ export const load_user = () => async dispatch => {
                 payload: res.data
             });
             console.log(res.data.id)
-            dispatch(load_lol_usergame(res.data.id))            
+            dispatch(load_lol_usergame())            
         } catch (err) {
             dispatch({
                 type: USER_LOADED_FAIL
