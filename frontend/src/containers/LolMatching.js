@@ -20,7 +20,7 @@ const LolMatching = () => {
             // loading 상태를 true 로 바꿉니다.
             setLoading(true);
             const response = await axios.get(
-                'http://localhost:8000/api/matching/lol/usergame',
+                'http://localhost:8000/api/matching/lol/usergames',
                 config
             );
             setUsers(response.data); // 데이터는 response.data 안에 들어있습니다.
