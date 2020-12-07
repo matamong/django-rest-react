@@ -14,19 +14,12 @@ class LolUserGameMyRetrieveView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOnly]
     # queryset = LolUserGame.objects.all()
     serializer_class = LolUserGameSerializer
-
+    
     def get_object(self):
         return LolUserGame.objects.get(user=self.request.user)
-
-
-class LolUserGameRetrieveView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsOwnerOrReadOnly]
-    queryset = LolUserGame.objects.all()
-    serializer_class = LolUserGameSerializer
-    lookup_field = 'user'
-    lol_watcher = LolWatcher('RGAPI-992772fa-4998-428e-a344-e1c0443d0c5b')
-
+    
     def perform_update(self, serializer):
+        lol_watcher = LolWatcher('RGAPI-2c0763e6-418d-4a5a-bd28-e941103e35c4')
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
         
@@ -57,7 +50,15 @@ class LolUserGameRetrieveView(generics.RetrieveUpdateDestroyAPIView):
             flex_rank = flex_rank,
             main_champ_key = user_champion_mastery_data[0]['championId']
         )
-        
+
+
+class LolUserGameRetrieveView(generics.RetrieveAPIView):
+    permission_classes = [IsOwnerOrReadOnly]
+    queryset = LolUserGame.objects.all()
+    serializer_class = LolUserGameSerializer
+    lookup_field = 'user'
+
+
 class LolUserGameRenewalView(generics.UpdateAPIView):
     permissions_classes = [IsAuthenticated]
     queryset = LolUserGame.objects.all()
@@ -65,7 +66,7 @@ class LolUserGameRenewalView(generics.UpdateAPIView):
     lookup_field = 'lol_name'
 
     def perform_update(self, serializer):
-        lol_watcher = LolWatcher('RGAPI-992772fa-4998-428e-a344-e1c0443d0c5b')
+        lol_watcher = LolWatcher('RGAPI-2c0763e6-418d-4a5a-bd28-e941103e35c4')
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
 
@@ -112,7 +113,7 @@ class LolUserGameListView(generics.ListCreateAPIView):
     # https://stackoverflow.com/questions/35518273/how-to-set-current-user-to-user-field-in-django-rest-framework
     def perform_create(self, serializer):
         # setting 값 다 되어있는 RiotAPI클래스 불러와서 API 로 정보가져오기.
-        lol_watcher = LolWatcher('RGAPI-992772fa-4998-428e-a344-e1c0443d0c5b')
+        lol_watcher = LolWatcher('RGAPI-2c0763e6-418d-4a5a-bd28-e941103e35c4')
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
         
