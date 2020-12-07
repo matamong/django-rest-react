@@ -42,7 +42,7 @@ const MyLOLCard = ({ lolProfile }) => {
 const mapStateToProps = (state) => {
     console.log(state)
     return {
-        lolProfile: state.lolMatching.lolProfile
+        lolProfile: state.matching.lolProfile
     }
 }
 

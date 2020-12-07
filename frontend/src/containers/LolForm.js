@@ -1,28 +1,40 @@
-import React, { useState } from 'react'; 
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import './lolform.scss';
 import { connect } from 'react-redux';
-import { save_lol_usergame } from '../actions/lolMatching';
+import { save_lol_usergame } from '../actions/matching';
 import './lolform.scss'
-import { TextField } from '@material-ui/core'
+import { TextField, Select, MenuItem, FormControl, InputLabel, Typography, Slider } from '@material-ui/core'
 
 
 // https://stackoverflow.com/questions/58889116/updating-nested-object-in-react-hooks
+const useStyles = makeStyles((theme) => ({
+    formControl: {
+        //margin: theme.spacing(1),
+        minWidth: 120,
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+    },
+}));
 
 const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
+    const classes = useStyles();
+
     const [valueData, setValueData] = useState({
         nameEntered: '',
-        isNameValid: false 
+        isNameValid: false
     })
 
     const [generalFormData, setGeneralFormData] = useState({
         lol_name: '',
-        region: '',
-        prefer_style: '',
+        region: 'KR',
+        prefer_style: 1,
         prefer_time: '',
         intro: ''
     })
-    
-    const {lol_name, region, prefer_style, prefer_time, intro} = generalFormData
+
+    const { lol_name, region, prefer_style, prefer_time, intro } = generalFormData
 
     const [positionFormData, setPositionFormData] = useState({
         is_top_possible: 0,
@@ -31,8 +43,8 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
         is_ad_possible: 0,
         is_sup_possible: 0
     })
-    
-    const { is_top_possible, is_jungle_possible, is_mid_possible, is_ad_possible, is_sup_possible} = positionFormData
+
+    const { is_top_possible, is_jungle_possible, is_mid_possible, is_ad_possible, is_sup_possible } = positionFormData
 
     const [modeFormData, setModeFormData] = useState({
         ai: 0,
@@ -47,18 +59,18 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
     const { ai, normal, solo_duo_rank, flex_rank, howling_abyss, team_fight_tactics, team_fight_tactics_rank } = modeFormData
 
     const validateName = (set, field, value) => {
-        if(value.length > 2) {
+        if (value.length > 2) {
             setValueData({
                 ...valueData,
-                    nameEntered: value,
-                    isNameValid: true
+                nameEntered: value,
+                isNameValid: true
             })
             onChange(set, field, value)
-        }else {
+        } else {
             setValueData({
                 ...valueData,
-                    nameEntered: value,
-                    isNameValid: false
+                nameEntered: value,
+                isNameValid: false
             })
             onChange(set, field, value)
         }
@@ -66,7 +78,7 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
 
     const isEnteredNameValid = () => {
         const { nameEntered, isNameValid } = valueData
-        if(nameEntered) return isNameValid
+        if (nameEntered) return isNameValid
     }
 
     const isNameFieldValid = () => {
@@ -75,7 +87,7 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
     }
 
     const renderSubmitBtn = () => {
-        if(isNameFieldValid()){
+        if (isNameFieldValid()) {
             return (
                 <button type="submit">등록하기</button>
             )
@@ -89,12 +101,13 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
 
     const onChange = (set, field, value) => {
         set(state => ({
-          ...state,
-          [field]: value
+            ...state,
+            [field]: value
         }));
-      };
+        console.log('field : ' + field, 'value : ' + value)
+    };
 
-      const onSubmit = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
 
         save_lol_usergame(
@@ -107,31 +120,56 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
             modeFormData
         )
     }
-      
+
 
     return (
         <div>
             <form onSubmit={e => onSubmit(e)}>
                 <TextField
-                    id="outlined-error-helper-text"
                     type='text'
                     placeholder='lol_name'
                     name='lol_name'
                     value={lol_name}
                     label="롤 닉네임"
-                    error= {isEnteredNameValid() === false}
+                    error={isEnteredNameValid() === false}
                     helperText={isEnteredNameValid() === false ? '닉네임은 3글자 이상이어야 합니다.' : ''}
                     onChange={e => validateName(setGeneralFormData, 'lol_name', e.target.value)}
                     variant="outlined"
                     required
                 />
-                <input
-                    type='text'
-                    placeholder='region'
-                    name='region'
-                    value={region}
-                    onChange={e => onChange(setGeneralFormData, 'region', e.target.value)}
-                    required
+                <FormControl variant="outlined" className={classes.formControl}>
+                    <InputLabel id="region-select-label">지역</InputLabel>
+                    <Select
+                        labelId="region-select-label"
+                        value={region}
+                        onChange={e => onChange(setGeneralFormData, 'region', e.target.value)}
+                    >
+                        <MenuItem value="KR">한국</MenuItem>
+                        <MenuItem value="NA">북아메리카</MenuItem>
+                        <MenuItem value="JP1">일본</MenuItem>
+                        <MenuItem value="BR">브라질</MenuItem>
+                        <MenuItem value="EUW1">서유럽</MenuItem>
+                        <MenuItem value="EUN1">동유럽/노르딕</MenuItem>
+                        <MenuItem value="LA1">라틴 아메리카(북)</MenuItem>
+                        <MenuItem value="LA2">라틴 아메리카(남)</MenuItem>
+                        <MenuItem value="OC1">오세아니아</MenuItem>
+                        <MenuItem value="RU1">러시아</MenuItem>
+                        <MenuItem value="TR">터키</MenuItem>
+                    </Select>
+                </FormControl>
+                <Typography id="discrete-slider" gutterBottom>
+                    게임성향
+                </Typography>
+                <Slider
+                    value={prefer_style}
+                    //getAriaValueText={valuetext}
+                    aria-labelledby="discrete-slider"
+                    valueLabelDisplay="auto"
+                    step={1}
+                    marks
+                    min={1}
+                    max={5}
+                    onChange={e => onChange(setGeneralFormData, 'prefer_style', e.target.value)}
                 />
                 <input
                     type='text'
@@ -200,8 +238,8 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
                 {renderSubmitBtn()}
             </form>
         </div>
-        
-        
+
+
         // <form>
         // <ul className="lolform__`checkbox_container">
         //     <li className="lolform__checkbox">
@@ -214,7 +252,7 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
 }
 
 const mapStateToProps = state => ({
-    isLolUsergameSaved: state.lolMatching.isLolUsergameSaved
+    isLolUsergameSaved: state.matching.isLolUsergameSaved
 })
 
 export default connect(mapStateToProps, { save_lol_usergame })(LolForm);

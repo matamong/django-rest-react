@@ -10,7 +10,7 @@ import {
     LOL_USER_GAME_DELETE_SUCCESS
 } from './types'
 import { setAlert, setErrorAlert } from './alert';
-import { load_user } from '../actions/auth';
+import { load_user } from './auth';
 
 
 
