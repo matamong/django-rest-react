@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import './lolcard.scss';
 
+// Loading / Error / 등록 각각 만들기
 const useStyles = makeStyles({
     root: {
       minWidth: 275,
@@ -26,31 +27,31 @@ const useStyles = makeStyles({
 const LOLCard = (props) => {
     
     const classes = useStyles();
-
+    console.log(props)
     return (
         <Card className={classes.root}>
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          {props.region}
+          {props.profile.region}
         </Typography>
         <Typography variant="h5" component="h2">
-            {props.name}
+            {props.profile.lol_name}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
           adjective
         </Typography>
         <Typography variant="body2" component="p">
-          자ㅏ기소개ㅐㅐ{props.intro}
+          자ㅏ기소개ㅐㅐ{props.profile.intro}
           <br />
-          빡즐겜수치: {props.prefer_style}
+          빡즐겜수치: {props.profile.prefer_style}
           <br />
-          시간대ㅐㅐㅐ: {props.prefer_time}
+          시간대ㅐㅐㅐ: {props.profile.prefer_time}
           <br />
-          메인 챔프: {props.main_champion_name}
+          메인 챔프: {props.profile.main_champ_info.name}
           
         </Typography>
       </CardContent>
-      <Avatar alt={props.main_champion} src={props.main_champion_avatar} />
+      <Avatar alt={props.profile.main_champ_info.name} src={props.profile.main_champ_info.champion_avatar} />
     </Card>
     )
 }

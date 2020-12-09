@@ -2,7 +2,7 @@ import React, { useState, useEffect  } from 'react'
 import axios from 'axios'
 import LOLCard from './LOLCard'
 
-
+// Loading / Error Card에 넘겨주기. 
 const MyLOLCard = () => {
     const [profile, setProfile] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -49,13 +49,7 @@ const MyLOLCard = () => {
         <div>
             {profile !== null ? 
                 <LOLCard 
-                    name={profile.lol_name}
-                    region={profile.region}
-                    intro={profile.intro}
-                    prefer_style={profile.prefer_style}
-                    prefer_time={profile.prefer_time}
-                    main_champion_name={profile.main_champ_info.name}
-                    main_champion_avatar={profile.main_champ_info.champion_avatar}
+                    profile={profile}
                 />
             :
                 <div>등록하세요!</div>
