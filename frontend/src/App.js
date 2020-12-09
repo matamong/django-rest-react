@@ -12,6 +12,7 @@ import LolMatching from './containers/LolMatching';
 import MyLOLCard from './components/MyLOLCard';
 import MyPage from './containers/MyPage'
 import Matching from './containers/Matching'
+import LolUpdateForm from './containers/LolUpdateForm'
 import Layout from './hocs/Layout';
 import { Provider } from 'react-redux';
 import store from './store'
@@ -34,6 +35,7 @@ const App = () => (
                     <Route exact path='/lol-matching' component={LolMatching} />
                     <Route exact path='/my-lol-card' component={MyLOLCard} />
                     <Route exact path='/my-page' component={MyPage} />
+                    <Route exact path='/lol-update-form' component={LolUpdateForm} />
                 </Switch>
             </Layout>
             <ToastContainer />

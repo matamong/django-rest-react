@@ -12,6 +12,7 @@ const initialState = {
     lolProfile: localStorage.getItem('lolProfile')
 }
 
+
 export default function(state = initialState, action) {
     const { type, payload } = action;
 
@@ -25,6 +26,11 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 isLolUsergameSaved: false
+            }
+        case LOL_USER_GAME_DELETE_SUCCESS:
+            return {
+                ...state,
+                lolProfile: null
             }
         case LOL_USER_GAME_LOAD_SUCCESS:
             return {
