@@ -8,8 +8,8 @@ import {
 } from '../actions/types';
 
 const initialState = {
-    isLolUsergameSaved: null,
-    lolProfile: localStorage.getItem('lolProfile')
+    isLolUsergameSaved: false,
+    lolProfile: null
 }
 
 
@@ -20,7 +20,8 @@ export default function(state = initialState, action) {
         case LOL_USER_GAME_SAVE_SUCCESS:
             return {
                 ...state,
-                isLolUsergameSaved: true
+                isLolUsergameSaved: true,
+                lolProfile: payload
             }
         case LOL_USER_GAME_SAVE_FAIL:
             return {

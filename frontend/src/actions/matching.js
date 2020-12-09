@@ -36,6 +36,7 @@ export const save_lol_usergame = ( lol_name, region, prefer_style, prefer_time, 
             payload: res.data
         })
         dispatch(setAlert('성공적으로 등록되었습니다!'))
+        return res.data
     } catch (error) {
         
         console.log(error.response)
