@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import './lolform.scss';
 import { connect } from 'react-redux';
 import { save_lol_usergame } from '../actions/matching';
+import Card from '../components/LOLCard'
 import './lolform.scss'
 import { TextField, Select, MenuItem, FormControl, InputLabel, Typography, Slider } from '@material-ui/core'
 
@@ -18,8 +18,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
+const LolForm = ({save_lol_usergame}) => {
     const classes = useStyles();
+
+    const [profile, setProfile] = useState(null)
 
     const [valueData, setValueData] = useState({
         nameEntered: '',
@@ -118,7 +120,9 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
             generalFormData.intro,
             positionFormData,
             modeFormData
-        )
+        ).then(function(result){
+            setProfile(result)
+        })
     }
 
 
@@ -160,17 +164,6 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
                 <Typography id="discrete-slider" gutterBottom>
                     게임성향
                 </Typography>
-                <Slider
-                    value={prefer_style}
-                    //getAriaValueText={valuetext}
-                    aria-labelledby="discrete-slider"
-                    valueLabelDisplay="auto"
-                    step={1}
-                    marks
-                    min={1}
-                    max={5}
-                    onChange={e => onChange(setGeneralFormData, 'prefer_style', e.target.value)}
-                />
                 <input
                     type='text'
                     placeholder='prefer_style'
@@ -237,6 +230,11 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
                 />
                 {renderSubmitBtn()}
             </form>
+            {profile == null ? '' : 
+                <div className='pow'>
+                    <Card profile={profile}/>
+                </div>
+            }
         </div>
 
 
@@ -251,8 +249,5 @@ const LolForm = ({ isLolUsergameSaved, save_lol_usergame }) => {
     )
 }
 
-const mapStateToProps = state => ({
-    isLolUsergameSaved: state.matching.isLolUsergameSaved
-})
 
-export default connect(mapStateToProps, { save_lol_usergame })(LolForm);
+export default connect(null, { save_lol_usergame })(LolForm);
