@@ -35,6 +35,7 @@ export const save_lol_usergame = ( lol_name, region, prefer_style, prefer_time, 
             type: LOL_USER_GAME_SAVE_SUCCESS,
             payload: res.data
         })
+        dispatch(setAlert('성공적으로 등록되었습니다!'))
     } catch (error) {
         
         console.log(error.response)
@@ -71,6 +72,7 @@ export const update_lol_usergame = ( lol_name, region, prefer_style, prefer_time
             type: LOL_USER_GAME_SAVE_SUCCESS,
             payload: res.data
         })
+        dispatch(setAlert('성공적으로 수정되었습니다!'))
     } catch (error) {
         
         console.log(error.response)
