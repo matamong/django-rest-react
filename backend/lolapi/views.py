@@ -16,10 +16,14 @@ class LolUserGameMyRetrieveView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = LolUserGameSerializer
     
     def get_object(self):
-        return LolUserGame.objects.get(user=self.request.user)
-    
+        try:
+            comment = LolUserGame.objects.get(user=self.request.user)
+        except LolUserGame.DoesNotExist: 
+            comment = None
+        return comment
+        
     def perform_update(self, serializer):
-        lol_watcher = LolWatcher('RGAPI-2c0763e6-418d-4a5a-bd28-e941103e35c4')
+        lol_watcher = LolWatcher('RGAPI-eacd284e-5530-4285-8c45-5fc4675bd3a1')
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
         
@@ -66,7 +70,7 @@ class LolUserGameRenewalView(generics.UpdateAPIView):
     lookup_field = 'lol_name'
 
     def perform_update(self, serializer):
-        lol_watcher = LolWatcher('RGAPI-2c0763e6-418d-4a5a-bd28-e941103e35c4')
+        lol_watcher = LolWatcher('RGAPI-eacd284e-5530-4285-8c45-5fc4675bd3a1')
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
 
@@ -113,7 +117,7 @@ class LolUserGameListView(generics.ListCreateAPIView):
     # https://stackoverflow.com/questions/35518273/how-to-set-current-user-to-user-field-in-django-rest-framework
     def perform_create(self, serializer):
         # setting 값 다 되어있는 RiotAPI클래스 불러와서 API 로 정보가져오기.
-        lol_watcher = LolWatcher('RGAPI-2c0763e6-418d-4a5a-bd28-e941103e35c4')
+        lol_watcher = LolWatcher('RGAPI-eacd284e-5530-4285-8c45-5fc4675bd3a1')
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
         
