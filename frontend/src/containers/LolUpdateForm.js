@@ -3,11 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import './lolform.scss';
 import { connect } from 'react-redux';
 import { update_lol_usergame, delete_lol_usergame } from '../actions/matching';
+import { setAlert } from '../actions/alert'
 import axios from 'axios'
 import './lolform.scss'
 import { TextField, Select, MenuItem, FormControl, InputLabel, Typography, Slider } from '@material-ui/core'
 
-const LolUpdateForm = ({ update_lol_usergame, delete_lol_usergame }) => {
+const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_usergame }) => {
     
     const [profile, setProfile] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -139,11 +140,27 @@ const LolUpdateForm = ({ update_lol_usergame, delete_lol_usergame }) => {
             generalFormData.intro,
             positionFormData,
             modeFormData
-        )
+        ).then(function(result){
+            if(result == true) {
+                setAlert('성공적으로 수정되었습니다!', 'Udate Success', 1500)
+            }
+        }).then(function(result){
+            setTimeout(function() {
+                history.goBack()
+              }, 1500);
+        })
     }
 
     const onDelete = () => {
-        delete_lol_usergame()
+        delete_lol_usergame().then(function(result){
+            if(result == true) {
+                setAlert('성공적으로 삭제되었습니다!', 'Delete Success', 1500)
+            }
+        }).then(function(result){
+            setTimeout(function() {
+                history.goBack()
+              }, 1500);
+        })
     }
 
 
@@ -247,4 +264,4 @@ const LolUpdateForm = ({ update_lol_usergame, delete_lol_usergame }) => {
     )
 }
 
-export default connect(null, { update_lol_usergame, delete_lol_usergame })(LolUpdateForm)
+export default connect(null, { setAlert, update_lol_usergame, delete_lol_usergame })(LolUpdateForm)
