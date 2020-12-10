@@ -5,7 +5,8 @@ import { v4 as uuid } from 'uuid';
 export const setAlert = (msg, alertType, timeout = 2500) => dispatch => {
     const id = uuid();
     toast.success(msg, {
-        toastId: id
+        toastId: id,
+        autoClose: timeout
     })
     dispatch({
         type: SET_ALERT,
