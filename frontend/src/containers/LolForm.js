@@ -5,6 +5,7 @@ import { save_lol_usergame } from '../actions/matching';
 import Card from '../components/LOLCard'
 import './lolform.scss'
 import { TextField, Select, MenuItem, FormControl, InputLabel, Typography, Slider } from '@material-ui/core'
+import axios from 'axios';
 
 
 // https://stackoverflow.com/questions/58889116/updating-nested-object-in-react-hooks
@@ -25,8 +26,10 @@ const LolForm = ({save_lol_usergame}) => {
 
     const [valueData, setValueData] = useState({
         nameEntered: '',
-        isNameValid: false
+        isNameValid: false    
     })
+
+    const [isNameDuplicated, setIsNameDuplicated] = useState(false)
 
     const [generalFormData, setGeneralFormData] = useState({
         lol_name: '',
@@ -60,7 +63,38 @@ const LolForm = ({save_lol_usergame}) => {
 
     const { ai, normal, solo_duo_rank, flex_rank, howling_abyss, team_fight_tactics, team_fight_tactics_rank } = modeFormData
 
+    const checkDuplicatedName = (nickname) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + `${localStorage.getItem('access')}`,
+                'Accept': 'application/json'
+            }
+        }
+        try {
+            axios.get(
+                `${process.env.REACT_APP_API_URL}/api/matching/lol/usergame/` + nickname, 
+                config
+            ).then(response => {
+                
+                const profile = response.data
+
+                if (profile.lol_name === nickname) {
+                    console.log('중복 있어용' + profile.lol_name + nickname)
+                    setIsNameDuplicated(true)
+                } else {
+                    console.log('중복 없어용' + profile.name)
+                    setIsNameDuplicated(false)
+                }
+            })
+        } catch (e) {
+            console.log('error!')
+            return false
+        }
+    }
+
     const validateName = (set, field, value) => {
+        checkDuplicatedName(value)
         if (value.length > 2) {
             setValueData({
                 ...valueData,
@@ -85,7 +119,10 @@ const LolForm = ({save_lol_usergame}) => {
 
     const isNameFieldValid = () => {
         const isNameValid = valueData.isNameValid
-        return isNameValid
+        if(isNameValid === true && isNameDuplicated === false)
+            return true
+        else
+            return false
     }
 
     const renderSubmitBtn = () => {
@@ -128,6 +165,7 @@ const LolForm = ({save_lol_usergame}) => {
 
     return (
         <div>
+            {isNameDuplicated === true ? '있는 닉넴!!' : 'ㅇㅋㅇㅋ 써도 됨'}
             <form onSubmit={e => onSubmit(e)}>
                 <TextField
                     type='text'
