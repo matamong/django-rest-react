@@ -31,6 +31,7 @@ const LOLCard = (props) => {
     return (
         <Card className={classes.root}>
       <CardContent>
+      <Avatar alt={props.profile.main_champ_info.name} src={props.profile.main_champ_info.champion_avatar} /> 
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           {props.profile.region}
         </Typography>
@@ -38,20 +39,19 @@ const LOLCard = (props) => {
             {props.profile.lol_name}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          adjective
+        {props.profile.solo_tier} {props.profile.solo_rank}
         </Typography>
         <Typography variant="body2" component="p">
-          자ㅏ기소개ㅐㅐ{props.profile.intro}
+          자ㅏ기소개 : {props.profile.intro}
           <br />
           빡즐겜수치: {props.profile.prefer_style}
           <br />
-          시간대ㅐㅐㅐ: {props.profile.prefer_time}
+          시간대 : {props.profile.prefer_time}
           <br />
           메인 챔프: {props.profile.main_champ_info.name}
           
         </Typography>
       </CardContent>
-      <Avatar alt={props.profile.main_champ_info.name} src={props.profile.main_champ_info.champion_avatar} />
     </Card>
     )
 }

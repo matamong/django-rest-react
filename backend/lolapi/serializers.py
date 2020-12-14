@@ -24,7 +24,8 @@ class LolUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSeri
 
     class Meta:
         model = LolUserGame
-        fields = ['lol_name', 'region', 'prefer_style', 'prefer_time', 'intro', 'lol_position', 'lol_prefer_mode', 'main_champ_info']
+        fields = ['lol_name', 'region', 'prefer_style', 'prefer_time', 
+        'intro', 'lol_position', 'lol_prefer_mode', 'solo_tier' , 'solo_rank', 'main_champ_info']
     
     def create(self, validated_data):
         lol_position_data = validated_data.pop('lol_position')
