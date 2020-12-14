@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import Card from '../components/LOLCard'
 
 const LolMatching = () => {
-    const [users, setUsers] = useState(null)
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
-    const fetchUsers = async () => {
+    const [matchedUsers, setMatchedUsers] = useState(null)
+    const [allUsers, setAllUsers] = useState(null)
+    const [matchingLoading, setMatchingLoading] = useState(false)
+    const [matchingError, setMatchingError] = useState(null)
+    const [allUserLoading, setAllUserLoading] = useState(false)
+    const [allUserError, setAllUserError] = useState(null)
+
+    const fetchMathedUsers = async () => {
         const config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -15,39 +20,83 @@ const LolMatching = () => {
         }
         try {
             // 요청이 시작 할 때에는 error 와 users 를 초기화하고
-            setError(null);
-            setUsers(null);
+            setMatchingError(null);
+            setMatchedUsers(null);
             // loading 상태를 true 로 바꿉니다.
-            setLoading(true);
+            setMatchingLoading(true);
+            const response = await axios.get(
+                'http://localhost:8000/api/matching/lol/',
+                config
+            );
+            setMatchedUsers(response.data); // 데이터는 response.data 안에 들어있습니다.
+            console.log(response.data)
+        } catch (e) {
+            setMatchingError(e);
+        }
+        setMatchingLoading(false);
+    };
+
+    const fetchAllUsers = async () => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + `${localStorage.getItem('access')}`,
+                'Accept': 'application/json'
+            }
+        }
+        try {
+            // 요청이 시작 할 때에는 error 와 users 를 초기화하고
+            setAllUserError(null);
+            setAllUsers(null);
+            // loading 상태를 true 로 바꿉니다.
+            setAllUserLoading(true);
             const response = await axios.get(
                 'http://localhost:8000/api/matching/lol/usergames',
                 config
             );
-            setUsers(response.data); // 데이터는 response.data 안에 들어있습니다.
+            setAllUsers(response.data); // 데이터는 response.data 안에 들어있습니다.
+            console.log(response.data)
         } catch (e) {
-            setError(e);
+            setAllUserError(e);
         }
-        setLoading(false);
+        setAllUserLoading(false);
     };
 
     useEffect(() => {
-        fetchUsers();
+        fetchMathedUsers();
     }, []);
 
-    if (loading) return <div>Loading..</div>
-    if (error) return <div>Error!</div>
-    if (!users) return null
+    if (!matchedUsers) return null
 
     return (
         <div>
             <ul>
-                {users['results'].map(user => (
+                {matchingLoading === true ? '매칭중...' : ''}
+                {matchedUsers.map(user => (
                     <li key={user.id}>
+                        <Card
+                            profile={user}
+                        />
                         {user.lol_name}
                     </li>
                 ))}
             </ul>
-            <button onClick={fetchUsers}>다시 불러오기</button>
+            <button onClick={fetchMathedUsers}>다시 불러오기</button>
+            <br />
+            <button onClick={fetchAllUsers}>모든 사용자 불러오기</button>
+            {allUserLoading === true ? '유저 가져오는 중...' : ''}
+            {allUsers === null ? '' :
+                <ul>
+                    {allUsers['results'].map(user => (
+                        <li key={user.id}>
+                            <Card
+                                profile={user}
+                            />
+                            {user.lol_name}
+                        </li>
+                    ))}
+                </ul>
+            }
         </div>
     )
 }

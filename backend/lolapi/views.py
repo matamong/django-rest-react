@@ -7,6 +7,7 @@ from riotwatcher import LolWatcher, ApiError
 from matching.permissions import IsOwnerAndAdminOnly, IsOwnerOrReadOnly, IsOwnerOnly
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from .datadragon import DataDragon
+from rest_framework.response import Response
 
 
 # Create your views here.
@@ -23,7 +24,7 @@ class LolUserGameMyRetrieveView(generics.RetrieveUpdateDestroyAPIView):
         return usergame
         
     def perform_update(self, serializer):
-        lol_watcher = LolWatcher('RGAPI-431c8ff9-5c76-4882-b757-50290f658da2')
+        lol_watcher = LolWatcher('RGAPI-83d3366e-fb44-4885-a83f-4002335597a9')
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
         
@@ -77,7 +78,7 @@ class LolUserGameRenewalView(generics.UpdateAPIView):
     lookup_field = 'lol_name'
 
     def perform_update(self, serializer):
-        lol_watcher = LolWatcher('RGAPI-431c8ff9-5c76-4882-b757-50290f658da2')
+        lol_watcher = LolWatcher('RGAPI-83d3366e-fb44-4885-a83f-4002335597a9')
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
 
@@ -114,17 +115,36 @@ class LolUserGameRenewalView(generics.UpdateAPIView):
             main_champ_key = user_champion_mastery_data[0]['championId']
         )
 
+
+class LoLMatchingListView(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = LolUserGame.objects.all()
+    serializer_class = LolUserGameSerializer
+
+    # 1. 해당 유저가 usergame 오브젝트를 가지고 있는지 확인
+    # 2. 해당 유저의 tier 와 같은 오브젝트를 리스트로 내보냄
+
+    def list(self, request):
+        try:
+            usergame = LolUserGame.objects.get(user=self.request.user)
+        except LolUserGame.DoesNotExist: 
+            usergame = None
+        
+        queryset = LolUserGame.objects.filter(solo_tier=usergame.solo_tier).exclude(user=self.request.user)
+        serializer = LolUserGameSerializer(queryset, many=True)
+        print(serializer.data)
+        return Response(serializer.data)
+
+
 class LolUserGameListView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = LolUserGame.objects.all()
     serializer_class = LolUserGameSerializer
-    
-    
 
     # https://stackoverflow.com/questions/35518273/how-to-set-current-user-to-user-field-in-django-rest-framework
     def perform_create(self, serializer):
         # setting 값 다 되어있는 RiotAPI클래스 불러와서 API 로 정보가져오기.
-        lol_watcher = LolWatcher('RGAPI-431c8ff9-5c76-4882-b757-50290f658da2')
+        lol_watcher = LolWatcher('RGAPI-83d3366e-fb44-4885-a83f-4002335597a9')
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
         
