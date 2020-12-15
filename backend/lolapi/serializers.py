@@ -43,10 +43,18 @@ class LolUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSeri
     def get_main_champ_info(self, obj):
         
         data_dragon = DataDragon()
-        champion = data_dragon.get_champion_by_key(obj.main_champ_key)
-        name = champion['name']
+        if obj.main_champ_key == 0:
+            name = 'Newbie'
+            image_url = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/4568.jpg'
+            avatar_url = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/4568.jpg'
+        else:
+
+            champion = data_dragon.get_champion_by_key(obj.main_champ_key)
+            name = champion['name']
+            image_url = 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/' +champion['image']['full'],
+            avatar_url = 'http://ddragon.leagueoflegends.com/cdn/' + data_dragon.get_latest_version() + '/img/champion/' + champion['image']['full']
 
         return { 'name': name,
-            'champion_image': 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/' +champion['image']['full'],
-            'champion_avatar': 'http://ddragon.leagueoflegends.com/cdn/' + data_dragon.get_latest_version() + '/img/champion/' + champion['image']['full']
+            'champion_image': image_url,
+            'champion_avatar': avatar_url
         }
