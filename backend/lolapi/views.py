@@ -129,6 +129,7 @@ class LoLMatchingListView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     queryset = LolUserGame.objects.all()
     serializer_class = LolUserGameSerializer
+    pagination_class = None
 
     # 1. 해당 유저가 usergame 오브젝트를 가지고 있는지 확인
     # 2. 유저가 작성한 조건들로 filtering.
@@ -169,6 +170,8 @@ class LolUserGameListView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = LolUserGame.objects.all()
     serializer_class = LolUserGameSerializer
+    pagination_class = None
+
 
     # https://stackoverflow.com/questions/35518273/how-to-set-current-user-to-user-field-in-django-rest-framework
     def perform_create(self, serializer):
