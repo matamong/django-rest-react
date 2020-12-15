@@ -39,8 +39,8 @@ const LOLAllMatchingCards = () => {
             {allUserLoading === true ? '유저 가져오는 중...' : ''}
             {allUsers === null ? '' :
                 <ul>
-                    {allUsers['results'].map(user => (
-                        <li key={user.id}>
+                    {allUsers['results'].map((user, index) => (
+                        <li key={index}>
                             <Card
                                 profile={user}
                             />
