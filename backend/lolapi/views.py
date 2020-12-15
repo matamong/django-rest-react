@@ -172,6 +172,17 @@ class LolUserGameListView(generics.ListCreateAPIView):
     serializer_class = LolUserGameSerializer
     pagination_class = None
 
+    def list(self, request):
+        try:
+            usergame = LolUserGame.objects.get(user=self.request.user)
+        except LolUserGame.DoesNotExist: 
+            usergame = None
+        
+        queryset = LolUserGame.objects.all().exclude(user=self.request.user)
+        serializer = LolUserGameSerializer(queryset, many=True)
+        print(serializer.data)
+        return Response(serializer.data)
+
 
     # https://stackoverflow.com/questions/35518273/how-to-set-current-user-to-user-field-in-django-rest-framework
     def perform_create(self, serializer):
