@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import MatchingTickets from '../components/MatchingTickets'
+import './matching.scss'
 
 const Matching = () => {
     const [usergames, setUsergames] = useState(null)
@@ -44,6 +46,7 @@ const Matching = () => {
 
     return (
         <div>
+            <MatchingTickets lol={usergames['LolUserGame']} etc={usergames['UserGame']}/>
             <h1>현재 님이 등록한 게임덜ㄹㄹㄹ</h1>
             <ul>
                 lol : <br />
