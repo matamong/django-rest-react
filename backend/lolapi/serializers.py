@@ -51,7 +51,7 @@ class LolUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSeri
 
             champion = data_dragon.get_champion_by_key(obj.main_champ_key)
             name = champion['name']
-            image_url = 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/' +champion['image']['full'],
+            image_url = 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/' + champion['image']['full'].replace('.png', '_0.jpg'),
             avatar_url = 'http://ddragon.leagueoflegends.com/cdn/' + data_dragon.get_latest_version() + '/img/champion/' + champion['image']['full']
 
         return { 'name': name,
