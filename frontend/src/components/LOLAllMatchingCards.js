@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Card from './LOLCard'
+import './lolallmatchingcards.scss'
+import Button from '@material-ui/core/Button';
+import GroupIcon from '@material-ui/icons/Group';
 
 const LOLAllMatchingCards = () => {
     const [allUsers, setAllUsers] = useState(null)
@@ -34,21 +37,27 @@ const LOLAllMatchingCards = () => {
     };
 
     return (
-        <div>
-            <button onClick={fetchAllUsers}>모든 사용자 불러오기</button>
+        <div className="lolallmatchingcards__container">
+            <div className="lolallmatchingcards__button">
+                <Button variant="contained" onClick={fetchAllUsers}>
+                    <GroupIcon /> 모든 사용자 보기
+                </Button>
+            </div>
             {allUserLoading === true ? '유저 가져오는 중...' : ''}
-            {allUsers === null ? '' :
-                <ul>
-                    {allUsers.map((user, index) => (
-                        <li key={index}>
-                            <Card
-                                profile={user}
-                            />
-                            {user.lol_name}
-                        </li>
-                    ))}
-                </ul>
-            }
+            <div>
+                {allUsers === null ? '' :
+                    <ul>
+                        {allUsers.map((user, index) => (
+                            <li key={index}>
+                                <Card
+                                    profile={user}
+                                />
+                                {user.lol_name}
+                            </li>
+                        ))}
+                    </ul>
+                }
+            </div>
         </div>
     )
 
