@@ -1,0 +1,61 @@
+.slick__container {
+    overflow: hidden;
+}
+  .slick-track {
+    display: flex;
+  }
+  .slick-track .slick-slider {
+    display: flex;
+    height: auto;
+  }
+
+  .slick-list{
+      height: auto;
+  }
+
+  .slick-dots {
+	display: flex;
+	justify-content: center;
+	margin: 0;
+    padding: 1rem 0;
+    text-align: center;
+	
+	list-style-type: none;
+	
+		li {
+			margin: 0 0.25rem;
+		}
+	
+		button {
+			display: block;
+			width: 0.8rem;
+			height: 0.8rem;
+			padding: 0;
+            cursor: pointer;
+
+			border: none;
+			border-radius: 100%;
+			background-color: rgb(184,184,184);
+			
+			text-indent: -9999px;
+		}
+	
+		li.slick-active button {
+			background-color: 	rgb(104,104,104);
+        }
+    }
+
+    .slick-slider div { text-align: center; }
+    .slick-slider img { 
+        margin: auto;
+        width: 100%;
+        height: auto; } // 여기서 img 바꾸기
+
+@media (min-width: 1023px) {
+    /*1024 이상부터 작동하는 내용 (데스크탑)*/
+    .slick-slider img { 
+        margin: auto;
+        width: auto;
+        height: auto; } // 여기서 img 바꾸기
+
+}
