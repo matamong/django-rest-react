@@ -1,0 +1,27 @@
+.mypage__profileToken__container {
+    width: 100%;
+    height: 16rem;
+}
+
+.mypage__profileToken__item {
+    margin: auto;
+    width: 18rem;
+    height: 8rem;
+}
+
+.mypage__card__container {
+    width: 100%;
+    height: 16rem;
+}
+
+.mypage__card__item {
+    margin: auto;
+    width: 18rem;
+    height: 8rem;
+    padding: inherit;
+}
+
+.mypage__card__item > li {
+    width: 300px;
+    height: auto;
+}

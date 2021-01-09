@@ -22,7 +22,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
 
     const authLinks = () => (
         <Fragment>
-            <Link to="/profile">
+            <Link to="/my-page">
                 <IconButton>
                     <PersonIcon className="header__icon" fontSize="large" />
                 </IconButton>
