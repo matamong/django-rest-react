@@ -37,8 +37,8 @@ const LOLMatchingCards = () => {
             setMatchedUsers(_.shuffle(JSON.parse(JSON.stringify(response.data))));
 
             console.log(response.data)
-            console.log('MatchedUsers[0] : ' + matchedUsers[0].lol_name)
         } catch (e) {
+            console.log(e)
             setMatchingError(e);
             setMatchingLoading(false)
         }
