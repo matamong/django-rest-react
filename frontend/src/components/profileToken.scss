@@ -85,10 +85,11 @@ $maincolor: #009688;
       margin-left: 1rem;
       width: 15rem;
       //
-      h1{ font-size: 1.8em;}
-      h4{ //font-size: 1.2em;
-          color: $maincolor;
-          margin-top: -1.5rem;
+      .profileToken__card__name { margin-top: 2rem; }
+      .profileToken__card__title { 
+        //font-size: 1.2em;
+        color: $maincolor;
+        margin-top: -1.2rem;
       }
       .profileToken__card__bio{
         //padding: 10px 0px;
@@ -97,6 +98,8 @@ $maincolor: #009688;
         font-style: initial;
         //
         font-size: smaller;
+        text-align: right;
+        color: #ec6c6c;
         //
       }  
     }
