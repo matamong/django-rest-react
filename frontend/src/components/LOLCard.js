@@ -5,6 +5,10 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import './lolcard.scss';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import CommentIcon from '@material-ui/icons/Comment';
+import HeadsetMicIcon from '@material-ui/icons/HeadsetMic';
+import SportsMmaIcon from '@material-ui/icons/SportsMma';
 
 // Loading / Error / 등록 각각 만들기
 const useStyles = makeStyles({
@@ -42,15 +46,14 @@ const LOLCard = (props) => {
         {props.profile.solo_tier} {props.profile.solo_rank}
         </Typography>
         <Typography variant="body2" component="p">
-          자ㅏ기소개 : {props.profile.intro}
+          <CommentIcon /> {props.profile.intro}
           <br />
-          빡즐겜수치: {props.profile.prefer_style}
+          <SportsMmaIcon /> {props.profile.prefer_style}
           <br />
-          시간대 : {props.profile.prefer_time}
-          <br />
-          메인 챔프: {props.profile.main_champ_info.name}
-          
+          <AccessTimeIcon /> {props.profile.prefer_time}
+          <br />          
         </Typography>
+        <HeadsetMicIcon />
       </CardContent>
     </Card>
     )
