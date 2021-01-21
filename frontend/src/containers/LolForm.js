@@ -95,7 +95,8 @@ const LolForm = ({save_lol_usergame}) => {
 
     const validateName = (set, field, value) => {
         checkDuplicatedName(value)
-        if (value.length > 2) {
+        var nickLength = changeEngKorLength(value)
+        if (nickLength > 2 && nickLength <= 18) {
             setValueData({
                 ...valueData,
                 nameEntered: value,
@@ -110,6 +111,20 @@ const LolForm = ({save_lol_usergame}) => {
             })
             onChange(set, field, value)
         }
+    }
+
+    function changeEngKorLength(str) {
+        var nickLength = 0
+        for(var i=0; i<str.length; i++){ //한글은 2, 영문은 1로 치환 
+            var charStr = str.charAt(i); 
+            
+            if(escape(charStr).length >4){ 
+                nickLength += 2; 
+            }else{
+                 nickLength += 1; 
+            } 
+        }
+        return nickLength
     }
 
     const isEnteredNameValid = () => {
