@@ -47,7 +47,7 @@ const MyLOLCard = () => {
 
     return (
         <div>
-            {profile !== null ? 
+            {profile !== null || profile.region !== null ? 
                 <LOLCard 
                     profile={profile}
                 />

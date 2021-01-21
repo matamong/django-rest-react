@@ -14,11 +14,11 @@ const ProfileToken = (props) => {
                         <div className="profileToken__card__profileinfo">
                             <h3 className="profileToken__card__name"> {props.profile.name} </h3>
                             <h4 className="profileToken__card__title"> 스타듀밸리 주민 </h4>
-                            <p>
+                            <div>
                                 <div className="profileToken__card__bio">
                                     <FavoriteIcon /> 51
                                 </div>
-                            </p>
+                            </div>
                         </div>
                     </div>
                 </div>

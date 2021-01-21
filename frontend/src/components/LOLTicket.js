@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 const LOLTicket = (props) => {
-  console.log(props)
+  console.log('lolticket : ' + props.lol)
   const lolTrueRender = () => {
     return (
       <div className='true__music-card playing'>
@@ -57,7 +57,7 @@ const LOLTicket = (props) => {
   }
   return (
     <div className="ticket__container">
-      {props.lol === null ?
+      {props.lol === null || props.lol === undefined ? 
         lolFalseRender()
         :
         lolTrueRender()}

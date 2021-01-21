@@ -45,12 +45,11 @@ const Matching = () => {
     if (!usergames) return null
 
     return (
-        <div>
+        <div>        
             <MatchingTickets lol={usergames['LolUserGame']} etc={usergames['UserGame']}/>
-            <h1>현재 님이 등록한 게임덜ㄹㄹㄹ</h1>
-            <ul>
+            {/* <ul>
                 lol : <br />
-                {usergames['LolUserGame'].map(usergame => (
+                {usergames['LolUserGame'].map((usergame, index) => (
                     <li key={usergame.id}>
                         {usergame.lol_name}
                     </li>
@@ -63,9 +62,8 @@ const Matching = () => {
                         / {usergame.game_nickname} / 
                     </li>
                 ))}
-            </ul>
+            </ul> */}
             <br />
-            그거머시기냐 매칭 티켓 component 만들어서 등록된거 없을 때 핸들링하기. my page에도 써먹기 / 매칭 티켓 정해지고 핸들링해보기
         </div>
     )
 }

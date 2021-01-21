@@ -8,6 +8,7 @@ from matching.permissions import IsOwnerAndAdminOnly, IsOwnerOrReadOnly, IsOwner
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from .datadragon import DataDragon
 from rest_framework.response import Response
+from django.http import Http404
 
 
 # Create your views here.
@@ -18,10 +19,9 @@ class LolUserGameMyRetrieveView(generics.RetrieveUpdateDestroyAPIView):
     
     def get_object(self):
         try:
-            usergame = LolUserGame.objects.get(user=self.request.user)
-        except LolUserGame.DoesNotExist: 
-            usergame = None
-        return usergame
+            return LolUserGame.objects.get(user=self.request.user)
+        except LolUserGame.DoesNotExist:
+            raise Http404
         
     def perform_update(self, serializer):
         lol_watcher = LolWatcher('RGAPI-303862fd-d3fb-4901-8875-3ab7c39d1398')
