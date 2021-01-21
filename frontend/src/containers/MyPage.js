@@ -1,4 +1,5 @@
 import React , { useState, useEffect  }from 'react'
+import { Link, Redirect } from 'react-router-dom';
 import MyLoLCard from '../components/MyLOLCard'
 import ProfileToken from '../components/ProfileToken'
 import axios from 'axios'
@@ -14,7 +15,8 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import Button from '@material-ui/core/Button';
 import UserDeleteButton from '../components/UserDeleteButton'
 
-const MyPage = () => {
+
+const MyPage = ({ isAuthenticated }) => {
     const [profile, setProfile] = useState(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
@@ -51,6 +53,9 @@ const MyPage = () => {
         fetchProfile();
     }, []);
 
+
+    if (!isAuthenticated)
+        return <Redirect to='/login' />;
     if (loading) return <div>Loading..</div>
     if (error) return <div>Error!</div>
     if (!profile) return null
@@ -107,5 +112,8 @@ const MyPage = () => {
     )
 }
 
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
 
-export default MyPage
+export default connect(mapStateToProps)(MyPage)
