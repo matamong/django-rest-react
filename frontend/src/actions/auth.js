@@ -14,9 +14,10 @@ import {
     RESET_PASSWORD_FAIL,
     RESET_PASSWORD_CONFIRM_SUCCESS,
     RESET_PASSWORD_CONFIRM_FAIL,
+    DELETE_USER_SUCCESS,
     LOGOUT
 } from'./types';
-
+import { setAlert, setErrorAlert } from './alert'
 
 export const checkAuthenticated = () => async dispatch => {
     if (typeof window == 'undefined') {
@@ -207,3 +208,32 @@ export const logout = () => dispatch => {
         type: LOGOUT
     });
 };
+
+export const delete_user = (password) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('access')}`,
+            'Accept': 'application/json'
+        },
+        data: {
+            current_password: password
+        }
+    }
+    console.log('config data  : ' + config.data.current_password)
+
+    try {
+        const res = await axios.delete(`${process.env.REACT_APP_API_URL}/auth/users/me/`, config);
+
+        dispatch({
+            type: DELETE_USER_SUCCESS,
+        })
+        dispatch(logout())
+    } catch (err) {
+        dispatch({
+            type: DELETE_USER_FAIL
+        });
+        dispatch(setErrorAlert('회원 삭제에 실패했어요. 관리자에게 문의해주세요.'))
+        console.log(err)
+    }
+}

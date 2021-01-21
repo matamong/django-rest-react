@@ -11,6 +11,8 @@ import Tab from '@material-ui/core/Tab';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
+import Button from '@material-ui/core/Button';
+import UserDeleteButton from '../components/UserDeleteButton'
 
 const MyPage = () => {
     const [profile, setProfile] = useState(null)
@@ -89,9 +91,18 @@ const MyPage = () => {
                     <li><MyLoLCard /></li>
                 </ul>                
             </div>
+            <div className="mypage__button">
+                <div>
+                    <Button variant="contained">회원정보 수정</Button>
+                </div>
+                <div>
+                    <UserDeleteButton />
+                </div>
+            </div>
             <div>아바타바꾸기/호칭바꾸기 는 프로필 토큰에서 해부러,  
                 회원정보 수정비번수정/삭제, 
-                매칭 등록/수정/삭제는 각 카드에 해부러, </div>
+                매칭 등록/수정/삭제는 각 카드에 해부러, 
+            </div>
         </div>
     )
 }
