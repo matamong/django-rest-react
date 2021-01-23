@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import axios from 'axios'
 import MatchingTickets from '../components/MatchingTickets'
 import './matching.scss'
 
-const Matching = () => {
+const Matching = ({ isAuthenticated }) => {
     const [usergames, setUsergames] = useState(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
@@ -39,6 +41,9 @@ const Matching = () => {
     useEffect(() => {
         fetchUsergames();
     }, []);
+    
+    if (!isAuthenticated)
+    return <Redirect to='/login' />;
 
     if (loading) return <div>Loading..</div>
     if (error) return <div>Error!</div>
@@ -67,5 +72,8 @@ const Matching = () => {
         </div>
     )
 }
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
 
-export default Matching
+export default connect(mapStateToProps)(Matching)
