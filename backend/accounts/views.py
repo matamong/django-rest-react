@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly
 from .models import UserAccount
 from .serializers import MyProfileSerializer
 
@@ -15,3 +15,17 @@ class MyProfileRetrieveView(generics.RetrieveAPIView):
         except UserAccount.DoesNotExist:
             user = None
         return user
+
+class EmailUserRetrieveView(generics.RetrieveAPIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+    queryset = UserAccount.objects.all()
+    serializer_class = MyProfileRetrieveView
+    lookup_field = 'email'
+
+class NameUserRetrieveView(generics.RetrieveAPIView):
+    permission_classes = [AllowAny]
+    authentication_classes = []
+    queryset = UserAccount.objects.all()
+    serializer_class = MyProfileRetrieveView
+    lookup_field = 'name'
