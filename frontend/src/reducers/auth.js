@@ -45,7 +45,8 @@ export default function(state = initialState, action) {
         case SIGNUP_SUCCESS:
             return {
                     ...state,
-                    isAuthenticated: false
+                    isAuthenticated: false,
+                    email: payload.email
             }
         case AUTHENTICATED_FAIL:
             return {

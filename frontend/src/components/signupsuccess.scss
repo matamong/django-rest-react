@@ -1,0 +1,147 @@
+
+.signupsuccess__svg__container {
+    width: 16rem;
+    margin: auto;
+    padding: 1rem;
+    margin-top: 4rem;
+}
+
+.signupSuccess__article {
+    text-align: center;
+    height: 12rem;
+
+    h2 {
+        margin-top: -1.5rem;
+    }
+}
+
+
+.signupSuccess__button__container {
+    text-align: center;
+}
+
+.signupSuccess__button__item1 {
+    padding: 0.5rem;
+
+    button{
+        margin: 0.5rem;
+    }
+}
+
+.signupSuccess__button__item2{
+    padding: 0.5rem;
+    font-size: small;
+    .span {
+      color: #0fa06b;
+    }
+}
+
+
+
+.cls-1 {
+    fill: #2c51a3;
+  }
+
+  .cls-2 {
+    fill: #faaf4c;
+  }
+
+  .cls-3 {
+    fill: #f16279;
+  }
+
+  .cls-4 {
+    fill: #78c8aa;
+  }
+
+  .cls-5 {
+    fill: none;
+    stroke-width: 6px;
+  }
+
+  .cls-5, .cls-6 {
+    stroke: #000;
+    stroke-linecap: round;
+    stroke-miterlimit: 10;
+  }
+  
+  .mask {        
+    fill: black;
+    stroke: white;
+    stroke-width: 5px;
+  }
+  
+  #squiggle-mask-path {
+    stroke-dasharray: 80;
+    stroke-dashoffset: 80;
+    animation: animate-stroke 1s 1.1s forwards cubic-bezier(0,1,.53,1);
+  }
+  
+  #left-line-mask-path {
+    stroke-dasharray: 38;
+    stroke-dashoffset: -38;
+    animation: animate-stroke 1s 1.2s forwards cubic-bezier(0,1,.53,1);
+  }
+  
+  #right-line-mask-path {
+    stroke-dasharray: 38;
+    stroke-dashoffset: -38;
+    animation: animate-stroke 1s 1.2s forwards cubic-bezier(0,1,.53,1);
+  }
+  
+  @keyframes animate-stroke {
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  
+  #mint-burst {
+    transform: translateY(70px);
+    animation: move-stars 1s 1s forwards cubic-bezier(0,1,.53,1);
+  }
+  
+  #yellow-burst {
+    transform: translate(40px, 10px);
+    animation: move-stars 1s 1s forwards cubic-bezier(0,1,.53,1);
+  }
+  
+  #red-burst {
+    transform: translate(-40px, 10px);
+    animation: move-stars 1s 1s forwards cubic-bezier(0,1,.53,1);
+  }
+        
+  #blue-star {
+    transform: translate(10px, 40px);
+    animation: move-stars 1s 1025ms forwards cubic-bezier(0,1,.53,1);
+    display: inherit;
+  }
+  
+  #yellow-star {
+    transform: translate(-10px, 45px);
+    animation: move-stars 1s 1050ms forwards cubic-bezier(0,1,.53,1);
+  }
+  
+  @keyframes move-stars {
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  .dot {
+    animation: reveal-dots 0.9s 1.2s both cubic-bezier(0,1,.53,1);
+    opacity: 0;
+    transform: translate(-5px, 10px);
+    
+  }
+  
+  .dot.left-side {
+    transform: translate(5px, 10px);
+  }
+  
+  @keyframes reveal-dots {
+    100% {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+  }

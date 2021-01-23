@@ -15,6 +15,9 @@ import {
     RESET_PASSWORD_CONFIRM_SUCCESS,
     RESET_PASSWORD_CONFIRM_FAIL,
     DELETE_USER_SUCCESS,
+    DELETE_USER_FAIL,
+    RESEND_ACTIVATION_EMAIL_SUCCESS,
+    RESEND_ACTIVATION_EMAIL_FAIL,
     LOGOUT
 } from'./types';
 import { setAlert, setErrorAlert } from './alert'
@@ -127,12 +130,13 @@ export const signup = ({ name, email, password, re_password }) => async dispatch
 
         dispatch({
             type: SIGNUP_SUCCESS,
-            payload: res.data
+            payload: {email}
         });
     } catch (err) {
         dispatch({
             type: SIGNUP_FAIL
         });
+        console.log(err)
     }
 };
 
@@ -203,6 +207,31 @@ export const reset_password_confirm = (uid, token, new_password, re_new_password
         });
     }
 };
+
+export const resend_activation_email = (email) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    console.log(email)
+
+    try {
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/resend_activation/`, email, config);
+
+        dispatch({
+            type: RESET_PASSWORD_CONFIRM_SUCCESS,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: RESET_PASSWORD_CONFIRM_FAIL
+        });
+    }
+}
+
+
 export const logout = () => dispatch => {
     dispatch({
         type: LOGOUT

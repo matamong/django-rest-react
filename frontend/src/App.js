@@ -19,6 +19,8 @@ import store from './store'
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import SignupSuccess from './components/SignupSuccess'
+
 const App = () => (
     <Provider store={store}>
         <Router>
@@ -35,6 +37,7 @@ const App = () => (
                     <Route exact path='/lol-matching' component={LolMatching} />
                     <Route exact path='/my-lol-card' component={MyLOLCard} />
                     <Route exact path='/my-page' component={MyPage} />
+                    <Route exact path="/SignupSuccess" component={SignupSuccess} />
                     <Route exact path='/lol-update-form' component={LolUpdateForm} />
                 </Switch>
             </Layout>
