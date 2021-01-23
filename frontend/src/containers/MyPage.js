@@ -90,7 +90,7 @@ const MyPage = ({ isAuthenticated }) => {
             </div>
             <div className="mypage__card__container">
                 <h2 className="mypage__card__title">
-                    <div><SportsEsportsIcon /></div><div>등록된 매칭게임</div>
+                    <div><SportsEsportsIcon /></div><div>나의 매칭카드</div>
                 </h2>
                 <ul className="mypage__card__item">
                     <li><MyLoLCard /></li>

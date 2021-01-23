@@ -1,6 +1,7 @@
 import React, { useState, useEffect  } from 'react'
 import axios from 'axios'
 import LOLCard from './LOLCard'
+import Button from '@material-ui/core/Button';
 
 // Loading / Error Card에 넘겨주기. 
 const MyLOLCard = () => {
@@ -42,17 +43,18 @@ const MyLOLCard = () => {
 
     if (loading) return <div>Loading..</div>
     if (error) return <div>Error!</div>
-    if (!profile) return null
 
-
+    
     return (
         <div>
-            {profile !== null || profile.region !== null ? 
+            {profile === null ? 
+                <Button variant="contained" color="primary">
+                    LOL 매칭 카드 만들기
+                </Button>
+            :
                 <LOLCard 
                     profile={profile}
                 />
-            :
-                <div>등록하세요!</div>
             }
         
         </div>
