@@ -34,6 +34,7 @@ const UserDeleteButton = ({ delete_user, logout }) => {
                         <div className="userDeleteButton__form__item">
                             <TextField
                                 id="standard-basic"
+                                type="password"
                                 label="비밀번호"
                                 name="current_password"
                                 placeholder="삭제를 위해 비밀번호 입력"
