@@ -109,10 +109,14 @@ export const login = (email, password) => async dispatch => {
         });
 
         dispatch(load_user());
-    } catch (err) {
+    } catch (error) {
         dispatch({
             type: LOGIN_FAIL
         });
+        if(error.response.status == 401)
+            dispatch(setErrorAlert('이메일/비밀번호를 다시 확인해주세요.', 401))
+        else
+            dispatch(setErrorAlert('잠시 후에 다시 시도해주세요.', error.response.status));
     }
 };
 
