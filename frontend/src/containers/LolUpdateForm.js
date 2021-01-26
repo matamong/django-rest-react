@@ -3,10 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import './lolform.scss';
 import { connect } from 'react-redux';
 import { update_lol_usergame, delete_lol_usergame } from '../actions/matching';
+import { TextField, Select, MenuItem, FormControl, InputLabel, Typography, Chip, Button } from '@material-ui/core'
+import { DoneIcon, HeadsetMic, HeadsetMicOutlined, Hearing , KeyboardVoice, AccessTime } from '@material-ui/icons';
 import { setAlert } from '../actions/alert'
 import axios from 'axios'
 import './lolform.scss'
-import { TextField, Select, MenuItem, FormControl, InputLabel, Typography, Slider } from '@material-ui/core'
+import Slider, { SliderTooltip } from 'rc-slider';
 
 const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_usergame }) => {
     
@@ -47,6 +49,8 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
 
     const { ai, normal, solo_duo_rank, flex_rank, howling_abyss, team_fight_tactics, team_fight_tactics_rank } = modeFormData
 
+    const [micFormData, setMicFormData] = useState({mic: 'RANDOM_MIC'})
+    const { mic } = micFormData
 
     // 1. data fetch 해서 setState에 넣기 -> 
 
@@ -91,6 +95,8 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
                     team_fight_tactics: response.data.lol_prefer_mode.team_fight_tactics,
                     team_fight_tactics_rank: response.data.lol_prefer_mode.team_fight_tactics_rank
                 })
+                setMicFormData({mic: response.data.mic})
+
             })
             .catch(function (error) {
                 console.log(error);
@@ -111,13 +117,13 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
     const renderSubmitBtn = () => {
         if (isChanged === true) {
             return (
-                <button type="submit">등록하기</button>
+                <Button variant="contained" color="primary" type="submit">수정하기</Button>
             )
         }
         return (
-            <button type="submit" disabled>
+            <Button variant="contained" color="primary" type="submit" disabled>
                 등록하기
-            </button>
+            </Button>
         )
     }
     const onChange = (set, field, value) => {
@@ -128,6 +134,45 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
         console.log('field : ' + field, 'value : ' + value)
         setIsChanged(true)
     };
+    const onSliderChange = value => {
+        console.log(value)
+        setGeneralFormData({ ...generalFormData, prefer_style: value })
+        setIsChanged(true)
+    }
+
+    const onSliderPositionChange = (field, value) => {
+        console.log(value)
+        setPositionFormData({ ...positionFormData, [field]: value })
+        setIsChanged(true)
+    }
+
+    const onChipChange = (field, value) => {
+        console.log('들어온 필드 :' + field)
+        console.log('들어온 필드의 값 : ' + value)
+
+        var changedValue = changeValue(value)
+        setModeFormData({ ...modeFormData, [field]: changedValue})
+        
+        console.log('시도한 value : ' + changedValue)
+        console.log('---------------------------------')
+        setIsChanged(true)
+    }
+
+    const onMicChipChange = (str) => {
+        console.log('들어온 str :' + str)
+
+        setMicFormData({mic: str})
+        
+        console.log('---------------------------------')
+        setIsChanged(true)
+    }
+
+    const changeValue = (value) => { 
+        if(value) 
+            return 0
+        else 
+            return 1
+    }
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -139,7 +184,8 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
             generalFormData.prefer_time,
             generalFormData.intro,
             positionFormData,
-            modeFormData
+            modeFormData,
+            micFormData.mic
         ).then(function(result){
             if(result == true) {
                 setAlert('성공적으로 수정되었습니다!', 'Udate Success', 1500)
@@ -167,20 +213,26 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
     // 3. data delete function 생성
 
     return (
-        <div>
+        <div className="lolform__container">
             <form onSubmit={e => onSubmit(e)}>
-                <TextField
-                    type='text'
-                    placeholder='lol_name'
-                    name='lol_name'
-                    value={lol_name}
-                    label="롤 닉네임"
-                    variant="outlined"
-                    InputProps={{
-                        readOnly: true,
-                      }}
-                />
-                <FormControl variant="outlined">
+            <div className="lolform__nicknameregion__container">
+                    <h2>LOL 닉네임</h2>
+                    <div className="lolform__nicnknameregion__items">
+                        <div className="lolform__nickname">
+                            <TextField
+                                type='text'
+                                placeholder='lol_name'
+                                name='lol_name'
+                                value={lol_name}
+                                label="롤 닉네임"
+                                variant="outlined"
+                                InputProps={{
+                                    readOnly: true,
+                                  }}
+                            />
+                        </div>
+                        <div className="lolform__region">
+                        <FormControl variant="outlined">
                     <InputLabel id="region-select-label">지역</InputLabel>
                     <Select
                         labelId="region-select-label"
@@ -190,75 +242,161 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
                     </Select>
 
                 </FormControl>
-                <Typography id="discrete-slider" gutterBottom>
-                    게임성향
-                </Typography>
-                <input
-                    type='text'
-                    placeholder='prefer_style'
-                    name='prefer_style'
-                    value={prefer_style}
-                    onChange={e => onChange(setGeneralFormData, 'prefer_style', e.target.value)}
-                    required
-                />
-                <input
-                    type='text'
-                    placeholder='prefer_time'
-                    name='prefer_time'
-                    value={prefer_time}
-                    onChange={e => onChange(setGeneralFormData, 'prefer_time', e.target.value)}
-                    required
-                />
-                <input
-                    type='text'
-                    placeholder='intro'
-                    name='intro'
-                    value={intro}
-                    onChange={e => onChange(setGeneralFormData, 'intro', e.target.value)}
-                    required
-                />
-                <input
-                    type='text'
-                    placeholder='is_top_possible'
-                    name='is_top_possible'
-                    value={is_top_possible}
-                    onChange={e => onChange(setPositionFormData, 'is_top_possible', e.target.value)}
-                    required
-                />
-                <input
-                    type='text'
-                    placeholder='is_jungle_possible'
-                    name='is_jungle_possible'
-                    value={is_jungle_possible}
-                    onChange={e => onChange(setPositionFormData, 'is_jungle_possible', e.target.value)}
-                    required
-                />
-                <input
-                    type='text'
-                    placeholder='is_mid_possible'
-                    name='is_mid_possible'
-                    value={is_mid_possible}
-                    onChange={e => onChange(setPositionFormData, 'is_mid_possible', e.target.value)}
-                    required
-                />
-                <input
-                    type='text'
-                    placeholder='is_ad_possible'
-                    name='is_ad_possible'
-                    value={is_ad_possible}
-                    onChange={e => onChange(setPositionFormData, 'is_ad_possible', e.target.value)}
-                    required
-                />
-                <input
-                    type='text'
-                    placeholder='is_sup_possible'
-                    name='is_sup_possible'
-                    value={is_sup_possible}
-                    onChange={e => onChange(setPositionFormData, 'is_sup_possible', e.target.value)}
-                    required
-                />
-                {renderSubmitBtn()}
-                <button type="button" onClick={onDelete}>삭제</button>
+                        </div>
+                    </div>
+                </div>
+                <div className="lolform__bias__container">
+                    <h2>게임성향</h2>
+                    <div className="lolform__bias__preferstyle">
+                        <h5>어떻게 게임을 해야 재밌으신가요?</h5>
+                        <Slider
+                            dots
+                            step={1}
+                            min={1}
+                            max={5}
+                            defaultValue={0}
+                            marks={{ 1: '즐겜', 2: '', 3: '보통', 4: '', 5: '빡겜' }}
+                            value={prefer_style}
+                            onChange={onSliderChange}
+                        />
+                    </div>
+                    <div className="lolform__bias__prefermode">
+                        <h5>같이 플레이하고 싶은 대전을 선택해주세요.</h5>
+                        <Chip label="AI대전" variant={ai === 0 || ai === false ? "outlined" : "default"} color={ai === 0 || ai === false ? "default" : "primary"} clickable={true} onClick={() => onChipChange('ai', ai)} />
+                        <Chip label="빠른 대전" variant={normal === 0 || normal === false ? "outlined" : "default"} color={normal === 0 || normal === false? "default" : "primary"} clickable={true} onClick={() => onChipChange('normal', normal)} />
+                        <Chip label="솔로/듀오 랭크" variant={solo_duo_rank === 0 || solo_duo_rank === false ? "outlined" : "default"} color={solo_duo_rank === 0 || solo_duo_rank === false ? "default" : "primary"} clickable={true} onClick={() => onChipChange('solo_duo_rank', solo_duo_rank)} />
+                        <Chip label="자유 랭크" variant={flex_rank === 0 || flex_rank === false? "outlined" : "default"} color={flex_rank === 0 || flex_rank === false ? "default" : "primary"} clickable={true} onClick={() => onChipChange('flex_rank', flex_rank)} />
+                        <Chip label="칼바람 나락" variant={howling_abyss === 0 || howling_abyss === false ? "outlined" : "default"} color={howling_abyss === 0 || howling_abyss === false ? "default" : "primary"} clickable={true} onClick={() => onChipChange('howling_abyss', howling_abyss)} />
+                        <Chip label="TFT(롤토체스)" variant={team_fight_tactics === 0 || team_fight_tactics === false ? "outlined" : "default"} color={team_fight_tactics === 0 || team_fight_tactics === false ? "default" : "primary"} clickable={true} onClick={() => onChipChange('team_fight_tactics', team_fight_tactics)} />
+                        <Chip label="TFT(롤토체스) 랭크" variant={team_fight_tactics_rank === 0 || team_fight_tactics_rank === false ? "outlined" : "default"} color={team_fight_tactics_rank === 0 || team_fight_tactics_rank === false ? "default" : "primary"} clickable={true} onClick={() => onChipChange('team_fight_tactics_rank', team_fight_tactics_rank)} />
+                    </div>
+                    <div className="lolform__bias__mic">
+                        <h5>소통은 어떻게 하시나요?</h5>
+                        <Chip label="마이크가능" icon={<KeyboardVoice/>} variant={mic !== 'MIC' ? "outlined" : "default"} color={mic !== 'MIC' ? "default" : "primary"} clickable={true} onClick={() => onMicChipChange('MIC')} />
+                        <Chip label="듣기만" icon={<Hearing/>} variant={mic !== 'HEARING' ? "outlined" : "default"} color={mic !== 'HEARING' ? "default" : "primary"} clickable={true} onClick={() => onMicChipChange('HEARING')} />
+                        <Chip label="그때마다 달라요" icon={<AccessTime />}variant={mic !== 'RANDOM_MIC' ? "outlined" : "default"} color={mic !== 'RANDOM_MIC' ? "default" : "primary"} clickable={true} onClick={() => onMicChipChange('RANDOM_MIC')} />
+                    </div>
+                </div>
+                <div className="lolform__preferTime">
+                    <h2>선호 시간대</h2>
+                    <TextField
+                        type='text'
+                        placeholder='평일 저녁 8시 ~ 11시'
+                        name='prefer_time'
+                        value={prefer_time}
+                        label="시간대"
+                        onChange={e => onChange(setGeneralFormData, 'prefer_time', e.target.value)}
+                        variant="outlined"
+                        required
+                    />
+                </div>
+                <div className="lolform__intro">
+                    <h2>자기소개</h2>
+                    <TextField
+                        id="outlined-multiline-static"
+                        label="자기소개"
+                        multiline
+                        rowsMax={4}
+                        variant="outlined"
+                        name="intro"
+                        value={intro}
+                        placeholder='intro'
+                        onChange={e => onChange(setGeneralFormData, 'intro', e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="lolform__lane__container">
+                    <h2>라인 숙련도</h2>
+                    <div className="lolform__lane__item">
+                        <div className="lolform__lane__img">
+                            <img src="/images/Position_Challenger-Top.png" />
+                        </div>
+                        <div className="lolform__lane__slider">
+                            <Slider
+                                dots
+                                step={1}
+                                min={0}
+                                max={5}
+                                defaultValue={0}
+                                marks={{ 0: '안해봤어요.', 1: '', 2: '1인분 해요!', 3: '', 4: '', 5: '자신있어요!' }}
+                                value={is_top_possible}
+                                onChange={value => onSliderPositionChange('is_top_possible', value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="lolform__lane__item">
+                        <div className="lolform__lane__img">
+                            <img src="/images/Position_Challenger-Jungle.png" />
+                        </div>
+                        <div className="lolform__lane__slider">
+                            <Slider
+                                dots
+                                step={1}
+                                min={0}
+                                max={5}
+                                defaultValue={0}
+                                marks={{ 0: '안해봤어요.', 1: '', 2: '1인분 해요!', 3: '', 4: '', 5: '자신있어요!' }}
+                                value={is_jungle_possible}
+                                onChange={value => onSliderPositionChange('is_jungle_possible', value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="lolform__lane__item">
+                        <div className="lolform__lane__img">
+                            <img src="/images/Position_Challenger-Mid.png" />
+                        </div>
+                        <div className="lolform__lane__slider">
+                            <Slider
+                                dots
+                                step={1}
+                                min={0}
+                                max={5}
+                                defaultValue={0}
+                                marks={{ 0: '안해봤어요.', 1: '', 2: '1인분 해요!', 3: '', 4: '', 5: '자신있어요!' }}
+                                value={is_mid_possible}
+                                onChange={value => onSliderPositionChange('is_mid_possible', value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="lolform__lane__item">
+                        <div className="lolform__lane__img">
+                            <img src="/images/Position_Challenger-Bot.png" />
+                        </div>
+                        <div className="lolform__lane__slider">
+                            <Slider
+                                dots
+                                step={1}
+                                min={0}
+                                max={5}
+                                defaultValue={0}
+                                marks={{ 0: '안해봤어요.', 1: '', 2: '1인분 해요!', 3: '', 4: '', 5: '자신있어요!' }}
+                                value={is_ad_possible}
+                                onChange={value => onSliderPositionChange('is_ad_possible', value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="lolform__lane__item">
+                        <div className="lolform__lane__img">
+                            <img src="/images/Position_Challenger-Support.png" />
+                        </div>
+                        <div className="lolform__lane__slider">
+                            <Slider
+                                dots
+                                step={1}
+                                min={0}
+                                max={5}
+                                defaultValue={0}
+                                marks={{ 0: '안해봤어요.', 1: '', 2: '1인분 해요!', 3: '', 4: '', 5: '자신있어요!' }}
+                                value={is_sup_possible}
+                                onChange={value => onSliderPositionChange('is_sup_possible', value)}
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div className="lolform__button">
+                    {renderSubmitBtn()}
+                    <Button  variant="contained" color="secondary" onClick={onDelete}>삭제</Button>
+                </div>
             </form>
         </div>
     )
