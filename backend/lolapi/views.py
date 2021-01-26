@@ -33,9 +33,8 @@ class LolUserGameMyRetrieveView(generics.RetrieveUpdateDestroyAPIView):
         user_rank_data = lol_watcher.league.by_summoner(request_region, lol_id)
         user_champion_mastery_data = lol_watcher.champion_mastery.by_summoner(request_region, lol_id)
 
-        # user_chamion_mastery 없으믄 기본값(아무것도 없는 사진)으로 저장.
-
         print(user_rank_data)
+
         if len(user_rank_data) == 1 :
             solo_rank = user_rank_data[0]['tier']
             solo_tier = user_rank_data[0]['rank']
@@ -52,17 +51,22 @@ class LolUserGameMyRetrieveView(generics.RetrieveUpdateDestroyAPIView):
             flex_tier = user_rank_data[1]['tier']
             flex_rank = user_rank_data[1]['rank']
 
+        if len(user_champion_mastery_data) == 0 :
+            main_champ = 0
+        else:
+            main_champ = user_champion_mastery_data[0]['championId']
+
         self.request.data['user'] = self.request.user
 
         serializer.save(
             user = self.request.user, 
             lol_id = lol_id,
             lol_lv = user_account_data['summonerLevel'],
-            solo_tier = user_rank_data[0]['tier'],
-            solo_rank = user_rank_data[0]['rank'],
+            solo_tier = solo_tier,
+            solo_rank = solo_rank,
             flex_tier = flex_tier,
             flex_rank = flex_rank,
-            main_champ_key = user_champion_mastery_data[0]['championId']
+            main_champ_key = main_champ
         )
 
 
