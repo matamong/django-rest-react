@@ -15,7 +15,7 @@ import { load_user } from '../actions/auth';
 
 
 
-export const save_lol_usergame = ( lol_name, region, prefer_style, prefer_time, intro, lol_position, lol_prefer_mode ) => async dispatch => {
+export const save_lol_usergame = ( lol_name, region, prefer_style, prefer_time, intro, lol_position, lol_prefer_mode, mic ) => async dispatch => {
     const config = {
         headers: {
             'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ export const save_lol_usergame = ( lol_name, region, prefer_style, prefer_time, 
 
     console.log(prefer_style)
 
-    const body = JSON.stringify( { lol_name, region, prefer_style, prefer_time, intro, 'lol_position' : lol_position, 'lol_prefer_mode': lol_prefer_mode })
+    const body = JSON.stringify( { lol_name, region, prefer_style, prefer_time, intro, 'lol_position' : lol_position, 'lol_prefer_mode': lol_prefer_mode, mic })
 
     try {
         const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/matching/lol/usergames`, body, config)
