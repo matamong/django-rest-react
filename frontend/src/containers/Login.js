@@ -59,7 +59,7 @@ const Login = ({ login, isAuthenticated }) => {
                             />
                         </div>
                         <p>Don't have an account? <Link to='/signup'>Sign Up</Link></p>
-                        <p>Forgot your Password? <Link to='/reset_password'>Reset Password</Link></p>
+                        <p>Forgot your Password? <Link to='/reset-password'>Reset Password</Link></p>
                         <div className="login__footer">
                             <Button
                                 type='submit'

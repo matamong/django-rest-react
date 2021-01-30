@@ -22,7 +22,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
 
     const authLinks = () => (
         <Fragment>
-            <Link to="/profile">
+            <Link to="/my-page">
                 <IconButton>
                     <PersonIcon className="header__icon" fontSize="large" />
                 </IconButton>
@@ -43,6 +43,13 @@ const Navbar = ({ logout, isAuthenticated }) => {
                 <Link to="/matching">
                     <IconButton>
                         <FaceIcon className="header__icon" fontSize="large" />
+                    </IconButton>
+                </Link>
+                <Link to="/lol">
+                    <IconButton>
+                        <img className="header__icon" 
+                        src="http://ddragon.leagueoflegends.com/cdn/10.23.1/img/spell/SummonerFlash.png" 
+                        alt="lol" ></img>
                     </IconButton>
                 </Link>
             </div>

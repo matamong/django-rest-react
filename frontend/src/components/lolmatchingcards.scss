@@ -1,0 +1,25 @@
+.lolmatchingcards__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 20rem;
+}
+
+.card, .cardContainer {
+    max-width: 260px;
+    height: 300px;
+}
+.cardContainer {
+    width: 90vw;
+}
+
+.cardContainer__loading {
+    text-align: center;
+    margin-top: -3rem;
+}
+
+.cardEnd {
+    text-align: center;
+    margin-top: 6rem;
+}

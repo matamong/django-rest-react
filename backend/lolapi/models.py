@@ -43,6 +43,11 @@ class LolUserGame(models.Model):
         AVERAGE = 3
         A_LITTLE_TIGHT = 4
         TIGHT = 5
+    
+    class Mic(models.TextChoices):
+        MIC = 'MIC'
+        HEARING = 'HEARING'
+        RANDOM_MIC = 'RANDOM_MIC'
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, unique=True, on_delete=models.CASCADE)
     lol_name = models.CharField(max_length=200, unique=True)
@@ -54,10 +59,11 @@ class LolUserGame(models.Model):
     solo_rank = models.CharField(max_length=10, choices=Rank.choices, default=Tier.UNRANKED)
     flex_tier = models.CharField(max_length=50, choices=Tier.choices, default=Tier.UNRANKED)
     flex_rank = models.CharField(max_length=10, choices=Rank.choices, default=Tier.UNRANKED)
-    perfer_style = models.IntegerField(choices=Style.choices)
+    prefer_style = models.IntegerField(choices=Style.choices)
     prefer_time = models.CharField(max_length=200)
     main_champ_key = models.IntegerField(blank=True, null=True) # 프론트에서 고평가 챔프 api 불러와서 선택하게 해주기
     intro = models.TextField()
+    mic = models.CharField(max_length=10, choices=Mic.choices, default=Mic.HEARING)
     # 매칭용 숫자 넣기 티어 랭크 합쳐서 점수로 
 
     def __str__(self):
