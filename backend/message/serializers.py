@@ -11,3 +11,12 @@ class MessageRoomSerializer(serializers.ModelSerializer):
         model = MessageRoom
         fields = '__all__'
         extra_kwargs = {'receiver': {'read_only':True}, 'sender': {'read_only':True}}
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    reply_user = ProfileSerializer(read_only=True)
+
+    class Meta:
+        model = Message
+        fields = ('content', 'time_stamp', 'reply_user')
+        extra_kwargs = {'reply_user': {'read_only':True}}

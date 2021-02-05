@@ -70,3 +70,52 @@ class MessageRoomRetrieveView(generics.RetrieveUpdateDestroyAPIView):
         else:
             raise PermissionDenied('매칭을 수락받은 분만 수정이 가능합니다.')
 
+
+        
+class MyMessageListView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+    pagination_class = None
+
+    def list(self, request, **kwargs):
+        print('kwargs : ' , kwargs['message_room'])
+        # 룸 있는지 확인
+        try:
+            message_room_obj = MessageRoom.objects.get(id=kwargs['message_room'])
+        except MessageRoom.DoesNotExist: 
+            raise Http404
+        
+        # 당사자 맞는지 확인
+        if message_room_obj.sender.id == self.request.user.id or message_room_obj.receiver.id == self.request.user.id:
+            queryset = Message.objects.filter(message_room=message_room_obj).order_by('time_stamp')
+            serializer = MessageSerializer(queryset, many=True)
+            print(serializer.data)
+
+            return Response(serializer.data)
+        else:
+            raise PermissionDenied('메시지를 주고받는 당사자가 아닙니다.')
+
+        
+
+    def perform_create(self, serializer):
+        print('kwargs : ' , self.kwargs['message_room'])
+        print('request id : ', self.request.user.id)
+        # 룸 있는지 확인
+        try:
+            message_room_obj = MessageRoom.objects.get(id=self.kwargs['message_room'])
+            print('message_room_sender id : ', message_room_obj.sender.id)
+            print('message_room_receiver id : ', message_room_obj.receiver.id)
+        except MessageRoom.DoesNotExist: 
+            raise Http404
+        
+        # 당사자 맞는지 확인
+        if message_room_obj.sender.id == self.request.user.id or message_room_obj.receiver.id == self.request.user.id:
+            serializer.save(
+            reply_user = self.request.user,
+            message_room = message_room_obj
+            )
+        else:
+            raise PermissionDenied('메시지를 주고받는 당사자가 아닙니다.')
+
+        
