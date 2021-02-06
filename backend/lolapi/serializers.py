@@ -2,6 +2,8 @@ from rest_framework import serializers
 from .models import LolUserGame, LolPosition, LolPreferMode
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from .datadragon import DataDragon
+from accounts.serializers import ProfileSerializer
+
 
 class LolPositionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,11 +23,17 @@ class LolUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSeri
     lol_position = LolPositionSerializer()
     lol_prefer_mode = LolPreferModeSerializer()
     main_champ_info = serializers.SerializerMethodField()
+    user = ProfileSerializer(read_only=True)
 
     class Meta:
         model = LolUserGame
         fields = ['lol_name', 'region', 'prefer_style', 'prefer_time', 
-        'intro', 'lol_position', 'lol_prefer_mode', 'solo_tier' , 'solo_rank', 'main_champ_info', 'mic']
+        'intro', 'lol_position', 'lol_prefer_mode', 'solo_tier' , 'solo_rank', 'main_champ_info', 'mic', 'user']
+        extra_kwargs = {
+            'user': {'read_only': True},
+            'lol_name': {'write_only': True}
+        }
+
     
     def create(self, validated_data):
         lol_position_data = validated_data.pop('lol_position')
