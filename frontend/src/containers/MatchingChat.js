@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { connect } from 'react-redux';
+import Chat from '../components/Chat'
+import { Redirect } from 'react-router-dom';
 import './matchingchat.scss'
 
 
@@ -52,6 +54,16 @@ const MatchingChat = ({ isAuthenticated, user }) => {
 
     return (
         <div className="matchingChat__container">
+            {chatList.map((chat, index) => (
+                <Chat 
+                    user={user}
+                    id={chat.id}
+                    sender={chat.sender.name}
+                    receiver={chat.receiver.name}
+                    created_at={chat.created_at}
+                    game_name={chat.game_name}
+                />
+            ))}
         </div>
     )
 }
