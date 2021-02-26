@@ -9,6 +9,7 @@ import Avatar from '@material-ui/core/Avatar'
 
 const ChatScreen = ({ props, isAuthenticated, user, send_matching_message }) => {
     const [chatContents, setChatContents] = useState(null)
+    const [chatRoomInfo, setChatRoomInfo] = useState(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
@@ -19,6 +20,35 @@ const ChatScreen = ({ props, isAuthenticated, user, send_matching_message }) => 
     const pathname = useLocation().pathname;
     var regex = /\d+/g;
     var messageroom_id = Number(pathname.match(regex));
+
+    const fetchChatInfo = async () => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + `${localStorage.getItem('access')}`,
+                'Accept': 'application/json'
+            }
+        }
+
+        try {
+            setError(null);
+            setChatRoomInfo(null);
+            setLoading(true);
+            axios.get(`${process.env.REACT_APP_API_URL}/api/messages/rooms/` + messageroom_id, config)
+                .then(function (response) {
+                    console.log(response.data);
+                    setChatRoomInfo(response.data)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        } catch (e) {
+            setError(false);
+            console.log(e)
+        }
+        setLoading(false)
+
+    }
 
     const fetchChatContent = async () => {
         const config = {
@@ -51,6 +81,7 @@ const ChatScreen = ({ props, isAuthenticated, user, send_matching_message }) => 
 
     useEffect(() => {
         fetchChatContent()
+        fetchChatInfo()
     }, []);
 
     useEffect(() => {
