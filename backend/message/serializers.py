@@ -28,10 +28,7 @@ class MessageRoomSerializer(serializers.ModelSerializer):
         return self.better.get_seralized_game_profile(obj.sender, obj.game_name, obj.receiver_consent)
 
     def get_receiver_usergame_profile(self, obj):
-        if obj.receiver_consent == True :
-            return self.better.get_seralized_game_profile(obj.receiver, obj.game_name, obj.receiver_consent)
-        else:
-            return {}
+        return self.better.get_seralized_game_profile(obj.receiver, obj.game_name, obj.receiver_consent)
 
         
 class MessageSerializer(serializers.ModelSerializer):
