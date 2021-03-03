@@ -16,7 +16,7 @@ import TextField from '@material-ui/core/TextField';
 
 
 
-const LOLMatchingCards = ({ create_matching_message_room, send_matching_message, setAlert }) => {
+const LOLMatchingCards = ({ isAuthenticated, create_matching_message_room, send_matching_message, setAlert }) => {
 
     var _ = require('lodash');
     const [matchedUsers, setMatchedUsers] = useState(null)
@@ -166,4 +166,8 @@ const LOLMatchingCards = ({ create_matching_message_room, send_matching_message,
 
 }
 
-export default connect(null, { create_matching_message_room, send_matching_message, setAlert })(LOLMatchingCards)
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { create_matching_message_room, send_matching_message, setAlert })(LOLMatchingCards)
