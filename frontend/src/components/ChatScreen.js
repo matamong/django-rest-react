@@ -103,7 +103,11 @@ const ChatScreen = ({ history, props, isAuthenticated, user, send_matching_messa
     };
 
     const handleConsent = (e) => {
-        update_matching_message_room(messageroom_id)
+        update_matching_message_room(messageroom_id).then(function(result){
+            setTimeout(function() {
+                window.location.reload();
+              }, 1500);
+        })
     }
 
     const handleDelete = (e) => {
