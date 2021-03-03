@@ -20,10 +20,10 @@ class BetterGameProfileSerializing:
                 "region": lol_usergame_obj.region,
                 "lv" : lol_usergame_obj.lol_lv,
                 "rank": {
-                    "솔로 티어": lol_usergame_obj.solo_tier,
-                    "솔로 랭크": lol_usergame_obj.solo_rank,
-                    "자유 티어": lol_usergame_obj.flex_tier,
-                    "자유 랭크": lol_usergame_obj.flex_rank
+                    "solo_tier": lol_usergame_obj.solo_tier,
+                    "solo_rank": lol_usergame_obj.solo_rank,
+                    "free_tier": lol_usergame_obj.flex_tier,
+                    "free_rank": lol_usergame_obj.flex_rank
                 },
                 "prefer_style": lol_usergame_obj.prefer_style,
                 "prefer_time": lol_usergame_obj.prefer_time,
