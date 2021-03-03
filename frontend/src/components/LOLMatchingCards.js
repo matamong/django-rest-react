@@ -102,8 +102,7 @@ const LOLMatchingCards = ({ create_matching_message_room, send_matching_message,
         e.preventDefault();
         // 500 에러 났을 때 핸들링 해야함!
         create_matching_message_room(receiver.user.name, 'lol').then(function(result){
-            console.log(result)
-            send_matching_message(result.id, content)
+            if(result !== undefined) {send_matching_message(result.id, content)}
         })
     }
 
