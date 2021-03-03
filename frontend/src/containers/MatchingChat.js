@@ -54,7 +54,12 @@ const MatchingChat = ({ isAuthenticated, user }) => {
 
     return (
         <div className="matchingChat__container">
+            <div className="matchingChat__title">
+                <h2>매칭방 리스트</h2>
+                <p></p>
+            </div>
             {chatList.map((chat, index) => (
+                chat.sender.name === user.name ?
                 <Chat 
                     user={user}
                     id={chat.id}
@@ -62,7 +67,32 @@ const MatchingChat = ({ isAuthenticated, user }) => {
                     receiver={chat.receiver.name}
                     created_at={chat.created_at}
                     game_name={chat.game_name}
+                    consent={chat.receiver_consent}
+                    lv={chat.receiver_usergame_profile.lv}
+                    mic={chat.receiver_usergame_profile.mic}
+                    prefer_time={chat.receiver_usergame_profile.prefer_time}
+                    prefer_style={chat.receiver_usergame_profile.prefer_style}
+                    region={chat.receiver_usergame_profile.region}
+                    rank={chat.receiver_usergame_profile.rank}
+                    message={chat.last_message}
                 />
+                :
+                <Chat 
+                user={user}
+                id={chat.id}
+                sender={chat.sender.name}
+                receiver={chat.receiver.name}
+                created_at={chat.created_at}
+                game_name={chat.game_name}
+                consent={chat.receiver_consent}
+                lv={chat.sender_usergame_profile.lv}
+                mic={chat.sender_usergame_profile.mic}
+                prefer_time={chat.sender_usergame_profile.prefer_time}
+                prefer_style={chat.sender_usergame_profile.prefer_style}
+                region={chat.sender_usergame_profile.region}
+                rank={chat.sender_usergame_profile.rank}
+                message={chat.last_message}
+            />
             ))}
         </div>
     )
