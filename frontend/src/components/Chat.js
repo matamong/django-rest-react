@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {delete_matching_message_room } from '../actions/matching';
 import { Hearing, KeyboardVoice, AccessTime } from '@material-ui/icons';
 import ForwardIcon from '@material-ui/icons/Forward';
 import Avatar from '@material-ui/core/Avatar'
@@ -21,9 +23,17 @@ const GameLogo = {
 
 Moment.globalLocale = 'ko';
 
-const Chat = ({ user, id, className, sender, receiver, consent, game_name, region, lv, rank, prefer_time, prefer_style, mic, created_at, message }) => {
+const Chat = ({ user, id, delete_matching_message_room, sender, receiver, consent, game_name, region, lv, rank, prefer_time, prefer_style, mic, created_at, message}) => {
     console.log(message)
     const [active, handleActive] = useState(false);
+
+    const handleOnDelete = (e) => {
+        delete_matching_message_room(id).then(function(result){
+            setTimeout(function() {
+                window.location.reload();
+              }, 1500);
+        })
+    }
 
     return (
         <div className="chat__canvas">
@@ -184,20 +194,29 @@ const Chat = ({ user, id, className, sender, receiver, consent, game_name, regio
                                             }}
                                         >
                                             <div className="thirdTop" />
-                                            
-                                            <div className="secondBehindBottom">
-                                            <Link to={`/matching-chat-detail/${id}`}>
-                                                <button
-                                                    className="button"
-                                                    style={{
-                                                        color: GameLogo[`${game_name}`].label,
-                                                        border: `1px solid ${GameLogo[`${game_name}`].label}`
-                                                    }}
-                                                >
-                                                    매칭방 가기
-                                    </button>
-                                    </Link>
-                                            </div>
+                                                <div className="secondBehindBottom">
+                                                    <Link to={`/matching-chat-detail/${id}`}>
+                                                        <button
+                                                            className="button"
+                                                            style={{
+                                                                color: GameLogo[`${game_name}`].label,
+                                                                border: `1px solid ${GameLogo[`${game_name}`].label}`
+                                                            }}
+                                                        >   
+                                                        매칭방 가기
+                                                        </button>
+                                                    </Link>
+                                                    <button
+                                                            className="button"
+                                                            onClick={handleOnDelete}
+                                                            style={{
+                                                                color: 'rgb(220, 0, 0)',
+                                                                border: `1px solid rgb(220, 0, 78)`
+                                                            }}
+                                                        >   
+                                                        매칭방 탈퇴
+                                                        </button>
+                                                </div>
                                         </div>
                                     </div>
                                 </div>
@@ -219,4 +238,4 @@ const Chat = ({ user, id, className, sender, receiver, consent, game_name, regio
     )
 }
 
-export default Chat
+export default connect(null, { delete_matching_message_room })(Chat)
