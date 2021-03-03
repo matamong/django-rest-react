@@ -90,7 +90,18 @@ class MyMessageListView(generics.ListCreateAPIView):
         if message_room_obj.sender.id == self.request.user.id or message_room_obj.receiver.id == self.request.user.id:
             queryset = Message.objects.filter(message_room=message_room_obj).order_by('time_stamp')
             serializer = MessageSerializer(queryset, many=True)
+            
             print(serializer.data)
+
+            try:
+                sender_obj = UserAccount.objects.get(id=message_room_obj.sender.id)
+                sender_name = sender_obj.name
+                receiver_obj = UserAccount.objects.get(id=message_room_obj.receiver.id)
+                receiver_name = receiver_obj.name
+            except UserAccount.DoesNotExist:
+                sender_name = 'withdrawn'
+                receiver_name = 'withdrawn'
+
 
             return Response(serializer.data)
         else:
