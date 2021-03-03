@@ -1,0 +1,129 @@
+
+.messageUsergameProfile__container {
+  //box-sizing: border-box;
+  //display: flex;
+	//align-items: center;
+	//justify-content: center;
+	//flex-direction: column;
+	//min-height: 100vh;
+	//margin: 0;
+
+  .courses-container {
+    width: 18rem;
+    margin: 0 auto;
+  }
+
+
+  .course {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    max-width: 100%;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .course-preview-left {
+    margin: 1rem auto;
+    display: flex;
+    justify-content: center;
+    .MuiAvatar-root {
+      margin: 0.5rem auto !important
+    }
+  }
+  
+  
+  .course h6 {
+    opacity: 0.6;
+    margin: 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .course h4 {
+    opacity: 0.6;
+    margin: 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+  /** 
+  .course h2 {
+    letter-spacing: 1px;
+    margin: 10px 0;
+  }
+  */
+  .course-preview {
+    background-color: #2A265F;
+    color: #fff;
+    padding: 1rem;
+    max-width: 5rem;
+  }
+  
+  .course-preview a {
+    color: #fff;
+    display: inline-block;
+    font-size: 12px;
+    opacity: 0.6;
+    margin-top: 30px;
+    text-decoration: none;
+  }
+  
+  .course-info {
+    padding: 30px;
+    position: relative;
+    width: 100%;
+  }
+  
+  
+  .progress-container {
+    position: absolute;
+    top: 1rem;
+    text-align: right;
+    right: 1rem;
+  }
+  
+  
+  .progress-text {
+    font-size: 0.5rem;
+    opacity: 0.6;
+    letter-spacing: 1px;
+  }
+
+  .progress-info-container {
+    .progressbar {
+      padding: 1rem 0 1rem 0;
+    }
+    .time {
+      padding: 0 0 1rem 0;
+    }
+    .prefer {
+      display: flex;
+      justify-content: space-evenly;
+    }
+  }
+  
+  .btn {
+    background-color: #2A265F;
+    border: 0;
+    border-radius: 50px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-size: 0.5rem;
+    padding: 0.4rem 0.5rem;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    letter-spacing: 1px;
+  }
+}
+
+@media all and (min-width: 700px) {
+    
+  .messageUsergameProfile__container .courses-container {
+      margin: 2rem 0 2rem 0;
+      width: 28rem;
+      margin: 0 auto;
+  }
+}
