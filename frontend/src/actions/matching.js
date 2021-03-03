@@ -169,6 +169,10 @@ export const load_lol_usergame = () => async dispatch => {
     }
 }
 
+
+
+// Message Matching
+
 export const create_matching_message_room = ( receiver, game_name ) => async dispatch => {
     const config = {
         headers: {
@@ -226,3 +230,57 @@ export const send_matching_message = ( message_room_id, content ) => async dispa
     }
 }
 
+export const update_matching_message_room = ( message_room_id ) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + `${localStorage.getItem('access')}`,
+            'Accept': 'application/json'
+        }
+    }
+
+    console.log(config)
+
+    const temp = 'temp'
+    const body = JSON.stringify( { temp })
+
+    try {
+        const res = await axios.put(`${process.env.REACT_APP_API_URL}/api/messages/rooms/` + message_room_id, body, config)
+        
+        dispatch(setAlert('매칭이 수락되었어요!'))
+
+    } catch (error) {
+        if(error.response.status == 401)
+            dispatch(setErrorAlert('로그인 해주세요', 401))
+        else if(error.response.status == 403)
+            dispatch(setErrorAlert('매칭 수락은 요청받은 분만 할 수 있어요.', 403))        
+        else
+            dispatch(setErrorAlert('오류가 발생했어요!', error.response.status));
+    }
+}
+
+export const delete_matching_message_room = ( message_room_id ) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + `${localStorage.getItem('access')}`,
+            'Accept': 'application/json'
+        }
+    }
+
+    console.log(config)
+
+    try {
+        const res = await axios.delete(`${process.env.REACT_APP_API_URL}/api/messages/rooms/` + message_room_id, config)
+        
+        dispatch(setAlert('매칭방이 삭제되었어요!'))
+
+    } catch (error) {
+        if(error.response.status == 401)
+            dispatch(setErrorAlert('로그인 해주세요', 401))
+        else if(error.response.status == 403)
+            dispatch(setErrorAlert('매칭방 삭제는 당사자들만 할 수 있어요.', 403))        
+        else
+            dispatch(setErrorAlert('오류가 발생했어요!', error.response.status));
+    }
+}
