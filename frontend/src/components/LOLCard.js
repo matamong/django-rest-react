@@ -40,7 +40,7 @@ const LOLCard = (props) => {
           {props.profile.region}
         </Typography>
         <Typography variant="h5" component="h2">
-            {props.profile.lol_name}
+            {props.profile.user.name}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
         {props.profile.solo_tier} {props.profile.solo_rank}

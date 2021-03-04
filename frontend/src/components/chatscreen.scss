@@ -1,0 +1,69 @@
+
+
+.chatScreen__matchingUserGameProfile {
+    margin: 2rem 0 2rem 0;
+}
+
+.chatScreen__message {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+.chatScreen__text {
+    margin-left: 10px;
+    background-color: lightgray;
+    padding: 15px;
+    border-radius: 20px;
+}
+
+.chatScreen__info {
+    text-align: center;
+    padding: 20px;
+    color: gray;
+}
+
+.chatScreen__textUser {
+    margin-left: auto;
+    background-color: #29b3cd;
+    padding: 15px;
+    border-radius: 20px;
+    color: white;
+}
+
+.chatScreen__border {
+    // 대화풍선과 메시지창이 겹치는 것을 방지
+    width: 100%;
+    height: 3rem;
+}
+
+.chatScreen__input {
+    display: flex; 
+    padding: 5px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid lightgray;
+    background-color: white;
+}
+.chatScreen__consent {
+    flex: 1; /* 부모가 flex일 때, flex 1을 주게되면 딱 맞게 fit된다. */
+    padding: 10px;
+    border: none;
+    background-color: white;
+    display: flex;
+    justify-content: space-evenly;
+}
+.chatScreen__inputField {
+    flex: 1; /* 부모가 flex일 때, flex 1을 주게되면 딱 맞게 fit된다. */
+    padding: 10px;
+    border: none;
+}
+
+.chatScreen__inputButton {
+    border: none;
+    margin-right: 20px;
+    background-color: white;
+    font-weight: bolder;
+    color: #fe3d71;
+}
+

@@ -18,15 +18,15 @@ import { Provider } from 'react-redux';
 import store from './store'
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import MatchingChat from './containers/MatchingChat'
 import SignupSuccess from './components/SignupSuccess'
+import ChatScreen from './components/ChatScreen'
 
 const App = () => (
     <Provider store={store}>
         <Router>
             <Layout>
                 <Switch>
-                    <Route exact path='/' component={Home} />
                     <Route exact path='/login' component={Login} />
                     <Route exact path='/signup' component={Signup} />
                     <Route exact path='/reset-password' component={ResetPassword} />
@@ -39,6 +39,9 @@ const App = () => (
                     <Route exact path='/my-page' component={MyPage} />
                     <Route exact path="/SignupSuccess" component={SignupSuccess} />
                     <Route exact path='/lol-update-form' component={LolUpdateForm} />
+                    <Route exact path='/matching-chat' component={MatchingChat} />
+                    <Route exact path='/matching-chat-detail/:id' component={ChatScreen} />
+                    <Route exact path='/' component={Home} />
                 </Switch>
             </Layout>
             <ToastContainer />

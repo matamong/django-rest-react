@@ -59,7 +59,8 @@ INSTALLED_APPS = [
     'accounts',
     'matching',
     'corsheaders',
-    'lolapi'
+    'lolapi',
+    'message'
 ]
 
 MIDDLEWARE = [

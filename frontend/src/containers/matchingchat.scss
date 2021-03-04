@@ -1,0 +1,19 @@
+.matchingChat__container {
+    width: 22rem;
+    margin: 0 auto;
+}
+
+
+@media screen and (min-width: 481px) {
+    .matchingChat__container {
+        width: 30rem;
+        margin: 0 auto;
+    }
+ }
+
+ @media screen and (min-width: 769px) {
+    .matchingChat__container {
+        width: 50rem;
+        margin: 0 auto;
+    }
+ }
