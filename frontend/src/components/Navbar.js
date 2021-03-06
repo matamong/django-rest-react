@@ -36,15 +36,15 @@ const Navbar = ({ logout, isAuthenticated }) => {
     );
 
     return (
-        <div class="header">
+        <div className="header">
             <Link to='/'>
-                <div class="logo"><h2>&#128064;GameDuoS</h2></div>
+                <div className="logo"><h2>&#128064;GameDuoS</h2></div>
             </Link>
             <input type="checkbox" id="chk" />
-            <label for="chk" class="show-menu-btn">
+            <label htmlFor="chk" className="show-menu-btn">
                 <DehazeIcon />
             </label>
-            <ul class="menu">
+            <ul className="menu">
                 <Link to='/matching'>
                     <a className="menu_a">매칭</a>
                 </Link>
@@ -63,7 +63,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
                 <div className="header__profile">
                 {isAuthenticated ? authLinks() : guestLinks()}
             </div>
-                <label for="chk" class="hide-menu-btn">
+                <label htmlFor="chk" className="hide-menu-btn">
                     <CloseIcon />
                 </label>
             </ul>
