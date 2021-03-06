@@ -58,9 +58,9 @@ export const save_lol_usergame = ( lol_name, region, prefer_style, prefer_time, 
             type: LOL_USER_GAME_SAVE_FAIL,
             error: error
         })
-        if(error.response.status == 401)
+        if(error.response.status === 401)
             dispatch(setErrorAlert('인증되지 않은 회원입니다!', 401))
-        else if(error.response.status == 400)
+        else if(error.response.status === 400)
             dispatch(setErrorAlert('작성하지 않은 곳이 있습니다!', 400))
         else
             dispatch(setErrorAlert('오류가 발생했습니다!', error.response.status));
@@ -95,9 +95,9 @@ export const update_lol_usergame = ( lol_name, region, prefer_style, prefer_time
             type: LOL_USER_GAME_SAVE_FAIL,
             error: error
         })
-        if(error.response.status == 401)
+        if(error.response.status === 401)
             dispatch(setErrorAlert('인증되지 않은 회원입니다!', 401))
-        else if(error.response.status == 400)
+        else if(error.response.status === 400)
             dispatch(setErrorAlert('작성하지 않은 곳이 있습니다!', 400))
         else
             dispatch(setErrorAlert('오류가 발생했습니다!', error.response.status));
@@ -126,9 +126,9 @@ export const delete_lol_usergame = () => async dispatch => {
             type: LOL_USER_GAME_DELETE_FAIL,
             error: error
         })
-        if(error.response.status == 401)
+        if(error.response.status === 401)
             dispatch(setErrorAlert('인증되지 않은 회원입니다!', 401))
-        else if(error.response.status == 400)
+        else if(error.response.status === 400)
             dispatch(setErrorAlert('작성하지 않은 곳이 있습니다!', 400))
         else
             dispatch(setErrorAlert('오류가 발생했습니다!', error.response.status));
@@ -187,9 +187,9 @@ export const create_matching_message_room = ( receiver, game_name ) => async dis
 
         return res.data
     } catch (error) {
-        if(error.response.status == 401)
+        if(error.response.status === 401)
             dispatch(setErrorAlert('인증되지 않은 회원입니다!', 401))
-        else if(error.response.status == 400)
+        else if(error.response.status === 400)
             dispatch(setErrorAlert('이미 존재하는 매칭방이에요!', 400))
         else
             dispatch(setErrorAlert('오류가 발생했어요!', error.response.status));
@@ -215,9 +215,9 @@ export const send_matching_message = ( message_room_id, content ) => async dispa
         dispatch(setAlert('메시지가 보내졌어요.'))
         return true
     } catch (error) {
-        if(error.response.status == 401)
+        if(error.response.status === 401)
             dispatch(setErrorAlert('인증되지 않은 회원입니다!', 401))
-        else if(error.response.status == 400)
+        else if(error.response.status === 400)
             dispatch(setErrorAlert('한마디를 작성해주세요!', 400))
         else
             dispatch(setErrorAlert('오류가 발생했어요!', error.response.status));
@@ -245,9 +245,9 @@ export const update_matching_message_room = ( message_room_id ) => async dispatc
         dispatch(setAlert('매칭이 수락되었어요!'))
 
     } catch (error) {
-        if(error.response.status == 401)
+        if(error.response.status === 401)
             dispatch(setErrorAlert('로그인 해주세요', 401))
-        else if(error.response.status == 403)
+        else if(error.response.status === 403)
             dispatch(setErrorAlert('매칭 수락은 요청받은 분만 할 수 있어요.', 403))        
         else
             dispatch(setErrorAlert('오류가 발생했어요!', error.response.status));
@@ -271,9 +271,9 @@ export const delete_matching_message_room = ( message_room_id ) => async dispatc
         dispatch(setAlert('매칭방이 삭제되었어요!'))
 
     } catch (error) {
-        if(error.response.status == 401)
+        if(error.response.status === 401)
             dispatch(setErrorAlert('로그인 해주세요', 401))
-        else if(error.response.status == 403)
+        else if(error.response.status === 403)
             dispatch(setErrorAlert('매칭방 삭제는 당사자들만 할 수 있어요.', 403))        
         else
             dispatch(setErrorAlert('오류가 발생했어요!', error.response.status));

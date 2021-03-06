@@ -2,7 +2,6 @@ import react from 'react'
 import './profileToken.scss'
 import AlarmIcon from '@material-ui/icons/Alarm';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 
 const ProfileToken = (props) => {
     return (

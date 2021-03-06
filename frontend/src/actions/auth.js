@@ -21,7 +21,7 @@ import {
 import { setErrorAlert } from './alert'
 
 export const checkAuthenticated = () => async dispatch => {
-    if (typeof window == 'undefined') {
+    if (typeof window === 'undefined') {
         dispatch({
             type: AUTHENTICATED_FAIL
         });
@@ -111,7 +111,7 @@ export const login = (email, password) => async dispatch => {
         dispatch({
             type: LOGIN_FAIL
         });
-        if(error.response.status == 401)
+        if(error.response.status === 401)
             dispatch(setErrorAlert('이메일/비밀번호를 다시 확인해주세요.', 401))
         else
             dispatch(setErrorAlert('잠시 후에 다시 시도해주세요.', error.response.status));
