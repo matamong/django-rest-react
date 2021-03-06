@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {delete_matching_message_room } from '../actions/matching';
 import { Hearing, KeyboardVoice, AccessTime } from '@material-ui/icons';
 import ForwardIcon from '@material-ui/icons/Forward';
-import Avatar from '@material-ui/core/Avatar'
 import Moment from 'react-moment';
 import 'moment-timezone';
 import 'moment/locale/ko'

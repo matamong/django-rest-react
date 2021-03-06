@@ -1,8 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import ProgressBarLine from './ProgressBarLine'
-import AlarmIcon from '@material-ui/icons/Alarm';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import { Hearing, KeyboardVoice, AccessTime } from '@material-ui/icons';
 import { Chip } from '@material-ui/core'
 import Avatar from '@material-ui/core/Avatar'

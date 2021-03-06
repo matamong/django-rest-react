@@ -5,9 +5,7 @@ import { logout } from '../actions/auth';
 import './navbar.scss';
 import PersonIcon from '@material-ui/icons/Person';
 import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import FaceIcon from '@material-ui/icons/Face';
 import DehazeIcon from '@material-ui/icons/Dehaze';
 import CloseIcon from '@material-ui/icons/Close';
 

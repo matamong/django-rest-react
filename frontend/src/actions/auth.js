@@ -16,11 +16,9 @@ import {
     RESET_PASSWORD_CONFIRM_FAIL,
     DELETE_USER_SUCCESS,
     DELETE_USER_FAIL,
-    RESEND_ACTIVATION_EMAIL_SUCCESS,
-    RESEND_ACTIVATION_EMAIL_FAIL,
     LOGOUT
 } from'./types';
-import { setAlert, setErrorAlert } from './alert'
+import { setErrorAlert } from './alert'
 
 export const checkAuthenticated = () => async dispatch => {
     if (typeof window == 'undefined') {
@@ -130,7 +128,7 @@ export const signup = ({ name, email, password, re_password }) => async dispatch
     const body = JSON.stringify({ name, email, password, re_password }); 
 
     try {
-        const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/`, body, config);
+        await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/`, body, config);
 
         dispatch({
             type: SIGNUP_SUCCESS,
@@ -256,7 +254,7 @@ export const delete_user = (password) => async dispatch => {
     console.log('config data  : ' + config.data.current_password)
 
     try {
-        const res = await axios.delete(`${process.env.REACT_APP_API_URL}/auth/users/me/`, config);
+        await axios.delete(`${process.env.REACT_APP_API_URL}/auth/users/me/`, config);
 
         dispatch({
             type: DELETE_USER_SUCCESS,

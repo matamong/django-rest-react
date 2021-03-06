@@ -4,14 +4,10 @@ import {
     LOL_USER_GAME_SAVE_FAIL,
     LOL_USER_GAME_LOAD_SUCCESS,
     LOL_USER_GAME_LOAD_FAIL,
-    SET_ERROR_ALERT,
-    REMOVE_ALERT,
-    LOL_USER_GAME_UPDATE_SUCCESS,
     LOL_USER_GAME_DELETE_SUCCESS,
     LOL_USER_GAME_DELETE_FAIL
 } from './types'
 import { setAlert, setErrorAlert } from './alert';
-import { load_user } from '../actions/auth';
 
 function getCookie(name) {
     var cookieValue = null;
@@ -28,7 +24,6 @@ function getCookie(name) {
     return cookieValue;
 }
 
-var axiosDefaults = require("axios/lib/defaults");
 
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -119,7 +114,7 @@ export const delete_lol_usergame = () => async dispatch => {
     }
 
     try {
-        const res = await axios.delete(`${process.env.REACT_APP_API_URL}/api/matching/lol/my/usergame`, config)
+        await axios.delete(`${process.env.REACT_APP_API_URL}/api/matching/lol/my/usergame`, config)
 
         dispatch({ type: LOL_USER_GAME_DELETE_SUCCESS })
         dispatch(setAlert('성공적으로 삭제되었습니다!'))
@@ -216,7 +211,7 @@ export const send_matching_message = ( message_room_id, content ) => async dispa
     const body = JSON.stringify( { content })
 
     try {
-        const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/messages/`+message_room_id , body, config)
+        await axios.post(`${process.env.REACT_APP_API_URL}/api/messages/`+message_room_id , body, config)
         dispatch(setAlert('메시지가 보내졌어요.'))
         return true
     } catch (error) {
@@ -245,7 +240,7 @@ export const update_matching_message_room = ( message_room_id ) => async dispatc
     const body = JSON.stringify( { temp })
 
     try {
-        const res = await axios.put(`${process.env.REACT_APP_API_URL}/api/messages/rooms/` + message_room_id, body, config)
+        await axios.put(`${process.env.REACT_APP_API_URL}/api/messages/rooms/` + message_room_id, body, config)
         
         dispatch(setAlert('매칭이 수락되었어요!'))
 
@@ -271,7 +266,7 @@ export const delete_matching_message_room = ( message_room_id ) => async dispatc
     console.log(config)
 
     try {
-        const res = await axios.delete(`${process.env.REACT_APP_API_URL}/api/messages/rooms/` + message_room_id, config)
+        await axios.delete(`${process.env.REACT_APP_API_URL}/api/messages/rooms/` + message_room_id, config)
         
         dispatch(setAlert('매칭방이 삭제되었어요!'))
 

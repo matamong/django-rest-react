@@ -1,11 +1,10 @@
-import React, { useState, useEffect, forwardRef, useImperativeHandle, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux';
 import { create_matching_message_room, send_matching_message } from '../actions/matching';
 import { setAlert } from '../actions/alert';
 import axios from 'axios'
 import Card from './LOLCard'
 import TinderCard from "react-tinder-card";
-import { pull } from 'lodash';
 import './lolmatchingcards.scss'
 import Button from '@material-ui/core/Button';
 import RefreshIcon from '@material-ui/icons/Refresh';
@@ -18,7 +17,7 @@ import TextField from '@material-ui/core/TextField';
 
 const LOLMatchingCards = ({ isAuthenticated, create_matching_message_room, send_matching_message, setAlert }) => {
 
-    var _ = require('lodash');
+    const _ = require('lodash');
     const [matchedUsers, setMatchedUsers] = useState(null)
     const [matchingLoading, setMatchingLoading] = useState(false)
     const [matchingError, setMatchingError] = useState(null)
