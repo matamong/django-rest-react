@@ -8,6 +8,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import FaceIcon from '@material-ui/icons/Face';
+import DehazeIcon from '@material-ui/icons/Dehaze';
+import CloseIcon from '@material-ui/icons/Close';
 
 const Navbar = ({ logout, isAuthenticated }) => {
     const guestLinks = () => (
@@ -34,28 +36,38 @@ const Navbar = ({ logout, isAuthenticated }) => {
     );
 
     return (
-        <div className="header">
-            <Link to="/">
-                <img className="header__log" src="https://1000logos.net/wp-content/uploads/2018/07/tinder-logo.png"
-                    alt="tinder logo"></img>
+        <div class="header">
+            <Link to='/'>
+                <div class="logo"><h2>&#128064;GameDuoS</h2></div>
             </Link>
-            <div className="header__menue">
-                <Link to="/matching">
-                    <IconButton>
-                        <FaceIcon className="header__icon" fontSize="large" />
-                    </IconButton>
+            <input type="checkbox" id="chk" />
+            <label for="chk" class="show-menu-btn">
+                <DehazeIcon />
+            </label>
+            <ul class="menu">
+                <Link to='/matching'>
+                    <a className="menu_a">매칭</a>
                 </Link>
-                <Link to="/lol">
-                    <IconButton>
-                        <img className="header__icon" 
-                        src="http://ddragon.leagueoflegends.com/cdn/10.23.1/img/spell/SummonerFlash.png" 
-                        alt="lol" ></img>
-                    </IconButton>
+                <Link to='/matching-chat'>
+                    <a className="menu_a">매칭 리스트</a>                    
                 </Link>
-            </div>
-            <div className="header__profile">
+                <Link to='/'>
+                    <a className="menu_a">길드 매칭</a>                    
+                </Link>
+                <Link to='/'>
+                    <a className="menu_a">컨텐츠</a>                    
+                </Link>
+                <Link to='/'>
+                    <a className="menu_a">커뮤니티</a>                    
+                </Link>
+                <div className="header__profile">
                 {isAuthenticated ? authLinks() : guestLinks()}
             </div>
+                <label for="chk" class="hide-menu-btn">
+                    <CloseIcon />
+                </label>
+            </ul>
+
         </div>
     );
 };
