@@ -50,7 +50,7 @@
 <br><br>
 
 # **Version**
-Python v3.1.7 <br>
+Python v3.7.9 <br>
 Django v3.1.2 <br>
 Node v12.18.3 <br>
 NPM v6.14.6  <br>
