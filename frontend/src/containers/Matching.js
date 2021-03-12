@@ -3,7 +3,6 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios'
 import MatchingTickets from '../components/MatchingTickets'
-import './matching.scss'
 
 const Matching = ({ isAuthenticated }) => {
     const [usergames, setUsergames] = useState(null)

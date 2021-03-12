@@ -4,7 +4,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
-import './lolcard.scss';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import CommentIcon from '@material-ui/icons/Comment';
 import HeadsetMicIcon from '@material-ui/icons/HeadsetMic';
