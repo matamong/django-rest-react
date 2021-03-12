@@ -8,6 +8,7 @@ import { DoneIcon, HeadsetMic, HeadsetMicOutlined, Hearing , KeyboardVoice, Acce
 import { setAlert } from '../actions/alert'
 import axios from 'axios'
 import './lolform.scss'
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Slider, { SliderTooltip } from 'rc-slider';
 
 const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_usergame }) => {
@@ -177,29 +178,37 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
     const onSubmit = (e) => {
         e.preventDefault();
 
-        update_lol_usergame(
-            generalFormData.lol_name,
-            generalFormData.region,
-            generalFormData.prefer_style,
-            generalFormData.prefer_time,
-            generalFormData.intro,
-            positionFormData,
-            modeFormData,
-            micFormData.mic
-        ).then(function(result){
-            if(result == true) {
-                setAlert('성공적으로 수정되었습니다!', 'Udate Success', 1500)
-            }
-        }).then(function(result){
-            setTimeout(function() {
-                history.goBack()
-              }, 1500);
-        })
+        try{
+            setLoading(true)
+            update_lol_usergame(
+                generalFormData.lol_name,
+                generalFormData.region,
+                generalFormData.prefer_style,
+                generalFormData.prefer_time,    
+                generalFormData.intro,
+                positionFormData,
+                modeFormData,
+                micFormData.mic
+            ).then(function(result){
+                setLoading(false)
+                if(result === true) {
+                    setAlert('성공적으로 수정되었습니다!', 'Update Success', 1500)
+                }
+            }).then(function(result){
+                setTimeout(function() {
+                    history.goBack()
+                  }, 1500);
+            })
+            
+        } catch(e) {
+            setLoading(false)
+        }
+
     }
 
     const onDelete = () => {
         delete_lol_usergame().then(function(result){
-            if(result == true) {
+            if(result === true) {
                 setAlert('성공적으로 삭제되었습니다!', 'Delete Success', 1500)
             }
         }).then(function(result){
@@ -394,7 +403,7 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
                     </div>
                 </div>
                 <div className="lolform__button">
-                    {renderSubmitBtn()}
+                    {loading === true ?  <div><CircularProgress /></div> : renderSubmitBtn() }
                     <Button  variant="contained" color="secondary" onClick={onDelete}>삭제</Button>
                 </div>
             </form>

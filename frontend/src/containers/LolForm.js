@@ -8,6 +8,7 @@ import { TextField, Select, MenuItem, FormControl, InputLabel, Typography, Chip,
 import { DoneIcon, HeadsetMic, HeadsetMicOutlined, Hearing , KeyboardVoice, AccessTime } from '@material-ui/icons';
 import Slider, { SliderTooltip } from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
 
 
@@ -27,6 +28,7 @@ const LolForm = ({ save_lol_usergame }) => {
 
     const [profile, setProfile] = useState(null)
     const [cardCreated, setCardCreated] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const [valueData, setValueData] = useState({
         nameEntered: '',
@@ -148,7 +150,7 @@ const LolForm = ({ save_lol_usergame }) => {
     }
 
     const renderSubmitBtn = () => {
-        if (isNameFieldValid() || cardCreated === false) {
+        if (isNameFieldValid() && cardCreated === false) {
             return (
                 <Button variant="contained" color="primary" type="submit">등록하기</Button>
             )
@@ -209,19 +211,25 @@ const LolForm = ({ save_lol_usergame }) => {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        save_lol_usergame(
-            generalFormData.lol_name,
-            generalFormData.region,
-            generalFormData.prefer_style,
-            generalFormData.prefer_time,
-            generalFormData.intro,
-            positionFormData,
-            modeFormData,
-            micFormData.mic
-        ).then(function (result) {
-            setProfile(result)
-            setCardCreated(true)
-        })
+        try{
+            setLoading(true)
+            save_lol_usergame(
+                generalFormData.lol_name,
+                generalFormData.region,
+                generalFormData.prefer_style,
+                generalFormData.prefer_time,
+                generalFormData.intro,
+                positionFormData,
+                modeFormData,
+                micFormData.mic
+            ).then(function (result) {
+                setLoading(false)
+                setProfile(result)
+                setCardCreated(true)
+            })
+        } catch(e) {
+            setLoading(false)
+        }
     }
 
 
@@ -422,7 +430,7 @@ const LolForm = ({ save_lol_usergame }) => {
                     </div>
                 </div>
                 <div className="lolform__button">
-                    {renderSubmitBtn()}
+                    {loading === true ?  <div><CircularProgress /></div> : renderSubmitBtn() }
                 </div>
             </form>
             {profile == null ? '' :
