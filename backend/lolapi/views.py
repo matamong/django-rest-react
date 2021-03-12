@@ -15,7 +15,7 @@ from django.http import Http404
 class LolUserGameMyRetrieveView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOnly]
     # queryset = LolUserGame.objects.all()
-    serializer_class = LolUserGameSerializer
+    serializer_class = LolMyUserGameSerializer
     
     def get_object(self):
         try:
