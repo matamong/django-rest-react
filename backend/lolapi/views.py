@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework import generics
 from .models import LolUserGame, LolPosition, LolPreferMode
-from .serializers import LolUserGameSerializer, LolPositionSerializer, LolPreferModeSerializer
+from .serializers import LolUserGameSerializer, LolPositionSerializer, LolPreferModeSerializer, LolMyUserGameSerializer
 from rest_framework import permissions
 from riotwatcher import LolWatcher, ApiError
 from matching.permissions import IsOwnerAndAdminOnly, IsOwnerOrReadOnly, IsOwnerOnly
