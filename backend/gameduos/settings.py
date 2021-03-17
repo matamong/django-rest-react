@@ -41,7 +41,7 @@ SECRET_KEY = get_secret("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1']
 
 
 # Application definition
@@ -66,12 +66,12 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'gameduos.urls'
@@ -79,7 +79,8 @@ ROOT_URLCONF = 'gameduos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'build')],
+        'DIRS': [],
+	#'DIRS': [os.path.join(BASE_DIR, 'build')]  for development without docker
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -138,10 +139,19 @@ USE_L10N = True
 
 USE_TZ = True
 
-# CORS 배포환경에서는 False하고 Whitelist 지정하기!!! https://github.com/adamchainz/django-cors-headers
-CORS_ORIGIN_ALLOW_ALL=True
-CORS_ALLOW_CREDENTIALS = True
+PROTOCOL = "http"
+DOMAIN = "localhost:3000"
+if not DEBUG:
+	PROTOCOL = "https"
+	DOMAIN = "gameduos.net"
 
+# CORS 배포환경에서는 False하고 Whitelist 지정하기!!! https://github.com/adamchainz/django-cors-headers
+
+CORS_ALLOWED_ORIGINS = [
+	"http://localhost:3000",
+	"http://127.0.0.1:3000",
+	"http://0.0.0.0"
+]
 # 정의해둔 유저모델을 정해준다.
 AUTH_USER_MODEL = 'accounts.UserAccount'  
 
