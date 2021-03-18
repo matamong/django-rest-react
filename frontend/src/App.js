@@ -21,6 +21,13 @@ import "react-toastify/dist/ReactToastify.css";
 import MatchingChat from './containers/MatchingChat'
 import SignupSuccess from './components/SignupSuccess'
 import ChatScreen from './components/ChatScreen'
+import axios from "axios"
+
+if (window.location.origin === "http://localhost:3000") {
+  axios.defaults.baseURL = "http://127.0.0.1:8000"; //development
+} else {
+  axios.defaults.baseURL = window.location.origin;  //production
+}
 
 const App = () => (
     <Provider store={store}>

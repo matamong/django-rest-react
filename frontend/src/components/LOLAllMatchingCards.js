@@ -25,7 +25,7 @@ const LOLAllMatchingCards = () => {
             // loading 상태를 true 로 바꿉니다.
             setAllUserLoading(true);
             const response = await axios.get(
-                'http://localhost:8000/api/matching/lol/usergames',
+                "/api/matching/lol/usergames",
                 config
             );
             setAllUsers(response.data); // 데이터는 response.data 안에 들어있습니다.

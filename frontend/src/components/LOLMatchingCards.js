@@ -44,7 +44,7 @@ const LOLMatchingCards = ({ isAuthenticated, create_matching_message_room, send_
             setMatchingLoading(true);
 
             const response = await axios.get(
-                'http://localhost:8000/api/matching/lol/',
+                "/api/matching/lol/",
                 config
             );
 

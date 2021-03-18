@@ -22,7 +22,7 @@ const Matching = ({ isAuthenticated }) => {
             setUsergames(null);
             setLoading(true);
             
-            axios.get(`${process.env.REACT_APP_API_URL}/api/matching/my/usergames`, config)
+            axios.get("/api/matching/my/usergames", config)
             .then(function (response) {
                 console.log(response);
                 setUsergames(response.data)

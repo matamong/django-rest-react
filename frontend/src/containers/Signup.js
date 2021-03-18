@@ -13,6 +13,7 @@ import { createChainedFunction } from '@material-ui/core';
 
 
 const Signup = ({ signup, isAuthenticated }) => {
+    console.log(window.location.origin)
     var Isemail = require('isemail');
     const [accountCreated, setAccountCreated] = useState(false);
     
@@ -50,7 +51,7 @@ const Signup = ({ signup, isAuthenticated }) => {
     const checkDuplicatedName = (nickname) => {
         try{
             axios.head(
-                `${process.env.REACT_APP_API_URL}/api/users/search/name/` + nickname
+                "/api/users/search/name/" + nickname
             ).catch(function (error) {
                 if (error.response.status === 404) {
                   setIsNameDuplicated(false)
@@ -69,7 +70,7 @@ const Signup = ({ signup, isAuthenticated }) => {
     const checkDuplicatedEmail = (email) => {
         try {
             axios.head(
-                `${process.env.REACT_APP_API_URL}/api/users/search/email/` + email
+                "/api/users/search/email/" + email
             ).catch(function (error) {
                 if (error.response.status === 404) {
                   setIsEmailDuplicated(false)

@@ -43,7 +43,7 @@ export const save_lol_usergame = ( lol_name, region, prefer_style, prefer_time, 
     const body = JSON.stringify( { lol_name, region, prefer_style, prefer_time, intro, 'lol_position' : lol_position, 'lol_prefer_mode': lol_prefer_mode, mic })
 
     try {
-        const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/matching/lol/usergames`, body, config)
+        const res = await axios.post("/api/matching/lol/usergames", body, config)
 
         dispatch({
             type: LOL_USER_GAME_SAVE_SUCCESS,
@@ -81,7 +81,7 @@ export const update_lol_usergame = ( lol_name, region, prefer_style, prefer_time
     const body = JSON.stringify( { lol_name, region, prefer_style, prefer_time, intro, 'lol_position' : lol_position, 'lol_prefer_mode': lol_prefer_mode, mic })
 
     try {
-        const res = await axios.put(`${process.env.REACT_APP_API_URL}/api/matching/lol/my/usergame`, body, config)
+        const res = await axios.put("/api/matching/lol/my/usergame", body, config)
 
         dispatch({
             type: LOL_USER_GAME_SAVE_SUCCESS,
@@ -114,7 +114,7 @@ export const delete_lol_usergame = () => async dispatch => {
     }
 
     try {
-        await axios.delete(`${process.env.REACT_APP_API_URL}/api/matching/lol/my/usergame`, config)
+        await axios.delete("/api/matching/lol/my/usergame", config)
 
         dispatch({ type: LOL_USER_GAME_DELETE_SUCCESS })
         dispatch(setAlert('성공적으로 삭제되었습니다!'))
@@ -146,7 +146,7 @@ export const load_lol_usergame = () => async dispatch => {
         }
 
         try {
-            const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/matching/lol/my/usergame`, config)
+            const res = await axios.get("/api/matching/lol/my/usergame", config)
             dispatch({
                 type: LOL_USER_GAME_LOAD_SUCCESS,
                 payload: res.data
@@ -181,7 +181,7 @@ export const create_matching_message_room = ( receiver, game_name ) => async dis
     console.log(body)
 
     try {
-        const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/messages/rooms`, body, config)
+        const res = await axios.post("/api/messages/rooms", body, config)
 
         dispatch(setAlert('매칭이 요청되었어요!'))
 
@@ -211,7 +211,7 @@ export const send_matching_message = ( message_room_id, content ) => async dispa
     const body = JSON.stringify( { content })
 
     try {
-        await axios.post(`${process.env.REACT_APP_API_URL}/api/messages/`+message_room_id , body, config)
+        await axios.post("/api/messages/"+message_room_id , body, config)
         dispatch(setAlert('메시지가 보내졌어요.'))
         return true
     } catch (error) {
@@ -240,7 +240,7 @@ export const update_matching_message_room = ( message_room_id ) => async dispatc
     const body = JSON.stringify( { temp })
 
     try {
-        await axios.put(`${process.env.REACT_APP_API_URL}/api/messages/rooms/` + message_room_id, body, config)
+        await axios.put("/api/messages/rooms/" + message_room_id, body, config)
         
         dispatch(setAlert('매칭이 수락되었어요!'))
 
@@ -266,7 +266,7 @@ export const delete_matching_message_room = ( message_room_id ) => async dispatc
     console.log(config)
 
     try {
-        await axios.delete(`${process.env.REACT_APP_API_URL}/api/messages/rooms/` + message_room_id, config)
+        await axios.delete("/api/messages/rooms/" + message_room_id, config)
         
         dispatch(setAlert('매칭방이 삭제되었어요!'))
 

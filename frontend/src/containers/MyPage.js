@@ -34,7 +34,7 @@ const MyPage = ({ isAuthenticated }) => {
             setProfile(null);
             setLoading(true);
             
-            axios.get(`${process.env.REACT_APP_API_URL}/api/users/my`, config)
+            axios.get("/api/users/my", config)
             .then(function (response) {
                 console.log(response);
                 setProfile(response.data)

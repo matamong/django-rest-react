@@ -82,7 +82,7 @@ const LolForm = ({ save_lol_usergame }) => {
         }
         try {
             axios.get(
-                `${process.env.REACT_APP_API_URL}/api/matching/lol/usergame/` + nickname,
+                "/api/matching/lol/usergame/" + nickname,
                 config
             ).then(response => {
 

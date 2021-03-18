@@ -68,7 +68,7 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
             setProfile(null);
             setLoading(true);
             
-            axios.get(`${process.env.REACT_APP_API_URL}/api/matching/lol/my/usergame`, config)
+            axios.get("/api/matching/lol/my/usergame", config)
             .then(function (response) {
                 console.log(response);
                 setProfile(response.data)
