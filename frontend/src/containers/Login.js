@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../actions/auth';
+import ReactDOM from 'react-dom';
+import GoogleOAuth from '../components/SocialAuthGoogle'
 import loginImg from '../login.svg'
 import Button from '@material-ui/core/Button';
 import "./login.scss";
@@ -32,6 +34,9 @@ const Login = ({ login, isAuthenticated }) => {
             <div className="login__content">
                 <div className="login__image">
                     <img src={loginImg} />
+                </div>
+                <div className="login__social__google">
+                    <GoogleOAuth />
                 </div>
                 <form onSubmit={e => onSubmit(e)}>
                     <div className="login__formContainer">
