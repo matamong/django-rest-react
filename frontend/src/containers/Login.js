@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import "./login.scss";
 
 
+
 const Login = ({ login, isAuthenticated }) => {
     const [formData, setFormData] = useState({
         email: '',
@@ -25,12 +26,12 @@ const Login = ({ login, isAuthenticated }) => {
         login(email, password);
     };
 
+
     if (isAuthenticated)
         return <Redirect to='/' />;
 
     return (
         <div className="login__baseContainer">
-            <div className="login__header">Login</div>
             <div className="login__content">
                 <div className="login__image">
                     <img src={loginImg} />
@@ -38,13 +39,17 @@ const Login = ({ login, isAuthenticated }) => {
                 <div className="login__social__google">
                     <GoogleOAuth />
                 </div>
+                <div className="login__line__container">
+                    <div className="login__line"></div>
+                    <div style={{margin:'1rem 0 0 0 ', padding:'0 1rem'}}>OR</div>
+                    <div className="login__line"></div>
+                </div>
                 <form onSubmit={e => onSubmit(e)}>
                     <div className="login__formContainer">
                         <div className="login__formGroup">
-                            <label htmlFor="username">UserName</label>
                             <input
                                 type='email'
-                                placeholder='Email'
+                                placeholder='이메일'
                                 name='email'
                                 value={email}
                                 onChange={e => onChange(e)}
@@ -52,10 +57,9 @@ const Login = ({ login, isAuthenticated }) => {
                             />
                         </div>
                         <div className="login__formGroup">
-                            <label htmlFor="password">Password</label>
                             <input
                                 type='password'
-                                placeholder='Password'
+                                placeholder='비밀번호'
                                 name='password'
                                 value={password}
                                 onChange={e => onChange(e)}
@@ -63,15 +67,17 @@ const Login = ({ login, isAuthenticated }) => {
                                 required
                             />
                         </div>
-                        <p>Don't have an account? <Link to='/signup'>Sign Up</Link></p>
-                        <p>Forgot your Password? <Link to='/reset-password'>Reset Password</Link></p>
+                        <div className="login__phrase__container">
+                            <p className="login__phrase">Game Duos에 처음이신가요?<span className="login__lilnk"><Link to='/signup'>회원가입 하기</Link></span></p>
+                            <p className="login__phrase">비밀번호가 기억나지않나요? <span className="login__lilnk"><Link to='/reset-password'>비밀번호 변경하기</Link></span></p>
+                        </div>
                         <div className="login__footer">
                             <Button
                                 type='submit'
                                 variant="contained"
                                 color="primary">
-                                Login
-                        </Button>
+                                로그인
+                            </Button>
                         </div>
                     </div>
                 </form>
