@@ -44,6 +44,9 @@ const MatchingChat = ({ isAuthenticated, user }) => {
         fetchMatchingChatList();
     }, []);
 
+    if (!isAuthenticated)
+    return <Redirect to="/login" />;
+
 
     //if (!isAuthenticated)
     //    return <Redirect to='/login' />;
