@@ -1,0 +1,25 @@
+{% load i18n %}
+
+{% block subject %}
+{% blocktrans %}{{ site_name }} - 인증이 완료되었습니다.{% endblocktrans %}
+{% endblock %}
+
+{% block text_body %}
+{% trans "인증이 정상적으로 완료되었어요." %}
+{% trans "이제 GAMEDUOS를 이용할 수 있게 되었군요! 환영합니다! :)" %}
+
+
+{% trans "Thanks for using our site!" %}
+
+{% blocktrans %}The {{ site_name }} team{% endblocktrans %}
+{% endblock text_body %}
+
+{% block html_body %}
+<p>{% trans "인증이 정상적으로 완료되었어요." %}</p>
+<p>{% trans "이제 GAMEDUOS를 이용할 수 있게 되었군요! 환영합니다! :)" %}</p>
+
+
+<p>{% trans "Thanks for using our site!" %}</p>
+
+<p>{% blocktrans %}The {{ site_name }} team{% endblocktrans %}</p>
+{% endblock html_body %}

@@ -79,8 +79,7 @@ ROOT_URLCONF = 'gameduos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-	#'DIRS': [os.path.join(BASE_DIR, 'build')]  for development without docker
+	    'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,6 +138,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+SITE_NAME = "GAMEDUOS"
 PROTOCOL = "http"
 DOMAIN = "localhost:3000"
 if not DEBUG:
@@ -186,6 +186,12 @@ DJOSER = {
     'USERNAME_RESET_CONFIRM_URL': 'email/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
+    'EMAIL' : {
+        'activation': 'accounts.email.ActivationEmail',
+        'confirmation': 'accounts.email.ConfirmationEmail',
+        'password_reset': 'accounts.email.PasswordResetEmail',
+        'password_changed_confirmation': 'accounts.email.PasswordChangedConfirmationEmail'
+    },
     'SERIALIZERS': {
         'user_create': 'accounts.serializers.UserCreateSerializer',
         'user': 'accounts.serializers.UserCreateSerializer',
