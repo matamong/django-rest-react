@@ -60,7 +60,8 @@ INSTALLED_APPS = [
     'matching',
     'corsheaders',
     'lolapi',
-    'message'
+    'message',
+    'social_django'
 ]
 
 MIDDLEWARE = [
@@ -72,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'gameduos.urls'
@@ -79,8 +81,7 @@ ROOT_URLCONF = 'gameduos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-	#'DIRS': [os.path.join(BASE_DIR, 'build')]  for development without docker
+	    'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -88,6 +89,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -139,6 +142,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+SITE_NAME = "GAMEDUOS"
 PROTOCOL = "http"
 DOMAIN = "localhost:3000"
 if not DEBUG:
@@ -167,7 +171,9 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 3
 }
 SIMPLE_JWT = {
-#    'AUTH_HEADER_TYPES': ('JWT',),  # 이거 때문에 django에서 jwt token user를 인식하지못한다.
+   'AUTH_HEADER_TYPES': ('Bearer', 'JWT',),
+   'USER_ID_FIELD': 'id',
+   'USER_ID_CLAIM': 'user_id',
    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
@@ -186,6 +192,12 @@ DJOSER = {
     'USERNAME_RESET_CONFIRM_URL': 'email/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
+    'EMAIL' : {
+        'activation': 'accounts.email.ActivationEmail',
+        'confirmation': 'accounts.email.ConfirmationEmail',
+        'password_reset': 'accounts.email.PasswordResetEmail',
+        'password_changed_confirmation': 'accounts.email.PasswordChangedConfirmationEmail'
+    },
     'SERIALIZERS': {
         'user_create': 'accounts.serializers.UserCreateSerializer',
         'user': 'accounts.serializers.UserCreateSerializer',
@@ -194,6 +206,48 @@ DJOSER = {
 }
 
 
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    # Crucial when logging into admin with username & password
+    'django.contrib.auth.backends.ModelBackend',
+)
+#SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+# Client ID and Client Secret obtained from console.developers.google.com
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '240122429604-hhpjeqds6o7a99dh3lkactea5iovif7v.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = get_secret("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email', 'profile']
+SOCIAL_AUTH_FACEBOOK_KEY = '1555313541273220'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = get_secret("SOCIAL_AUTH_FACEBOOK_SECRET")  # App Secret
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+# FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'name']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  'fields': 'id, name, email'
+}
+SOCIAL_AUTH_RAISE_EXCEPTIONS = False
+SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
+
+for key in ['GOOGLE_OAUTH2_KEY',
+            'GOOGLE_OAUTH2_SECRET',
+            'FACEBOOK_KEY',
+            'FACEBOOK_SECRET']:
+    exec("SOCIAL_AUTH_{key} = os.environ.get('{key}', '')".format(key=key))
+
+SOCIAL_AUTH_PIPELINE = (
+'social_core.pipeline.social_auth.social_details',
+'social_core.pipeline.social_auth.social_uid',
+'social_core.pipeline.social_auth.social_user',
+'social_core.pipeline.user.get_username',
+'social_core.pipeline.social_auth.associate_by_email',
+
+#'social_core.pipeline.user.create_user',
+'accounts.social.create_user',
+
+'social_core.pipeline.social_auth.associate_user',
+'social_core.pipeline.social_auth.load_extra_data',
+'social_core.pipeline.user.user_details',
+)
 
 # EMAIL
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

@@ -13,7 +13,6 @@ import { createChainedFunction } from '@material-ui/core';
 
 
 const Signup = ({ signup, isAuthenticated }) => {
-    console.log(window.location.origin)
     var Isemail = require('isemail');
     const [accountCreated, setAccountCreated] = useState(false);
     
@@ -60,7 +59,6 @@ const Signup = ({ signup, isAuthenticated }) => {
                 }
               });
         } catch(e) {
-            console.log(e)
             return false
         }
             
@@ -79,7 +77,6 @@ const Signup = ({ signup, isAuthenticated }) => {
                 }
               });
         } catch(e) {
-            console.log(e)
             return false
         }
         
@@ -112,8 +109,6 @@ const Signup = ({ signup, isAuthenticated }) => {
 
     const validateEmail = (set, field, value, e) => {
         // Validate Black-List later
-        console.log(Isemail.validate(value));
-        console.log(value)
         if(Isemail.validate(value)){
             checkDuplicatedEmail(value)
             setValueData({
@@ -182,8 +177,10 @@ const Signup = ({ signup, isAuthenticated }) => {
         e.preventDefault();
 
         if (password === re_password) {
-            signup({ name, email, password, re_password });
-            setAccountCreated(true);
+            signup({ name, email, password, re_password }).then(function (result){
+                if (result === true)
+                    setAccountCreated(true);
+            })
         }
     };
 
@@ -241,7 +238,6 @@ const Signup = ({ signup, isAuthenticated }) => {
 
         return (
         <div className="login__baseContainer">
-            <div className="login__header">회원가입</div>
             <div className="login__content">
                 <div className="login__image">
                     <img src={loginImg} />
@@ -301,7 +297,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                         <div className="signup__terms__container">
                             <div className="signup__terms__item">
                                 <label className="signup__terms__title" htmlFor="term">
-                                    <span className="signup__terms__icon"><EventNoteIcon fontSize="small" /></span>
+                                    <span className="signup__terms__icon">&#128195;</span>
                                     <span>약관정보 동의</span>
                                 </label>
                                 <iframe
@@ -326,7 +322,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                             </div>
                             <div className="signup__terms__item">
                                 <label className="signup__terms__title" htmlFor="term">
-                                    <span className="signup__terms__icon"><EventNoteIcon fontSize="small" /></span>
+                                    <span className="signup__terms__icon">&#128195;</span>
                                     <span>개인정보 동의</span>
                                 </label>
                                 <iframe
@@ -365,10 +361,10 @@ const Signup = ({ signup, isAuthenticated }) => {
                                 />
                             </div>
                         </div>
-                        <p>이미 아이디가 있나요? <Link to='/login'>Sign In</Link></p>
                         <div className="login__footer">
                             {renderSubmitBtn()}
                         </div>
+                        <p className="login__phrase" style={{margin: '0 0 3rem 0'}}>이미 아이디가 있나요? <span className="login__lilnk"><Link to='/login'>Sign In</Link></span></p>
                     </div>
                 </form>
             </div>

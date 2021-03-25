@@ -118,6 +118,36 @@ export const login = (email, password) => async dispatch => {
     }
 };
 
+export const social_login = (access_token, oauth_name) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    const body = JSON.stringify({ access_token });
+
+    try {
+        const res = await axios.post("/api/users/social/"+oauth_name+'/' , body, config);
+
+        dispatch({
+            type: LOGIN_SUCCESS,
+            payload: res.data
+        });
+
+        dispatch(load_user());
+    } catch (error) {
+        dispatch({
+            type: LOGIN_FAIL
+        });
+        if(error.response.status === 401)
+            dispatch(setErrorAlert('이메일/비밀번호를 다시 확인해주세요.', 401))
+        else
+            dispatch(setErrorAlert('잠시 후에 다시 시도해주세요.', error.response.status));
+    }
+};
+
+
 export const signup = ({ name, email, password, re_password }) => async dispatch => {
     const config = {
         headers: {
@@ -134,11 +164,17 @@ export const signup = ({ name, email, password, re_password }) => async dispatch
             type: SIGNUP_SUCCESS,
             payload: {email}
         });
-    } catch (err) {
+        return true
+    } catch (error) {
         dispatch({
-            type: SIGNUP_FAIL
+            type: SIGNUP_SUCCESS,
+            payload: {email}
         });
-        console.log(err)
+        if(error.response.status === 400){
+            dispatch(setErrorAlert('보안을 위해 조금 더 어려운 비밀번호를 써볼까요?', 400))
+        }
+        else
+            dispatch(setErrorAlert('잠시 후에 다시 시도해주세요.', error.response.status));
     }
 };
 
