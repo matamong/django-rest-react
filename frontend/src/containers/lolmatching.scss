@@ -5,7 +5,11 @@
     align-items: center;
     margin-top: 20px;
 }
-
+.lolmatching__list__container{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
 .lolmatching__cards__container {
     margin-top: 5rem;
 }
