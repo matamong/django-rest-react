@@ -9,6 +9,8 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from .datadragon import DataDragon
 from rest_framework.response import Response
 from django.http import Http404
+from django.conf import settings as conf_settings
+RIOT_API_KEY = conf_settings.RIOT_API_KEY
 
 
 # Create your views here.
@@ -24,7 +26,7 @@ class LolUserGameMyRetrieveView(generics.RetrieveUpdateDestroyAPIView):
             raise Http404
         
     def perform_update(self, serializer):
-        lol_watcher = LolWatcher('RGAPI-303862fd-d3fb-4901-8875-3ab7c39d1398')
+        lol_watcher = LolWatcher(RIOT_API_KEY)
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
         
@@ -91,7 +93,7 @@ class LolUserGameRenewalView(generics.UpdateAPIView):
     lookup_field = 'lol_name'
 
     def perform_update(self, serializer):
-        lol_watcher = LolWatcher('RGAPI-303862fd-d3fb-4901-8875-3ab7c39d1398')
+        lol_watcher = LolWatcher(RIOT_API_KEY)
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
 
@@ -191,7 +193,7 @@ class LolUserGameListView(generics.ListCreateAPIView):
     # https://stackoverflow.com/questions/35518273/how-to-set-current-user-to-user-field-in-django-rest-framework
     def perform_create(self, serializer):
         # setting 값 다 되어있는 RiotAPI클래스 불러와서 API 로 정보가져오기.
-        lol_watcher = LolWatcher('RGAPI-303862fd-d3fb-4901-8875-3ab7c39d1398')
+        lol_watcher = LolWatcher(RIOT_API_KEY)
         request_region = self.request.data['region']
         request_lol_name = self.request.data['lol_name']
         
