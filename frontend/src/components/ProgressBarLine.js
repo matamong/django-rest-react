@@ -24,6 +24,7 @@ const ProgressBarLine = ({ animate }) => {
                         padding: 0,
                         margin: 0,
                         transform: null,
+                        textAlign: 'center',
                     },
                     autoStyleContainer: false
                 },
@@ -31,7 +32,7 @@ const ProgressBarLine = ({ animate }) => {
                 to: {color: '#ED6A5A'},
                 step: (state, bar) => {
                     bar.path.setAttribute('stroke', state.color);
-                    var value = Math.round(bar.value() * 100);
+                    const value = Math.round(bar.value() * 100);
                     if (value === 0) {
                         bar.setText('즐겜러');
                     } if (value === 20) {
