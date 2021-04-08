@@ -80,13 +80,18 @@ class LolUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSeri
         lol_id = user_account_data['id']
 
         try:
-            spectator_data = lol_watcher.spectator.by_summoner(region, lol_id)
+            spectator_data = lol_watcher.league.by_summoner(region, lol_id)
         except ApiError as err :
             return {'odds': '데이터 없음'}
-        print(spectator_data)
-        odds = spectator_data['wins'] / spectator_data['wins'] + spectator_data['losses']
+        
+        if len(spectator_data) < 1 :
+            return {'odds': '데이터 없음'}
+        
+        print(spectator_data[0])
+        total = spectator_data[0]['wins'] + spectator_data[0]['losses']
+        odds = (spectator_data[0]['wins'] / total) * 100
 
-        return {'win': spectator_data['wins'], 'losses': spectator_data['losses'], 'odds': odds}
+        return {'win':spectator_data[0]['wins'], 'losses': spectator_data[0]['losses'], 'odds': str(odds)[:5]}
 
 class LolMyUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSerializer):
     # If you have nested serializers and you're expecting more than one, 
@@ -139,6 +144,7 @@ class LolMyUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSe
             'champion_avatar': avatar_url
         }
     
+
     def get_odds(self, obj):
         print(obj)
         lol_watcher = LolWatcher(RIOT_API_KEY)
@@ -148,10 +154,15 @@ class LolMyUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSe
         lol_id = user_account_data['id']
 
         try:
-            spectator_data = lol_watcher.spectator.by_summoner(region, lol_id)
+            spectator_data = lol_watcher.league.by_summoner(region, lol_id)
         except ApiError as err :
             return {'odds': '데이터 없음'}
-        print(spectator_data)
-        odds = spectator_data['wins'] / spectator_data['wins'] + spectator_data['losses']
+        
+        if len(spectator_data) < 1 :
+            return {'odds': '데이터 없음'}
+        
+        print(spectator_data[0])
+        total = spectator_data[0]['wins'] + spectator_data[0]['losses']
+        odds = (spectator_data[0]['wins'] / total) * 100
 
-        return {'win': spectator_data['wins'], 'losses': spectator_data['losses'], 'odds': odds}
+        return {'win':spectator_data[0]['wins'], 'losses': spectator_data[0]['losses'], 'odds': str(odds)[:5]}
