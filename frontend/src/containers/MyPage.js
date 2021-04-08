@@ -79,15 +79,13 @@ const MyPage = ({ isAuthenticated }) => {
     if (!profile) return null
     if (!lolusergames) return null
 
-    console.log(profile)
-
     
     return (
         <div className="mypage__container">
             <div className="mypage__profileToken__container">
                 <div className="mypage__profileToken__background"></div>
                 <div className="mypage__profileToken__item">
-                    <ProfileToken profile={profile} />
+                    <ProfileToken profile={profile}  />
                 </div>
             </div>
             <div className="mypage__profilemenue__container">
@@ -126,6 +124,7 @@ const MyPage = ({ isAuthenticated }) => {
                                 region={lolusergames.region}
                                 solo_rank={lolusergames.solo_rank}
                                 solo_tier={lolusergames.solo_tier}
+                                profile={profile.profile}
                                 mic={lolusergames.mic}
                             />
                             <div className="mypage__card__icon">
