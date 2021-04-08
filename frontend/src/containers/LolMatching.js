@@ -6,9 +6,10 @@ import LOLMatchingCards from '../components/LOLMatchingCards'
 import LOLAllMatchingCards from '../components/LOLAllMatchingCards'
 import LOLMatchingList from '../components/LOLMatchingList'
 import { Redirect } from 'react-router-dom';
+import _ from 'lodash';
 import './lolmatching.scss'
 
-const LolMatching = ({ isAuthenticated }) => {
+const LolMatching = ({ isAuthenticated, name }) => {
     const [usergames, setUsergames] = useState(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
@@ -28,15 +29,14 @@ const LolMatching = ({ isAuthenticated }) => {
             
             axios.get("/api/matching/lol/", config)
             .then(function (response) {
-                console.log('ddd', response);
+                console.log(response.data)
                 setUsergames(response.data)
             })
             .catch(function (error) {
-                console.log(error);
+                setError(error);
             });
         } catch (e) {
             setError(e);
-            console.log(e)
         }
         setLoading(false)
     }
@@ -52,21 +52,30 @@ const LolMatching = ({ isAuthenticated }) => {
 
     return (
         <div className="lolmatching__container">
-            <h1>넘나 씐나는 매츼이잉</h1>
+            <div className="lolmatching__title">
+                <h1 className="lolmatching__title__emoji">&#128064;</h1>
+                {_.isEmpty(usergames) ?
+                    <p className="lolmatching__title__text">매칭리스트가 비었네요. {name}님과 실력이 비슷한 분들을 기다려주세요. </p>
+                :
+                    <p className="lolmatching__title__text">{name}님을 기다리는 분들이에요!</p>
+                }
+            </div>
             <div className="lolmatching__list__container">
             {usergames.map((usergame, index) => (
                 <LOLMatchingList
                     name={usergame.user.name}
+                    odds={usergame.odds.odds}
                     intro={usergame.intro}
+                    main_champ_info={usergame.main_champ_info}
                     lol_position={usergame.lol_position}
                     lol_prefer_mode={usergame.lol_prefer_mode}
-                    champion_avatar={usergame.main_champ_info.champion_avatar}
-                    odds={usergame.odds.odds}
                     prefer_style={usergame.prefer_style}
                     prefer_time={usergame.prefer_time}
                     region={usergame.region}
                     solo_rank={usergame.solo_rank}
-                    user={usergame.user}
+                    solo_tier={usergame.solo_tier}
+                    profile={usergame.user.profile}
+                    mic={usergame.mic}
                     key={index}
                 />
             ))}
@@ -79,7 +88,8 @@ const LolMatching = ({ isAuthenticated }) => {
 }
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    name: state.auth.user.name
 });
 
 export default connect(mapStateToProps)(LolMatching)
