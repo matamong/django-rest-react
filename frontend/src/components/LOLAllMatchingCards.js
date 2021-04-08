@@ -4,6 +4,9 @@ import Card from './LOLCard'
 import './lolallmatchingcards.scss'
 import Button from '@material-ui/core/Button';
 import GroupIcon from '@material-ui/icons/Group';
+import LOLMatchingList from '../components/LOLMatchingList'
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 const LOLAllMatchingCards = () => {
     const [allUsers, setAllUsers] = useState(null)
@@ -29,31 +32,47 @@ const LOLAllMatchingCards = () => {
                 config
             );
             setAllUsers(response.data); // 데이터는 response.data 안에 들어있습니다.
-            console.log(response.data)
         } catch (e) {
             setAllUserError(true);
         }
         setAllUserLoading(false);
     };
-    if (allUserLoading) return <div>Loading..</div>
+    
     if (allUserError) return <div>Error!</div>
+
     return (
         <div className="lolallmatchingcards__container">
             <div className="lolallmatchingcards__button">
-                <Button variant="contained" onClick={fetchAllUsers}>
-                    <GroupIcon /> 모든 사용자 보기
-                </Button>
+                {
+                    allUserLoading ? 
+                    <div><CircularProgress /></div>
+                    :
+                    <Button variant="contained" onClick={fetchAllUsers}>
+                        <GroupIcon /> 모든 사용자 보기
+                    </Button>
+                }
             </div>
-            {allUserLoading === true ? '유저 가져오는 중...' : ''}
             <div>
                 {allUsers === null ? '' :
                     <ul>
-                        {allUsers.map((user, index) => (
+                        {allUsers.map((usergame, index) => (
                             <li key={index}>
-                                <Card
-                                    profile={user}
+                                <LOLMatchingList
+                                    name={usergame.user.name}
+                                    odds={usergame.odds.odds}
+                                    intro={usergame.intro}
+                                    main_champ_info={usergame.main_champ_info}
+                                    lol_position={usergame.lol_position}
+                                    lol_prefer_mode={usergame.lol_prefer_mode}
+                                    prefer_style={usergame.prefer_style}
+                                    prefer_time={usergame.prefer_time}
+                                    region={usergame.region}
+                                    solo_rank={usergame.solo_rank}
+                                    solo_tier={usergame.solo_tier}
+                                    mic={usergame.mic}
+                                    profile={usergame.user.profile}
+                                    key={index}
                                 />
-                                {user.lol_name}
                             </li>
                         ))}
                     </ul>

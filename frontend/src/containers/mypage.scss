@@ -41,11 +41,18 @@
     background-color: #009788;
 }
 
-.mypage__card__item {
+.mypage__card__list {
     margin: auto;
-    width: 18rem;
+    width: 21rem;
     height: auto;
     padding: inherit;
+}
+
+.mypage__list__item {
+    display: flex;
+}
+.mypage__card__icon {
+    margin: 0.5rem auto;
 }
 
 .mypage__card__title {
@@ -62,9 +69,13 @@
     height: auto;
 }
 
-.mypage__button > div {
+.mypage__button__item {
     text-align: center;
-    padding: 1rem;
+    padding: 0.5rem;
+}
+
+.mypage__button {
+    margin-top: 3rem;
 }
 
 @media (min-width: 600px) {

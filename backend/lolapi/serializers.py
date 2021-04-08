@@ -3,6 +3,9 @@ from .models import LolUserGame, LolPosition, LolPreferMode
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from .datadragon import DataDragon
 from accounts.serializers import ProfileSerializer
+from riotwatcher import LolWatcher, ApiError
+from django.conf import settings as conf_settings
+RIOT_API_KEY = conf_settings.RIOT_API_KEY
 
 
 class LolPositionSerializer(serializers.ModelSerializer):
@@ -24,11 +27,12 @@ class LolUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSeri
     lol_prefer_mode = LolPreferModeSerializer()
     main_champ_info = serializers.SerializerMethodField()
     user = ProfileSerializer(read_only=True)
+    odds = serializers.SerializerMethodField()
 
     class Meta:
         model = LolUserGame
         fields = ['lol_name', 'region', 'prefer_style', 'prefer_time', 
-        'intro', 'lol_position', 'lol_prefer_mode', 'solo_tier' , 'solo_rank', 'main_champ_info', 'mic', 'user']
+        'intro', 'lol_position', 'lol_prefer_mode', 'solo_tier' , 'solo_rank', 'main_champ_info', 'mic', 'user', 'odds']
         extra_kwargs = {
             'user': {'read_only': True},
             'lol_name': {'write_only': True}
@@ -67,6 +71,28 @@ class LolUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSeri
             'champion_avatar': avatar_url
         }
 
+    def get_odds(self, obj):
+        print(obj)
+        lol_watcher = LolWatcher(RIOT_API_KEY)
+        region = obj.region
+        lol_name = obj.lol_name
+        user_account_data = lol_watcher.summoner.by_name(region, lol_name)
+        lol_id = user_account_data['id']
+
+        try:
+            spectator_data = lol_watcher.league.by_summoner(region, lol_id)
+        except ApiError as err :
+            return {'odds': '데이터 없음'}
+        
+        if len(spectator_data) < 1 :
+            return {'odds': '데이터 없음'}
+        
+        print(spectator_data[0])
+        total = spectator_data[0]['wins'] + spectator_data[0]['losses']
+        odds = (spectator_data[0]['wins'] / total) * 100
+
+        return {'win':spectator_data[0]['wins'], 'losses': spectator_data[0]['losses'], 'odds': str(odds)[:5]}
+
 class LolMyUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSerializer):
     # If you have nested serializers and you're expecting more than one, 
     # you should add the (many=True) otherwise DRF will treat the manager as the object.
@@ -75,11 +101,12 @@ class LolMyUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSe
     lol_prefer_mode = LolPreferModeSerializer()
     main_champ_info = serializers.SerializerMethodField()
     user = ProfileSerializer(read_only=True)
+    odds = serializers.SerializerMethodField()
 
     class Meta:
         model = LolUserGame
         fields = ['lol_name', 'region', 'prefer_style', 'prefer_time', 
-        'intro', 'lol_position', 'lol_prefer_mode', 'solo_tier' , 'solo_rank', 'main_champ_info', 'mic', 'user']
+        'intro', 'lol_position', 'lol_prefer_mode', 'solo_tier' , 'solo_rank', 'main_champ_info', 'mic', 'user', 'odds']
         extra_kwargs = {
             'user': {'read_only': True},
         }
@@ -116,3 +143,26 @@ class LolMyUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSe
             'champion_image': image_url,
             'champion_avatar': avatar_url
         }
+    
+
+    def get_odds(self, obj):
+        print(obj)
+        lol_watcher = LolWatcher(RIOT_API_KEY)
+        region = obj.region
+        lol_name = obj.lol_name
+        user_account_data = lol_watcher.summoner.by_name(region, lol_name)
+        lol_id = user_account_data['id']
+
+        try:
+            spectator_data = lol_watcher.league.by_summoner(region, lol_id)
+        except ApiError as err :
+            return {'odds': '데이터 없음'}
+        
+        if len(spectator_data) < 1 :
+            return {'odds': '데이터 없음'}
+        
+        print(spectator_data[0])
+        total = spectator_data[0]['wins'] + spectator_data[0]['losses']
+        odds = (spectator_data[0]['wins'] / total) * 100
+
+        return {'win':spectator_data[0]['wins'], 'losses': spectator_data[0]['losses'], 'odds': str(odds)[:5]}

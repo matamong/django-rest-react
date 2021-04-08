@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly
-from .models import UserAccount
-from .serializers import MyProfileSerializer, SocialSerializer
+from .models import UserAccount, Profile
+from .serializers import MyProfileSerializer, SocialSerializer, CustomProfileSerializer, ProfileSerializer
 from django.views import View
 from django.http import JsonResponse
 
@@ -38,15 +38,28 @@ class EmailUserRetrieveView(generics.RetrieveAPIView):
     permission_classes = [AllowAny]
     authentication_classes = []
     queryset = UserAccount.objects.all()
-    serializer_class = MyProfileRetrieveView
+    serializer_class = ProfileSerializer
     lookup_field = 'email'
 
 class NameUserRetrieveView(generics.RetrieveAPIView):
     permission_classes = [AllowAny]
     authentication_classes = []
     queryset = UserAccount.objects.all()
-    serializer_class = MyProfileRetrieveView
+    serializer_class = ProfileSerializer
     lookup_field = 'name'
+
+class ProfileListCreateView(generics.ListCreateAPIView):
+    permission_class = [IsAuthenticated]
+    serializer_class = CustomProfileSerializer
+    queryset = Profile.objects.all()
+    pagination_class = None
+
+    def perform_create(self, serializer):
+        serializer.save(
+            user = self.request.user
+        )
+
+        
 
 
 @api_view(http_method_names=['POST'])

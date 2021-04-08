@@ -40,9 +40,6 @@ const Matching = ({ isAuthenticated }) => {
     useEffect(() => {
         fetchUsergames();
     }, []);
-    
-    if (!isAuthenticated)
-    return <Redirect to='/login' />;
 
     if (loading) return <div>Loading..</div>
     if (error) return <div>Error!</div>

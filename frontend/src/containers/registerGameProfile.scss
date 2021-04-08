@@ -1,0 +1,50 @@
+.registerGameProfile__contanier{
+    width: 90%;
+    margin: 0 auto;
+}
+.registerGameProfile__profile__container {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.registerGameProfile__profile__item {
+    flex-basis: 15rem;
+    width: 15rem;
+    height: auto;
+    margin: 1rem 0 1rem 0;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0px 0px 10px -1px rgba(0, 0, 0, 0.17);
+    div {
+        word-break: break-all;
+    }
+    p{
+        word-break: break-all;
+    }
+}
+
+.registerGameProfile__profile__info {
+    .registerGameProfile__info__tier {
+        position: absolute;
+        img {
+            width: 7rem;
+            margin-top: -3rem;
+            margin-left: -3rem;
+        }
+    }
+    .registerGameProfile__info__img {
+        width: 100%;
+        border-radius: 7px;
+    }
+    .registerGameProfile__info__title {
+        display: flex;
+        width: 100%;
+        letter-spacing: 2px;
+        justify-content: center;
+    }
+}
+
+
+

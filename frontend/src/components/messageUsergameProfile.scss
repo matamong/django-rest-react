@@ -97,6 +97,8 @@
     }
     .time {
       padding: 0 0 1rem 0;
+      width: 10rem;
+      overflow: scroll;
     }
     .prefer {
       display: flex;
@@ -126,4 +128,13 @@
       width: 28rem;
       margin: 0 auto;
   }
+
+
+    .messageUsergameProfile__container .progress-info-container .time {
+      padding: 0 0 1rem 0;
+      width: 18.5rem;
+      overflow: scroll;
+    }
+
 }
+

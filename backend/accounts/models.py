@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.conf import settings
+
 
 
 class UserAccountManager(BaseUserManager):
@@ -43,3 +45,17 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     
     def __str__(self):
         return self.email
+
+class Avatar(models.Model):
+    name = models.CharField(max_length=50)
+    url = models.CharField(max_length=200)
+
+class Title(models.Model):
+    name = models.CharField(max_length=20, default="게임듀오인")
+
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, unique=True, on_delete=models.CASCADE)
+    avatar = models.ForeignKey(Avatar, on_delete=models.SET_NULL, null=True)
+    title = models.ForeignKey(Title, on_delete=models.SET_NULL, null=True)
+
+
