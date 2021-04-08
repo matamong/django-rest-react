@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 from django.conf import settings
 
 
+
 class UserAccountManager(BaseUserManager):
     def create_user(self, email, name, password=None):
         if not email:

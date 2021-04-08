@@ -61,6 +61,7 @@ class ProfileListCreateView(generics.ListCreateAPIView):
 
         
 
+
 @api_view(http_method_names=['POST'])
 @permission_classes([AllowAny])
 @psa()

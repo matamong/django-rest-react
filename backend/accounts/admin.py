@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import UserAccount, Profile, Avatar, Title
 
+
 # Register your models here.
 
 class UserAdmin(admin.ModelAdmin):
@@ -20,3 +21,4 @@ admin.site.register(UserAccount, UserAdmin)
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Avatar, AvatarAdmin)
 admin.site.register(Title, TitleAdmin)
+
