@@ -13,13 +13,22 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import UserDeleteButton from '../components/UserDeleteButton'
+import LOLMatchingList from '../components/LOLMatchingList'
+import EditIcon from '@material-ui/icons/Edit';
+import { set } from 'lodash';
 
 
 const MyPage = ({ isAuthenticated }) => {
+    
     const [profile, setProfile] = useState(null)
+    const [lolusergames, setLolusergames] = useState(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
+
+    let myUser = '/api/users/my'
+    let myUsergames = '/api/matching/my/usergames'
 
     const fetchProfile = async () => {
         const config = {
@@ -29,25 +38,37 @@ const MyPage = ({ isAuthenticated }) => {
                 'Accept': 'application/json'
             }
         }
+
         try {
             setError(null);
             setProfile(null);
+            setLolusergames(null);
             setLoading(true);
+
+            axios.all([
+                axios.get(myUser, config), 
+                axios.get(myUsergames, config)
+            ]).then(axios.spread((responseMyUser, responseMyUsergames) => {
+                const responseMyUserData = responseMyUser.data
+                const responseMyUsergamesData = responseMyUsergames.data
+                console.log('responseMyuser', responseMyUserData)
+                console.log('responseMyUsergames', responseMyUsergamesData.LolUserGame[0])
+
+                setProfile(responseMyUserData)
+                setLolusergames(responseMyUsergamesData.LolUserGame[0])
+                // use/access the results 
+              })).catch(errors => {
+                setError(true)
+                console.log(errors)
+              })
             
-            axios.get("/api/users/my", config)
-            .then(function (response) {
-                console.log(response);
-                setProfile(response.data)
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
         } catch (e) {
-            setError(e);
+            setError(true);
             console.log(e)
         }
         setLoading(false)
     }
+
 
     useEffect(() => {
         fetchProfile();
@@ -59,6 +80,7 @@ const MyPage = ({ isAuthenticated }) => {
     if (loading) return <div>Loading..</div>
     if (error) return <div>Error!</div>
     if (!profile) return null
+    if (!lolusergames) return null
 
     console.log(profile)
 
@@ -80,9 +102,9 @@ const MyPage = ({ isAuthenticated }) => {
                             textColor="secondary"
                             aria-label="icon label tabs example"
                         >
-                            <Tab icon={<FavoriteIcon />} label="50" />
-                            <Tab icon={<ChatBubbleOutlineIcon />} label="50" />
-                            <Tab icon={<ThumbUpAltIcon />} label="34" />
+                            <Tab icon={<FavoriteIcon />} label="coming soon" />
+                            <Tab icon={<ChatBubbleOutlineIcon />} label="coming soon" />
+                            <Tab icon={<ThumbUpAltIcon />} label="coming soon" />
                         </Tabs>
                             
                     </Paper>
@@ -90,23 +112,41 @@ const MyPage = ({ isAuthenticated }) => {
             </div>
             <div className="mypage__card__container">
                 <h2 className="mypage__card__title">
-                    <div><SportsEsportsIcon /></div><div>나의 매칭카드</div>
+                    <div><SportsEsportsIcon /></div><div>나의 매칭 정보</div>
                 </h2>
-                <ul className="mypage__card__item">
-                    <li><MyLoLCard /></li>
+                <ul className="mypage__card__list">
+                    <li>
+                        <div className="mypage__list__item">
+                            <LOLMatchingList
+                                name={profile.name}
+                                odds={lolusergames.odds.odds}
+                                intro={lolusergames.intro}
+                                main_champ_info={lolusergames.main_champ_info}
+                                lol_position={lolusergames.lol_position}
+                                lol_prefer_mode={lolusergames.lol_prefer_mode}
+                                prefer_style={lolusergames.prefer_style}
+                                prefer_time={lolusergames.prefer_time}
+                                region={lolusergames.region}
+                                solo_rank={lolusergames.solo_rank}
+                                solo_tier={lolusergames.solo_tier}
+                                mic={lolusergames.mic}
+                            />
+                            <div className="mypage__card__icon">
+                                <Link to="/lol-update-form">
+                                    <IconButton><EditIcon /></IconButton>
+                                </Link>
+                            </div>
+                        </div>
+                    </li>
                 </ul>                
             </div>
             <div className="mypage__button">
-                <div>
-                    <Button variant="contained">회원정보 수정</Button>
+                <div className="mypage__button__item" >
+                    <Button variant="outlined" color="primary" disabled>회원정보 수정</Button>
                 </div>
-                <div>
+                <div className="mypage__button__item">
                     <UserDeleteButton />
                 </div>
-            </div>
-            <div>아바타바꾸기/호칭바꾸기 는 프로필 토큰에서 해부러,  
-                회원정보 수정비번수정/삭제, 
-                매칭 등록/수정/삭제는 각 카드에 해부러, 
             </div>
         </div>
     )

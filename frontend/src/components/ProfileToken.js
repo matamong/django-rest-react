@@ -12,10 +12,10 @@ const ProfileToken = (props) => {
                         <img src="https://randomuser.me/api/portraits/lego/6.jpg"/>
                         <div className="profileToken__card__profileinfo">
                             <h3 className="profileToken__card__name"> {props.profile.name} </h3>
-                            <h4 className="profileToken__card__title"> 스타듀밸리 주민 </h4>
+                            <h4 className="profileToken__card__title"> 칭호 </h4>
                             <div>
                                 <div className="profileToken__card__bio">
-                                    <FavoriteIcon /> 51
+                                    <FavoriteIcon />
                                 </div>
                             </div>
                         </div>
@@ -23,7 +23,6 @@ const ProfileToken = (props) => {
                 </div>
                 <div className="profileToken__badgescard">
                     <span className="profileToken__badgescard__icon">
-                        <AlarmIcon fontSize="small" />
                     </span>
                 </div>
             </div>
