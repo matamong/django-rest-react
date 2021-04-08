@@ -10,7 +10,6 @@ const RegisterGameProfile = () => {
     const pathname = useLocation().pathname;
     const pathArr = pathname.split('/')
 
-    console.log(pathArr)
     const searchName = pathArr[1]
     const gameName = pathArr[2]
     const userName = pathArr[3]
@@ -46,15 +45,14 @@ const RegisterGameProfile = () => {
             
             axios.get(catchUrl(), config)
                 .then(function (response) {
-                    console.log(response.data);
                     setProfile(response.data)
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    setError(true)
+                    setLoading(false)
                 });
         } catch (e) {
-            setError(false);
-            console.log(e)
+            setError(true);
         }
         setLoading(false)
 

@@ -27,11 +27,10 @@ const MatchingChat = ({ isAuthenticated, user }) => {
             axios.get("/api/messages/rooms", config)
             .then(function (response) {
                 setChatList(response.data)
-                console.log(response.data)
             })
             .catch(function (error) {
-                console.log(error);
                 setLoading(false)
+                setError(true);
             });
         } catch (e) {
             setError(true);

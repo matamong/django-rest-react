@@ -51,20 +51,17 @@ const MyPage = ({ isAuthenticated }) => {
             ]).then(axios.spread((responseMyUser, responseMyUsergames) => {
                 const responseMyUserData = responseMyUser.data
                 const responseMyUsergamesData = responseMyUsergames.data
-                console.log('responseMyuser', responseMyUserData)
-                console.log('responseMyUsergames', responseMyUsergamesData.LolUserGame[0])
 
                 setProfile(responseMyUserData)
                 setLolusergames(responseMyUsergamesData.LolUserGame[0])
                 // use/access the results 
               })).catch(errors => {
+                setLoading(false);
                 setError(true)
-                console.log(errors)
               })
             
         } catch (e) {
             setError(true);
-            console.log(e)
         }
         setLoading(false)
     }
