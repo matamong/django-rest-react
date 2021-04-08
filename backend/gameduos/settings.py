@@ -42,7 +42,7 @@ RIOT_API_KEY = get_secret("RIOT_API_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -105,8 +105,12 @@ WSGI_APPLICATION = 'gameduos.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-	'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'gameduos2',# 임시데이터베이스
+        'USER': 'root', # 임시유저
+        'PASSWORD': 'root', # 임시비밀번호
+        'HOST': 'localhost',
+        'PORT': '3306'
     }
 }
 
