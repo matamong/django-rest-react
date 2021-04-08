@@ -38,7 +38,11 @@ class MyProfileSerializer(serializers.ModelSerializer):
         try:
             profile = Profile.objects.get(user=obj.id)
         except Profile.DoesNotExist:
-            return {}
+            return {
+                'avatar_name': '개발프로필',
+                'avatar_url': '	https://raw.githubusercontent.com/matamatamong/img/main/Django-rest-React/Front/avatar.png',
+                'title': '게임듀오즈인'
+            }
         return {
             'avatar_name': profile.avatar.name,
             'avatar_url': profile.avatar.url,
