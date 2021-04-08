@@ -67,10 +67,13 @@ const MatchingChat = ({ isAuthenticated, user }) => {
                     user={user}
                     id={chat.id}
                     sender={chat.sender.name}
+                    senderProfile={chat.sender.profile}
                     receiver={chat.receiver.name}
+                    receiverProfile={chat.receiver.profile}                    
                     created_at={chat.created_at}
                     game_name={chat.game_name}
                     consent={chat.receiver_consent}
+                    profile={chat.receiver.profile}
                     lv={chat.receiver_usergame_profile.lv}
                     mic={chat.receiver_usergame_profile.mic}
                     prefer_time={chat.receiver_usergame_profile.prefer_time}
@@ -81,21 +84,24 @@ const MatchingChat = ({ isAuthenticated, user }) => {
                 />
                 :
                 <Chat 
-                user={user}
-                id={chat.id}
-                sender={chat.sender.name}
-                receiver={chat.receiver.name}
-                created_at={chat.created_at}
-                game_name={chat.game_name}
-                consent={chat.receiver_consent}
-                lv={chat.sender_usergame_profile.lv}
-                mic={chat.sender_usergame_profile.mic}
-                prefer_time={chat.sender_usergame_profile.prefer_time}
-                prefer_style={chat.sender_usergame_profile.prefer_style}
-                region={chat.sender_usergame_profile.region}
-                rank={chat.sender_usergame_profile.rank}
-                message={chat.last_message}
-            />
+                    user={user}
+                    id={chat.id}
+                    sender={chat.sender.name}
+                    senderProfile={chat.sender.profile}
+                    receiver={chat.receiver.name}
+                    receiverProfile={chat.receiver.profile}                    
+                    created_at={chat.created_at}
+                    game_name={chat.game_name}
+                    consent={chat.receiver_consent}
+                    profile={chat.sender.profile}
+                    lv={chat.sender_usergame_profile.lv}
+                    mic={chat.sender_usergame_profile.mic}
+                    prefer_time={chat.sender_usergame_profile.prefer_time}
+                    prefer_style={chat.sender_usergame_profile.prefer_style}
+                    region={chat.sender_usergame_profile.region}
+                    rank={chat.sender_usergame_profile.rank}
+                    message={chat.last_message}
+                />
             ))}
         </div>
     )

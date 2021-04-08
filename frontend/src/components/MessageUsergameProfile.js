@@ -6,7 +6,7 @@ import { Chip } from '@material-ui/core'
 import Avatar from '@material-ui/core/Avatar'
 import './messageUsergameProfile.scss'
 
-const MessageUsergameProfile = ({ name, game_name, game_nickname, lv, mic, prefer_style, prefer_time, rank, region, consent }) => {
+const MessageUsergameProfile = ({ name, game_name, game_nickname, lv, mic, prefer_style, prefer_time, rank, region, consent, profile }) => {
 
     return (
         <div className="messageUsergameProfile__container">
@@ -14,7 +14,7 @@ const MessageUsergameProfile = ({ name, game_name, game_nickname, lv, mic, prefe
                 <div className="course">
                     <div className="course-preview">
                         <h6>Profile</h6>
-                        <div className="course-preview-left"><Avatar src="https://images.pexels.com/photos/2726111/pexels-photo-2726111.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"/></div>
+                        <div className="course-preview-left"><Avatar src={profile.avatar_url}/></div>
                         <div className="course-preview-left">{name}</div>
                         <div className="course-preview-left">
                             {mic === 'MIC' ? <KeyboardVoice fontSize="small" /> : ''}
@@ -25,13 +25,13 @@ const MessageUsergameProfile = ({ name, game_name, game_nickname, lv, mic, prefe
                     <div className="course-info">
                         <div className="progress-container">
                             <span className="progress-text">
-                                <Link to={`/${game_name}/${name}`}>더보기 &#62;</Link>
+                                <Link to={`/${game_name}/${name}`}>더 보기(준비 중) &#62;</Link>
 				            </span>
                         </div>
                         <div className="progress-info-container">
                             <div className="progress-info-title">
                                 <h4>{game_nickname}</h4>
-                                <h6>프로 게임 찍먹러</h6>
+                                <h6>{profile.title}</h6>
                             </div>
                             <div className="progress-info-content">
                                 <div className="progressbar">

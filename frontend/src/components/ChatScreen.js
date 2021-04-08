@@ -143,6 +143,7 @@ const ChatScreen = ({ history, props, isAuthenticated, user, send_matching_messa
                                 region={chatRoomInfo.sender_usergame_profile.region}
                                 name={chatRoomInfo.sender.name}
                                 game_name={chatRoomInfo.game_name}
+                                profile={chatRoomInfo.sender.profile}
                             />
                         </div>
                         : 
@@ -154,6 +155,7 @@ const ChatScreen = ({ history, props, isAuthenticated, user, send_matching_messa
                             prefer_time={chatRoomInfo.receiver_usergame_profile.prefer_time}
                             region={chatRoomInfo.receiver_usergame_profile.region}
                             game_name={chatRoomInfo.game_name}
+                            profile={chatRoomInfo.receiver.profile}
                             />
 
                     }
@@ -172,7 +174,7 @@ const ChatScreen = ({ history, props, isAuthenticated, user, send_matching_messa
                     message.reply_user.name !== user.name ? (
                         <div className="chatScreen__message" key={index} id={index}>
                             <Avatar
-                                calssName="chatScreen__image"
+                                calssName="chatScreen__image" src="https://raw.githubusercontent.com/matamatamong/img/main/Django-rest-React/Front/avatar.png"
                             />
                             <p className="chatScreen__text">{message.content}</p>
                         </div>

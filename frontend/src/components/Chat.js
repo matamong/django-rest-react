@@ -22,7 +22,10 @@ const GameLogo = {
 
 Moment.globalLocale = 'ko';
 
-const Chat = ({ user, id, delete_matching_message_room, sender, receiver, consent, game_name, region, lv, rank, prefer_time, prefer_style, mic, created_at, message}) => {
+const Chat = ({ 
+    user, id, delete_matching_message_room, sender, receiver, 
+    consent, game_name, region, lv, rank, prefer_time, prefer_style, mic, created_at, message,
+    senderProfile, receiverProfile, profile}) => {
     console.log(message)
     const [active, handleActive] = useState(false);
 
@@ -57,7 +60,7 @@ const Chat = ({ user, id, delete_matching_message_room, sender, receiver, consen
                                     From
                                 </div>
                                 {sender}
-                                <div className="detailLabel">프로 찍먹러(칭호)</div>
+                                <div className="detailLabel">{senderProfile.title}</div>
                             </div>
                             <div
                                 className="flightDetail"
@@ -75,7 +78,7 @@ const Chat = ({ user, id, delete_matching_message_room, sender, receiver, consen
                                     To
                                 </div>
                                 {receiver}
-                                <div className="detailLabel">5살에 데몬을 잡은</div>
+                                <div className="detailLabel">{receiverProfile.title}</div>
                             </div>
                         </div>
                         <div
@@ -91,7 +94,7 @@ const Chat = ({ user, id, delete_matching_message_room, sender, receiver, consen
                                 <img className="fistTop__img" style={GameLogo[`${game_name}`].style} src={GameLogo[`${game_name}`].src} />
                                 <div className="timecontainer">
                                     <div className="detailDate">
-                                        10살에 데몬을 잡은
+                                        {profile.title}
                                         <div className="detailTime">
                                             {user.name === sender ? (receiver) : (sender)}
                                         </div>
@@ -138,16 +141,6 @@ const Chat = ({ user, id, delete_matching_message_room, sender, receiver, consen
                                             </div> */}
                                             <div className="detail">
                                                 {rank.solo_tier}<div className="detailLabel">랭크(솔로기준)</div>
-                                            </div>
-                                        </div>
-                                        <div className="firstBehindRow">
-                                            {/*                             <div className="detail">
-                                5:35
-                                <div className="detailLabel">Boarding</div>
-                            </div> */}
-                                            <div className="detail">
-                                                20A
-                                                <div className="detailLabel">Seat</div>
                                             </div>
                                         </div>
                                     </div>
