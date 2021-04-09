@@ -36,7 +36,9 @@ class MyMessageRoomListView(generics.ListCreateAPIView):
         except UserAccount.DoesNotExist:
             raise Http404
 
-        message_room_obj = MessageRoom.objects.filter(Q(sender=self.request.user) | Q(receiver=self.request.user))
+        message_room_obj = MessageRoom.objects.filter(
+            Q(sender=self.request.user) & Q(receiver=receiver_obj)
+        )
         if message_room_obj.exists():
             raise ValidationError('이미 존재하는 매칭방입니다.')
 
