@@ -53,8 +53,6 @@ const UserDeleteButton = ({ delete_user, logout }) => {
         }
     }
 
-    console.log({ buttonClicked })
-
     return (
         <div className="userDeleteButton__container">
             <Button

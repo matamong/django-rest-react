@@ -29,7 +29,6 @@ const LolMatching = ({ name }) => {
             
             axios.get("/api/matching/lol/", config)
             .then(function (response) {
-                console.log(response.data)
                 setUsergames(response.data)
             })
             .catch(function (error) {

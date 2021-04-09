@@ -8,9 +8,8 @@ import Grid from '@material-ui/core/Grid';
 
 
 const ETCTicket = (props) => {
-    console.log(props.etc)
     const etc = props.etc
-    console.log(etc)
+
     const etcFalseRender = () => {
         return (
             <div className="ticket__etc__container">

@@ -26,8 +26,8 @@ const Chat = ({
     user, id, delete_matching_message_room, sender, receiver, 
     consent, game_name, region, lv, rank, prefer_time, prefer_style, mic, created_at, message,
     senderProfile, receiverProfile, profile}) => {
-    console.log(message)
-    const [active, handleActive] = useState(false);
+
+        const [active, handleActive] = useState(false);
 
     const handleOnDelete = (e) => {
         delete_matching_message_room(id).then(function(result){
