@@ -9,7 +9,7 @@ import { Redirect } from 'react-router-dom';
 import _ from 'lodash';
 import './lolmatching.scss'
 
-const LolMatching = ({ isAuthenticated, name }) => {
+const LolMatching = ({ name }) => {
     const [usergames, setUsergames] = useState(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
@@ -89,7 +89,6 @@ const LolMatching = ({ isAuthenticated, name }) => {
 }
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated,
     name: state.auth.user.name
 });
 
