@@ -33,6 +33,26 @@ const Navbar = ({ logout, isAuthenticated }) => {
         </Fragment>
     );
 
+    const guestMenu = () => (
+        <Fragment>
+
+        </Fragment>
+    )
+
+    const authMenu = () => (
+        <Fragment>
+            <Link to='/matching'>
+                    <a className="menu_a">매칭</a>
+                </Link>
+                <Link to='/matching-chat'>
+                    <a className="menu_a">매칭 리스트</a>                    
+                </Link>
+                <Link to='/'>
+                    <a className="menu_a">커뮤니티(준비 중)</a>                    
+                </Link>
+        </Fragment>
+    )
+
     return (
         <div className="header">
             <Link to='/'>
@@ -43,29 +63,14 @@ const Navbar = ({ logout, isAuthenticated }) => {
                 <DehazeIcon />
             </label>
             <ul className="menu">
-                <Link to='/matching'>
-                    <a className="menu_a">매칭</a>
-                </Link>
-                <Link to='/matching-chat'>
-                    <a className="menu_a">매칭 리스트</a>                    
-                </Link>
-                <Link to='/'>
-                    <a className="menu_a">길드 매칭</a>                    
-                </Link>
-                <Link to='/'>
-                    <a className="menu_a">컨텐츠</a>                    
-                </Link>
-                <Link to='/'>
-                    <a className="menu_a">커뮤니티</a>                    
-                </Link>
+                {isAuthenticated ? authMenu() : ''}
                 <div className="header__profile">
-                {isAuthenticated ? authLinks() : guestLinks()}
-            </div>
+                    {isAuthenticated ? authLinks() : guestLinks()}
+                </div>
                 <label htmlFor="chk" className="hide-menu-btn">
                     <CloseIcon />
                 </label>
             </ul>
-
         </div>
     );
 };
