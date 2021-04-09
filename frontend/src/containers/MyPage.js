@@ -113,6 +113,7 @@ const MyPage = ({ isAuthenticated }) => {
                     <li>
                         <div className="mypage__list__item">
                             <LOLMatchingList
+                                isMyUsergame={true}
                                 name={profile.name}
                                 odds={lolusergames.odds.odds}
                                 intro={lolusergames.intro}

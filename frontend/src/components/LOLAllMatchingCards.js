@@ -58,6 +58,7 @@ const LOLAllMatchingCards = () => {
                         {allUsers.map((usergame, index) => (
                             <li key={index}>
                                 <LOLMatchingList
+                                    isMyUsergame={false}
                                     name={usergame.user.name}
                                     odds={usergame.odds.odds}
                                     intro={usergame.intro}

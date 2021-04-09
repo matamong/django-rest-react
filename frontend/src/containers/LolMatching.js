@@ -63,6 +63,7 @@ const LolMatching = ({ isAuthenticated, name }) => {
             <div className="lolmatching__list__container">
             {usergames.map((usergame, index) => (
                 <LOLMatchingList
+                    isMyUsergame={false}
                     name={usergame.user.name}
                     odds={usergame.odds.odds}
                     intro={usergame.intro}
