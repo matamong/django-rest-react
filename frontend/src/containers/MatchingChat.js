@@ -57,8 +57,8 @@ const MatchingChat = ({ isAuthenticated, user }) => {
     return (
         <div className="matchingChat__container">
             <div className="matchingChat__title">
-                <h2>매칭방 리스트</h2>
-                <p></p>
+                <span className="matchingChat__title__emoji">&#128172;</span>
+                <p className="matchingChat__title__second">매칭을 신청하거나 신청받으면 매칭방이 생깁니다! <br />매칭방에서 쪽지를 주고받으며 일정을 잡아보세요.</p>
             </div>
             {chatList.map((chat, index) => (
                 chat.sender.name === user.name ?
