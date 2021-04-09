@@ -1,9 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
+import { connect } from 'react-redux';
 import './lolmatchinglist.scss'
+import { create_matching_message_room, send_matching_message } from '../actions/matching';
+import { setAlert } from '../actions/alert';
 import { Chip } from '@material-ui/core'
 import ProgressBarLinePlain from './ProgressBarLinePlain'
 import Avatar from '@material-ui/core/Avatar';
+import Modal from './Modal'
 import { Hearing, KeyboardVoice, AccessTime } from '@material-ui/icons';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
 
 const LOLMatchingList = ({
     name, odds, intro, lol_prefer_mode, lol_position, prefer_style, prefer_time, region,
@@ -28,6 +35,40 @@ const LOLMatchingList = ({
 
     const [active, handleActive] = useState(false);
     const [saw, setSaw] = useState(false);
+
+    const [modalForm, setModalForm] = useState({
+        receiver: name,
+        content: ''
+    })
+    const { receiver, content } = modalForm
+
+    const modalRef = useRef();
+
+    
+    const onChange = e => {
+        setModalForm({
+            ...modalForm,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const onCancle = (e) => {
+        e.preventDefault();
+        modalRef.current.close()
+    }
+
+    const handleModal = () =>{
+        modalRef.current.open()
+    }
+
+    const onSubmit = e => {
+        e.preventDefault();
+        // 500 에러 났을 때 핸들링 해야함!
+        create_matching_message_room(name, 'lol').then(function (result) {
+            if (result !== undefined) { send_matching_message(result.id, content) }
+        }).then(modalRef.current.close())
+    }
+
 
     const renderTopPreferStyle = () => {
         if (preferStyle === 0 || preferStyle === 1) {
@@ -60,6 +101,31 @@ const LOLMatchingList = ({
 
 
     return (
+        <div>
+            <Modal ref={modalRef}>
+                <div className="matchingmodals__item">
+                    <span className="matchingmodals__item__emoji">&#128588;</span><h3>상대방에게 인삿말을 보내주세요!</h3>
+                    <p>상대방도 매칭을 수락할 수 있게 간단한 인삿말을 보내주세요.</p>
+                    <form className="matchingmodals__item__form" onSubmit={e => onSubmit(e)}>
+                        <div className="matchingmodals__item__input">
+                            <TextField
+                                type="text"
+                                name='content'
+                                value={content}
+                                id="outlined-basic" 
+                                label="인삿말" 
+                                variant="outlined" 
+                                onChange={e => onChange(e)}
+                                required
+                            />
+                        </div>
+                        <div className="matchingmodals__item__buttons">
+                            <div className="matchingmodals__item__button"><Button variant="contained" color="primary" type="submit">보내기</Button></div>
+                            <div className="matchingmodals__item__button"><Button variant="contained" color="secondary" onClick={(e) => onCancle(e)}>취소</Button></div>
+                        </div>
+                    </form>
+                </div>
+            </Modal>
         <div
             className="lolmatchinglist__content"
             style={{
@@ -207,11 +273,13 @@ const LOLMatchingList = ({
                             </div>
                         </div>
                     </div>
-                    <div></div>
+                        <div className="lolmatchinglist__detail__button">
+                                <Button variant="contained" color="primary" disableElevation fullWidth onClick={handleModal}>매칭 신청</Button>
+                        </div>
                 </div>
             </div>
         </div>
     )
 }
 
-export default LOLMatchingList
+export default connect(null, { create_matching_message_room, send_matching_message, setAlert })(LOLMatchingList)
