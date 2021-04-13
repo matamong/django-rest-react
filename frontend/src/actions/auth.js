@@ -253,8 +253,6 @@ export const resend_activation_email = (email) => async dispatch => {
         }
     }
 
-    console.log(email)
-
     try {
         const res = await axios.post("/auth/users/resend_activation/", email, config);
 
@@ -287,7 +285,6 @@ export const delete_user = (password) => async dispatch => {
             current_password: password
         }
     }
-    console.log('config data  : ' + config.data.current_password)
 
     try {
         await axios.delete("/auth/users/me/", config);
