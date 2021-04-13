@@ -19,6 +19,7 @@ const LOLMatchingList = ({
     const userName = name
     const preferStyle = prefer_style
     const tier = solo_tier
+    const rank = solo_rank
     const ai = lol_prefer_mode.ai
     const flex_rank = lol_prefer_mode.flex_rank
     const howling_abyss = lol_prefer_mode.howling_abyss
@@ -186,8 +187,8 @@ const LOLMatchingList = ({
                                 </div>
                                     <div className="lolmatchinglist__gameSkill__bar">
                                         <span className="lolmatchinglist__gameSkill__emoji" >
-                                            <img className="lolmatchinglist__gameSkill__rank" src={"https://raw.githubusercontent.com/matamatamong/img/main/Django-rest-React/lol_static/Rank/emblems/" + tier + ".png"} />
-                                            <div className="lolmatchinglist__gameSkill__rank__name">{tier}</div>
+                                            <img className="lolmatchinglist__gameSkill__rank" src={"https://raw.githubusercontent.com/matamatamong/img/main/Django-rest-React/lol_static/Rank/emblems/" + rank + ".png"} />
+                                            <div className="lolmatchinglist__gameSkill__rank__name">{rank}</div>
                                         </span>
                                     </div>
                                 </div>

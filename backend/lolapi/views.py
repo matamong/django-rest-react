@@ -104,8 +104,8 @@ class LolUserGameRenewalView(generics.UpdateAPIView):
         print(user_rank_data)
 
         if len(user_rank_data) == 1 :
-            solo_rank = user_rank_data[0]['tier']
-            solo_tier = user_rank_data[0]['rank']
+            solo_rank = user_rank_data[0]['rank']
+            solo_tier = user_rank_data[0]['tier']
             flex_tier = 'UNRANKED'
             flex_rank = 'UNRANKED'
         elif len(user_rank_data) == 0:
@@ -114,8 +114,8 @@ class LolUserGameRenewalView(generics.UpdateAPIView):
             flex_tier = 'UNRANKED'
             flex_rank = 'UNRANKED'
         else:
-            solo_rank = user_rank_data[0]['tier']
-            solo_tier = user_rank_data[0]['rank']
+            solo_rank = user_rank_data[0]['rank']
+            solo_tier = user_rank_data[0]['tier']
             flex_tier = user_rank_data[1]['tier']
             flex_rank = user_rank_data[1]['rank']
         
@@ -203,10 +203,11 @@ class LolUserGameListView(generics.ListCreateAPIView):
         user_champion_mastery_data = lol_watcher.champion_mastery.by_summoner(request_region, lol_id)
 
         print(user_rank_data)
+        print()
 
         if len(user_rank_data) == 1 :
-            solo_rank = user_rank_data[0]['tier']
-            solo_tier = user_rank_data[0]['rank']
+            solo_rank = user_rank_data[0]['rank']
+            solo_tier = user_rank_data[0]['tier']
             flex_tier = 'UNRANKED'
             flex_rank = 'UNRANKED'
         elif len(user_rank_data) == 0:
@@ -215,8 +216,8 @@ class LolUserGameListView(generics.ListCreateAPIView):
             flex_tier = 'UNRANKED'
             flex_rank = 'UNRANKED'
         else:
-            solo_rank = user_rank_data[0]['tier']
-            solo_tier = user_rank_data[0]['rank']
+            solo_rank = user_rank_data[0]['rank']
+            solo_tier = user_rank_data[0]['tier']
             flex_tier = user_rank_data[1]['tier']
             flex_rank = user_rank_data[1]['rank']
         
