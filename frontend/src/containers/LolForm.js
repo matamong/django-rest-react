@@ -10,6 +10,7 @@ import Slider, { SliderTooltip } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
+import LOLMatchingList from '../components/LOLMatchingList'
 
 
 // https://stackoverflow.com/questions/58889116/updating-nested-object-in-react-hooks
@@ -435,7 +436,25 @@ const LolForm = ({ save_lol_usergame }) => {
             </form>
             {profile == null ? '' :
                 <div className='pow'>
+                    <div className="lolform__profile">
+                    <LOLMatchingList
+                    isMyUsergame={true}
+                    name={profile.user.name}
+                    odds={profile.odds.odds}
+                    intro={profile.intro}
+                    main_champ_info={profile.main_champ_info}
+                    lol_position={profile.lol_position}
+                    lol_prefer_mode={profile.lol_prefer_mode}
+                    prefer_style={profile.prefer_style}
+                    prefer_time={profile.prefer_time}
+                    region={profile.region}
+                    solo_rank={profile.solo_rank}
+                    solo_tier={profile.solo_tier}
+                    profile={profile.user.profile}
+                    mic={profile.mic}
+                />
                     <Card profile={profile} />
+                </div>
                 </div>
             }
         </div>
