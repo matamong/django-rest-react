@@ -225,7 +225,7 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
         <div className="lolform__container">
             <form onSubmit={e => onSubmit(e)}>
             <div className="lolform__nicknameregion__container">
-                    <h2>LOL 닉네임</h2>
+                    <h2 className="lolform__title">LOL 닉네임</h2>
                     <div className="lolform__nicnknameregion__items">
                         <div className="lolform__nickname">
                             <TextField
@@ -255,7 +255,7 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
                     </div>
                 </div>
                 <div className="lolform__bias__container">
-                    <h2>게임성향</h2>
+                    <h2 className="lolform__title">게임성향</h2>
                     <div className="lolform__bias__preferstyle">
                         <h5>어떻게 게임을 해야 재밌으신가요?</h5>
                         <Slider
@@ -287,7 +287,7 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
                     </div>
                 </div>
                 <div className="lolform__preferTime">
-                    <h2>선호 시간대</h2>
+                    <h2 className="lolform__title">선호 시간대</h2>
                     <TextField
                         type='text'
                         placeholder='평일 저녁 8시 ~ 11시'
@@ -300,7 +300,7 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
                     />
                 </div>
                 <div className="lolform__intro">
-                    <h2>자기소개</h2>
+                    <h2 className="lolform__title">자기소개</h2>
                     <TextField
                         id="outlined-multiline-static"
                         label="자기소개"
@@ -315,7 +315,7 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
                     />
                 </div>
                 <div className="lolform__lane__container">
-                    <h2>라인 숙련도</h2>
+                    <h2 className="lolform__title">라인 숙련도</h2>
                     <div className="lolform__lane__item">
                         <div className="lolform__lane__img">
                             <img src="/images/Position_Challenger-Top.png" />
