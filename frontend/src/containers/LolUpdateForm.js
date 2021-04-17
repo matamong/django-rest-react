@@ -15,7 +15,7 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
     
     const [profile, setProfile] = useState(null)
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
+    const [error, setError] = useState(false)
     const [isChanged, setIsChanged] = useState(false)
 
     const [generalFormData, setGeneralFormData] = useState({
@@ -64,7 +64,7 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
             }
         }
         try {
-            setError(null);
+            setError(false);
             setProfile(null);
             setLoading(true);
             
@@ -100,11 +100,10 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
 
             })
             .catch(function (error) {
-                console.log(error);
+                setError(true);
             });
         } catch (e) {
-            setError(e);
-            console.log(e)
+            setError(true);
         }
         setLoading(false)
     }

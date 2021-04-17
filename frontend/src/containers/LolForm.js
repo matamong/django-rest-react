@@ -30,6 +30,7 @@ const LolForm = ({ save_lol_usergame }) => {
     const [profile, setProfile] = useState(null)
     const [cardCreated, setCardCreated] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
 
     const [valueData, setValueData] = useState({
         nameEntered: '',
@@ -229,6 +230,7 @@ const LolForm = ({ save_lol_usergame }) => {
                 setCardCreated(true)
             })
         } catch(e) {
+            setError(true)
             setLoading(false)
         }
     }
