@@ -7,7 +7,7 @@ import MatchingTickets from '../components/MatchingTickets'
 const Matching = ({ isAuthenticated }) => {
     const [usergames, setUsergames] = useState(null)
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
+    const [error, setError] = useState(false)
 
     const fetchUsergames = async () => {
         const config = {
@@ -24,15 +24,13 @@ const Matching = ({ isAuthenticated }) => {
             
             axios.get("/api/matching/my/usergames", config)
             .then(function (response) {
-                console.log(response);
                 setUsergames(response.data)
             })
             .catch(function (error) {
-                console.log(error);
+                setError(true)
             });
         } catch (e) {
-            setError(e);
-            console.log(e)
+            setError(true);
         }
         setLoading(false)
     }
