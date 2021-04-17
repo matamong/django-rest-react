@@ -6,15 +6,16 @@ import loginImg from '../login.svg'
 import Button from '@material-ui/core/Button';
 import "./login.scss";
 import Checkbox from '@material-ui/core/Checkbox';
-import EventNoteIcon from '@material-ui/icons/EventNote';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import axios from 'axios';
-import { createChainedFunction } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 
 const Signup = ({ signup, isAuthenticated }) => {
     var Isemail = require('isemail');
     const [accountCreated, setAccountCreated] = useState(false);
+    const [loading, setLoading] = useState(false)
     
     // Form Data state
     const [formData, setFormData] = useState({
@@ -175,16 +176,20 @@ const Signup = ({ signup, isAuthenticated }) => {
 
     const onSubmit = e => {
         e.preventDefault();
-
+        setLoading(true)
         if (password === re_password) {
             signup({ name, email, password, re_password }).then(function (result){
-                if (result === true)
+                if (result === true) {
+                    setLoading(false)
                     setAccountCreated(true);
+                }else{
+                    setLoading(false)
+                }
             })
+        }else{
+            setLoading(false)
         }
     };
-
-    
 
 
     // Render function
@@ -233,6 +238,7 @@ const Signup = ({ signup, isAuthenticated }) => {
 
     if (isAuthenticated)
         return <Redirect to='/' />;
+
     if (accountCreated)
         return <Redirect to='/SignupSuccess' />;
 
@@ -362,7 +368,12 @@ const Signup = ({ signup, isAuthenticated }) => {
                             </div>
                         </div>
                         <div className="login__footer">
-                            {renderSubmitBtn()}
+                            {loading === true ?  
+                                <div className="login__footer"><CircularProgress /></div>
+                            :
+                                (renderSubmitBtn())
+                            } 
+                            {loading === false ? "로딩안하는즁" : "로딩하는중"}
                         </div>
                         <p className="login__phrase" style={{margin: '0 0 3rem 0'}}>이미 아이디가 있나요? <span className="login__lilnk"><Link to='/login'>Sign In</Link></span></p>
                     </div>
