@@ -117,6 +117,16 @@
   height: auto;
 }
 
+.pow__button {
+  text-align: center;
+  margin: 1rem 0 1rem 0;
+  button {
+    margin: 1rem;
+    padding: 0.8rem;
+    width: 16rem;
+  }
+}
+
 .lolform__profile {
   margin: 0 auto;
   width: 90%;

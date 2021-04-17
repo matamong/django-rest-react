@@ -450,6 +450,9 @@ const LolForm = ({ save_lol_usergame }) => {
                             mic={profile.mic}
                         />
                     </div>
+                    <div className="pow__button">
+                        <Link to="lol-matching"><Button variant="contained" color="primary">매칭 시작</Button></Link>
+                    </div>
                 </div>
             }
         </div>
