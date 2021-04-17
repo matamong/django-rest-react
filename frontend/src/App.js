@@ -22,6 +22,7 @@ import MatchingChat from './containers/MatchingChat'
 import SignupSuccess from './components/SignupSuccess'
 import ChatScreen from './components/ChatScreen'
 import axios from "axios"
+import Auth from './hocs/Auth';
 
 if (window.location.origin === "http://localhost:3000") {
   axios.defaults.baseURL = "http://127.0.0.1:8000"; //development
@@ -34,26 +35,30 @@ const App = () => (
         <Router>
             <Layout>
                 <Switch>
-                    <Route exact path='/login' component={Login} />
-                    <Route exact path='/signup' component={Signup} />
-                    <Route exact path='/reset-password' component={ResetPassword} />
-                    <Route exact path='/password/reset/confirm/:uid/:token' component={ResetPasswordConfirm} />
-                    <Route exact path='/activate/:uid/:token' component={Activate} />
-                    <Route exact path='/matching' component={Matching} />
-                    <Route exact path='/lol-form' component={LolForm}></Route>
-                    <Route exact path='/lol-matching' component={LolMatching} />
+                    <Route exact path='/login' component={Auth(Login, false)} />
+                    <Route exact path='/signup' component={Auth(Signup, false)} />
+                    <Route exact path='/reset-password' component={Auth(ResetPassword, null)} />
+                    <Route exact path='/password/reset/confirm/:uid/:token' component={Auth(ResetPasswordConfirm, null)} />
+                    <Route exact path='/activate/:uid/:token' component={Auth(Activate, null)} />
+                    <Route exact path='/matching' component={Auth(Matching, true)} />
+                    <Route exact path='/lol-form' component={Auth(LolForm, true)}></Route>
+                    <Route exact path='/lol-matching' component={Auth(LolMatching, true)} />
                     <Route exact path='/my-lol-card' component={MyLOLCard} />
-                    <Route exact path='/my-page' component={MyPage} />
-                    <Route exact path="/SignupSuccess" component={SignupSuccess} />
-                    <Route exact path='/lol-update-form' component={LolUpdateForm} />
-                    <Route exact path='/matching-chat' component={MatchingChat} />
-                    <Route exact path='/matching-chat-detail/:id' component={ChatScreen} />
-                    <Route exact path='/' component={Home} />
+                    <Route exact path='/my-page' component={Auth(MyPage, true)} />
+                    <Route exact path="/SignupSuccess" component={Auth(SignupSuccess, null)} />
+                    <Route exact path='/lol-update-form' component={Auth(LolUpdateForm, true)} />
+                    <Route exact path='/matching-chat' component={Auth(MatchingChat, true)} />
+                    <Route exact path='/matching-chat-detail/:id' component={Auth(ChatScreen, true)} />
+                    <Route exact path='/' component={Auth(Home, null)} />
                 </Switch>
             </Layout>
             <ToastContainer />
         </Router>
     </Provider>
 )
+    
+
+
+
 
 export default App;
