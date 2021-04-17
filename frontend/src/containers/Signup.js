@@ -59,6 +59,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                   setIsNameDuplicated(true)
                 }
               });
+              setIsNameDuplicated(true)
         } catch(e) {
             return false
         }
@@ -77,6 +78,7 @@ const Signup = ({ signup, isAuthenticated }) => {
                   setIsEmailDuplicated(true)
                 }
               });
+              setIsEmailDuplicated(true)
         } catch(e) {
             return false
         }
@@ -373,7 +375,6 @@ const Signup = ({ signup, isAuthenticated }) => {
                             :
                                 (renderSubmitBtn())
                             } 
-                            {loading === false ? "로딩안하는즁" : "로딩하는중"}
                         </div>
                         <p className="login__phrase" style={{margin: '0 0 3rem 0'}}>이미 아이디가 있나요? <span className="login__lilnk"><Link to='/login'>Sign In</Link></span></p>
                     </div>
