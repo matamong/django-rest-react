@@ -10,6 +10,7 @@ import 'rc-slider/assets/index.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
 import LOLMatchingList from '../components/LOLMatchingList'
+import { Link } from 'react-router-dom';
 
 
 // https://stackoverflow.com/questions/58889116/updating-nested-object-in-react-hooks
@@ -89,11 +90,11 @@ const LolForm = ({ save_lol_usergame }) => {
                 config
             ).then(response => {
                 const profile = response.data
-
-                if (profile.lol_name === nickname) {
-                    setIsNameDuplicated(true)
-                } else {
+                
+                if (profile.region === null) {
                     setIsNameDuplicated(false)
+                } else {
+                    setIsNameDuplicated(true)
                 }
             })
         } catch (e) {
@@ -236,7 +237,7 @@ const LolForm = ({ save_lol_usergame }) => {
                 <div className="lolform__nicknameregion__container">
                     <h2 className="lolform__title">LOL 닉네임</h2>
                     <div className="lolform__nickname__message">
-                        {isNameDuplicated === true ? '있는 닉넴!!' : 'ㅇㅋㅇㅋ 써도 됨'}
+                        {isNameDuplicated === true ? '이미 등록 된 닉네임이에요.' : ''}
                     </div>
                     <div className="lolform__nicnknameregion__items">
                         <div className="lolform__nickname">
