@@ -5,7 +5,7 @@ import { save_lol_usergame } from '../actions/matching';
 import Card from '../components/LOLCard'
 import './lolform.scss'
 import { TextField, Select, MenuItem, FormControl, InputLabel, Typography, Chip, Button } from '@material-ui/core'
-import { DoneIcon, HeadsetMic, HeadsetMicOutlined, Hearing , KeyboardVoice, AccessTime } from '@material-ui/icons';
+import { DoneIcon, HeadsetMic, HeadsetMicOutlined, Hearing , KeyboardVoice, AccessTime, TramRounded } from '@material-ui/icons';
 import Slider, { SliderTooltip } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -87,19 +87,15 @@ const LolForm = ({ save_lol_usergame }) => {
                 "/api/matching/lol/usergame/" + nickname,
                 config
             ).then(response => {
-
                 const profile = response.data
 
                 if (profile.lol_name === nickname) {
-                    console.log('중복 있어용' + profile.lol_name + nickname)
                     setIsNameDuplicated(true)
                 } else {
-                    console.log('중복 없어용' + profile.name)
                     setIsNameDuplicated(false)
                 }
             })
         } catch (e) {
-            console.log('error!')
             return false
         }
     }
@@ -170,36 +166,24 @@ const LolForm = ({ save_lol_usergame }) => {
             ...state,
             [field]: value
         }));
-        console.log('field : ' + field, 'value : ' + value)
     };
 
     const onSliderChange = value => {
-        console.log(value)
         setGeneralFormData({ ...generalFormData, prefer_style: value })
     }
 
     const onSliderPositionChange = (field, value) => {
-        console.log(value)
         setPositionFormData({ ...positionFormData, [field]: value })
     }
 
     const onChipChange = (field, value) => {
-        console.log('들어온 필드 :' + field)
-        console.log('들어온 필드의 값 : ' + value)
-
         var changedValue = changeValue(value)
         setModeFormData({ ...modeFormData, [field]: changedValue})
         
-        console.log('시도한 value : ' + changedValue)
-        console.log('---------------------------------')
     }
 
     const onMicChipChange = (str) => {
-        console.log('들어온 str :' + str)
-
         setMicFormData({mic: str})
-        
-        console.log('---------------------------------')
     }
 
     const changeValue = (value) => { 

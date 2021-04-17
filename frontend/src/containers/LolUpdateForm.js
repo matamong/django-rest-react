@@ -70,7 +70,6 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
             
             axios.get("/api/matching/lol/my/usergame", config)
             .then(function (response) {
-                console.log(response);
                 setProfile(response.data)
                 //////////////////////////////////////////////////
                 setGeneralFormData({
@@ -131,39 +130,27 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
             ...state,
             [field]: value
         }));
-        console.log('field : ' + field, 'value : ' + value)
         setIsChanged(true)
     };
     const onSliderChange = value => {
-        console.log(value)
         setGeneralFormData({ ...generalFormData, prefer_style: value })
         setIsChanged(true)
     }
 
     const onSliderPositionChange = (field, value) => {
-        console.log(value)
         setPositionFormData({ ...positionFormData, [field]: value })
         setIsChanged(true)
     }
 
     const onChipChange = (field, value) => {
-        console.log('들어온 필드 :' + field)
-        console.log('들어온 필드의 값 : ' + value)
-
         var changedValue = changeValue(value)
         setModeFormData({ ...modeFormData, [field]: changedValue})
-        
-        console.log('시도한 value : ' + changedValue)
-        console.log('---------------------------------')
+
         setIsChanged(true)
     }
 
     const onMicChipChange = (str) => {
-        console.log('들어온 str :' + str)
-
         setMicFormData({mic: str})
-        
-        console.log('---------------------------------')
         setIsChanged(true)
     }
 
