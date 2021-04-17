@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { save_lol_usergame } from '../actions/matching';
-import Card from '../components/LOLCard'
 import './lolform.scss'
 import { TextField, Select, MenuItem, FormControl, InputLabel, Typography, Chip, Button } from '@material-ui/core'
 import { DoneIcon, HeadsetMic, HeadsetMicOutlined, Hearing , KeyboardVoice, AccessTime, TramRounded } from '@material-ui/icons';
@@ -439,7 +438,6 @@ const LolForm = ({ save_lol_usergame }) => {
                     profile={profile.user.profile}
                     mic={profile.mic}
                 />
-                    <Card profile={profile} />
                 </div>
                 </div>
             }
