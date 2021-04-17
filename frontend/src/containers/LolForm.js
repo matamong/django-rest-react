@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef , useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { save_lol_usergame } from '../actions/matching';
@@ -25,6 +25,8 @@ const useStyles = makeStyles((theme) => ({
 
 const LolForm = ({ save_lol_usergame }) => {
     const classes = useStyles();
+
+    const profileRef = useRef()
 
     const [profile, setProfile] = useState(null)
     const [cardCreated, setCardCreated] = useState(false)
@@ -192,6 +194,10 @@ const LolForm = ({ save_lol_usergame }) => {
             return 1
     }
 
+    const focusProfile = () => {
+        profileRef.current?.scrollIntoView({ behavior: "smooth" })
+    }
+
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -211,12 +217,17 @@ const LolForm = ({ save_lol_usergame }) => {
                 setLoading(false)
                 setProfile(result)
                 setCardCreated(true)
+                profileRef.current.focus()  
             })
         } catch(e) {
-            setError(true)
+            setError(true)  
             setLoading(false)
         }
     }
+    
+    useEffect(() => {
+        focusProfile()
+      }, [cardCreated]);
 
 
     return (
@@ -420,25 +431,25 @@ const LolForm = ({ save_lol_usergame }) => {
                 </div>
             </form>
             {profile == null ? '' :
-                <div className='pow'>
+                <div className='pow' ref={profileRef}>
                     <div className="lolform__profile">
-                    <LOLMatchingList
-                    isMyUsergame={true}
-                    name={profile.user.name}
-                    odds={profile.odds.odds}
-                    intro={profile.intro}
-                    main_champ_info={profile.main_champ_info}
-                    lol_position={profile.lol_position}
-                    lol_prefer_mode={profile.lol_prefer_mode}
-                    prefer_style={profile.prefer_style}
-                    prefer_time={profile.prefer_time}
-                    region={profile.region}
-                    solo_rank={profile.solo_rank}
-                    solo_tier={profile.solo_tier}
-                    profile={profile.user.profile}
-                    mic={profile.mic}
-                />
-                </div>
+                        <LOLMatchingList
+                            isMyUsergame={true}
+                            name={profile.user.name}
+                            odds={profile.odds.odds}
+                            intro={profile.intro}
+                            main_champ_info={profile.main_champ_info}
+                            lol_position={profile.lol_position}
+                            lol_prefer_mode={profile.lol_prefer_mode}
+                            prefer_style={profile.prefer_style}
+                            prefer_time={profile.prefer_time}
+                            region={profile.region}
+                            solo_rank={profile.solo_rank}
+                            solo_tier={profile.solo_tier}
+                            profile={profile.user.profile}
+                            mic={profile.mic}
+                        />
+                    </div>
                 </div>
             }
         </div>
