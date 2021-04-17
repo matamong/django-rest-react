@@ -7,6 +7,8 @@ import GoogleOAuth from '../components/SocialAuthGoogle'
 import loginImg from '../login.svg'
 import Button from '@material-ui/core/Button';
 import "./login.scss";
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 
 
@@ -15,6 +17,8 @@ const Login = ({ login, isAuthenticated }) => {
         email: '',
         password: ''
     });
+
+    const [loading, setLoading] = useState(false)
 
     const { email, password } = formData;
 
@@ -72,12 +76,15 @@ const Login = ({ login, isAuthenticated }) => {
                             <p className="login__phrase">비밀번호가 기억나지않나요? <span className="login__lilnk"><Link to='/reset-password'>비밀번호 변경하기</Link></span></p>
                         </div>
                         <div className="login__footer">
-                            <Button
-                                type='submit'
-                                variant="contained"
-                                color="primary">
-                                로그인
-                            </Button>
+                            {loading === true ?  <div><CircularProgress /></div> : 
+                                <Button
+                                    type='submit'
+                                    variant="contained"
+                                    color="primary">
+                                    로그인
+                                </Button>
+                            }
+                            
                         </div>
                     </div>
                 </form>
