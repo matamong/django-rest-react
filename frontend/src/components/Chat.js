@@ -119,7 +119,7 @@ const Chat = ({
                             <div className="firstBehind">
                                 <div className="firstBehindDisplay">
                                     <div className="firstBehindTop">
-                                        <div className="detail" style={{margin: "-0.1rem 0 0.6rem 0"}}>
+                                        <div className="detail" style={{margin: "-0.1rem 0 0.6rem 0", overflow: "hidden"}}>
                                             {prefer_time}
                                         </div>
                                     </div>
