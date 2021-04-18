@@ -38,8 +38,8 @@ const App = () => (
                     <Route exact path='/login' component={Auth(Login, false)} />
                     <Route exact path='/signup' component={Auth(Signup, false)} />
                     <Route exact path='/reset-password' component={Auth(ResetPassword, null)} />
-                    <Route exact path='/password/reset/confirm/:uid/:token' component={Auth(ResetPasswordConfirm, null)} />
-                    <Route exact path='/activate/:uid/:token' component={Auth(Activate, null)} />
+                    <Route exact path='/password/reset/confirm/:uid/:token' component={ResetPasswordConfirm} />
+                    <Route exact path='/activate/:uid/:token' component={Activate} />
                     <Route exact path='/matching' component={Auth(Matching, true)} />
                     <Route exact path='/lol-form' component={Auth(LolForm, true)}></Route>
                     <Route exact path='/lol-matching' component={Auth(LolMatching, true)} />
