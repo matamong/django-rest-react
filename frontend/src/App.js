@@ -48,7 +48,7 @@ const App = () => (
                     <Route exact path="/SignupSuccess" component={Auth(SignupSuccess, null)} />
                     <Route exact path='/lol-update-form' component={Auth(LolUpdateForm, true)} />
                     <Route exact path='/matching-chat' component={Auth(MatchingChat, true)} />
-                    <Route exact path='/matching-chat-detail/:id' component={Auth(ChatScreen, true)} />
+                    <Route exact path='/matching-chat-detail/:id' component={ChatScreen} />
                     <Route exact path='/' component={Auth(Home, null)} />
                 </Switch>
             </Layout>

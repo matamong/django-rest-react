@@ -7,13 +7,15 @@ import { useLocation } from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button';
 import MessageUsergameProfile from './MessageUsergameProfile'
+import { Redirect } from 'react-router-dom';
+
 
 
 const ChatScreen = ({ history, props, isAuthenticated, user, send_matching_message, update_matching_message_room, delete_matching_message_room }) => {
     const [chatContents, setChatContents] = useState(null)
     const [chatRoomInfo, setChatRoomInfo] = useState(null)
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
+    const [error, setError] = useState(false)   
 
     const [input, setInput] = useState(''); //keep track input type
 
@@ -33,20 +35,17 @@ const ChatScreen = ({ history, props, isAuthenticated, user, send_matching_messa
         }
 
         try {
-            setError(null);
             setChatRoomInfo(null);
             setLoading(true);
             axios.get("/api/messages/rooms/" + messageroom_id, config)
                 .then(function (response) {
-                    console.log(response.data);
                     setChatRoomInfo(response.data)
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    setError(true)
                 });
         } catch (e) {
-            setError(false);
-            console.log(e)
+            setError(true);
         }
         setLoading(false)
 
@@ -62,7 +61,6 @@ const ChatScreen = ({ history, props, isAuthenticated, user, send_matching_messa
         }
 
         try {
-            setError(null);
             setChatContents(null);
             setLoading(true);
             axios.get(`${process.env.REACT_APP_API_URL}/api/messages/` + messageroom_id, config)
@@ -74,7 +72,6 @@ const ChatScreen = ({ history, props, isAuthenticated, user, send_matching_messa
                 });
         } catch (e) {
             setError(true);
-            console.log(e)
         }
         setLoading(false)
     }
@@ -118,9 +115,12 @@ const ChatScreen = ({ history, props, isAuthenticated, user, send_matching_messa
     }
 
     if (loading) return <div>loading..</div>
+    if (!isAuthenticated)
+        return <Redirect to='/' />;
     if (error) return <div>error!</div>
     if (!chatContents) return null
     if (!chatRoomInfo) return null
+
 
 
     return (
@@ -175,7 +175,7 @@ const ChatScreen = ({ history, props, isAuthenticated, user, send_matching_messa
                     message.reply_user.name !== user.name ? (
                         <div className="chatScreen__message" key={index} id={index}>
                             <Avatar
-                                calssName="chatScreen__image" src="https://raw.githubusercontent.com/matamatamong/img/main/Django-rest-React/Front/avatar.png"
+                                className="chatScreen__image" src="https://raw.githubusercontent.com/matamatamong/img/main/Django-rest-React/Front/avatar.png"
                             />
                             <p className="chatScreen__text">{message.content}</p>
                         </div>
