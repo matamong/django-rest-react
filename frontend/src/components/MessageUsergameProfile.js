@@ -36,7 +36,7 @@ const MessageUsergameProfile = ({ name, game_name, game_nickname, lv, mic, prefe
                             </div>
                             <div className="progress-info-content">
                                 <div className="progressbar">
-                                    <ProgressBarLine animate={0.5} />
+                                    <ProgressBarLine animate={prefer_style * 0.1} />
                                 </div>
                                 <div className="time">
                                     <h6>{prefer_time}</h6>
