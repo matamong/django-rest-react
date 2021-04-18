@@ -143,18 +143,20 @@ const ChatScreen = ({ history, props, isAuthenticated, user, send_matching_messa
                                 name={chatRoomInfo.sender.name}
                                 game_name={chatRoomInfo.game_name}
                                 profile={chatRoomInfo.sender.profile}
+                                tier={chatRoomInfo.sender_usergame_profile.rank.solo_tier}
                             />
                         </div>
                         : 
                             <MessageUsergameProfile
-                            game_nickname={chatRoomInfo.receiver_usergame_profile.game_nickname}
-                            lv={chatRoomInfo.receiver_usergame_profile.lv}
-                            mic={chatRoomInfo.receiver_usergame_profile.mic}
-                            prefer_style={chatRoomInfo.receiver_usergame_profile.prefer_style}
-                            prefer_time={chatRoomInfo.receiver_usergame_profile.prefer_time}
-                            region={chatRoomInfo.receiver_usergame_profile.region}
-                            game_name={chatRoomInfo.game_name}
-                            profile={chatRoomInfo.receiver.profile}
+                                game_nickname={chatRoomInfo.receiver_usergame_profile.game_nickname}
+                                lv={chatRoomInfo.receiver_usergame_profile.lv}
+                                mic={chatRoomInfo.receiver_usergame_profile.mic}
+                                prefer_style={chatRoomInfo.receiver_usergame_profile.prefer_style}
+                                prefer_time={chatRoomInfo.receiver_usergame_profile.prefer_time}
+                                region={chatRoomInfo.receiver_usergame_profile.region}
+                                game_name={chatRoomInfo.game_name}
+                                profile={chatRoomInfo.receiver.profile}
+                                tier={chatRoomInfo.receiver_usergame_profile.rank.solo_tier}
                             />
 
                     }

@@ -6,7 +6,7 @@ import { Chip } from '@material-ui/core'
 import Avatar from '@material-ui/core/Avatar'
 import './messageUsergameProfile.scss'
 
-const MessageUsergameProfile = ({ name, game_name, game_nickname, lv, mic, prefer_style, prefer_time, rank, region, consent, profile }) => {
+const MessageUsergameProfile = ({ name, game_name, game_nickname, lv, mic, prefer_style, prefer_time, rank, region, consent, profile, tier }) => {
 
     return (
         <div className="messageUsergameProfile__container">
@@ -21,6 +21,7 @@ const MessageUsergameProfile = ({ name, game_name, game_nickname, lv, mic, prefe
                             {mic === 'HEARING' ? <Hearing fontSize="small" /> : ''}
                             {mic === 'RANDOM_MIC' ? <AccessTime fontSize="small" /> : ''}
                         </div>
+                        <div className="course-preview-left">{tier}</div>
                     </div>
                     <div className="course-info">
                         <div className="progress-container">
