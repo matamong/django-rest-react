@@ -9,7 +9,6 @@ const Home = () => {
         <div className="home__slick__container">
           <Slick />
         </div>
-        home
       </div>
     )
 }

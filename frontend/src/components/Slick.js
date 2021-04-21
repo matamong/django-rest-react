@@ -20,13 +20,7 @@ const Slick = () => {
             <Container>
             <Slider {...settings}>
                 <div>
-                    <img src="https://www.ygfamily.com/upload/main/blackpink-lsg1002_kr.jpg"/>
-                </div>
-                <div>
-                    <img src="https://www.ygfamily.com/upload/main/THESHOW2_kr.jpg" />
-                </div>
-                <div>
-                    <h3>3</h3>
+                    <img src="https://gameduos-bucket.s3.ap-northeast-2.amazonaws.com/GameduosBanner.png"/>
                 </div>
             </Slider>
             </Container>
