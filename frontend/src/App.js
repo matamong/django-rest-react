@@ -19,6 +19,7 @@ import "react-toastify/dist/ReactToastify.css";
 import MatchingChat from './containers/MatchingChat'
 import SignupSuccess from './components/SignupSuccess'
 import ChatScreen from './components/ChatScreen'
+import NotFound from './containers/NotFound'
 import axios from "axios"
 import Auth from './hocs/Auth';
 
@@ -47,6 +48,7 @@ const App = () => (
                     <Route exact path='/matching-chat' component={Auth(MatchingChat, true)} />
                     <Route exact path='/matching-chat-detail/:id' component={ChatScreen} />
                     <Route exact path='/' component={Auth(Home, null)} />
+                    <Route component={NotFound} />
                 </Switch>
             </Layout>
             <ToastContainer />
