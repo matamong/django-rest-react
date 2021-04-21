@@ -3,6 +3,7 @@ import axios from 'axios'
 import { connect } from 'react-redux';
 import Chat from '../components/Chat'
 import { Redirect } from 'react-router-dom';
+import Error from '../containers/Error'
 import './matchingchat.scss'
 
 
@@ -50,7 +51,7 @@ const MatchingChat = ({ isAuthenticated, user }) => {
     //if (!isAuthenticated)
     //    return <Redirect to='/login' />;
     if (loading) return <div>Loading..</div>
-    if (error) return <div>Error!</div>
+    if (error) return <Error />
     if(!chatList) return null
 
 

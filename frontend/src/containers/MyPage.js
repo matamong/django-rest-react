@@ -16,7 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import UserDeleteButton from '../components/UserDeleteButton'
 import LOLMatchingList from '../components/LOLMatchingList'
 import EditIcon from '@material-ui/icons/Edit';
-
+import Error from '../containers/Error'
 
 const MyPage = ({ isAuthenticated }) => {
     
@@ -73,7 +73,7 @@ const MyPage = ({ isAuthenticated }) => {
     if (!isAuthenticated)
         return <Redirect to='/login' />;
     if (loading) return <div>Loading..</div>
-    if (error) return <div>Error!</div>
+    if (error) return <Error />
     if (!profile) return null
     if (!lolusergames) return null
 

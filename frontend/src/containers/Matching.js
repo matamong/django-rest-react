@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios'
 import MatchingTickets from '../components/MatchingTickets'
+import Error from '../containers/Error'
 
 const Matching = ({ isAuthenticated }) => {
     const [usergames, setUsergames] = useState(null)
@@ -40,7 +41,7 @@ const Matching = ({ isAuthenticated }) => {
     }, []);
 
     if (loading) return <div>Loading..</div>
-    if (error) return <div>Error!</div>
+    if (error) return <Error />
     if (!usergames) return null
 
     return (

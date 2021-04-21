@@ -8,6 +8,7 @@ import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button';
 import MessageUsergameProfile from './MessageUsergameProfile'
 import { Redirect } from 'react-router-dom';
+import Error from '../containers/Error'
 
 
 
@@ -117,7 +118,7 @@ const ChatScreen = ({ history, props, isAuthenticated, user, send_matching_messa
     if (loading) return <div>loading..</div>
     if (!isAuthenticated)
         return <Redirect to='/' />;
-    if (error) return <div>error!</div>
+    if (error) return <Error />
     if (!chatContents) return null
     if (!chatRoomInfo) return null
 
