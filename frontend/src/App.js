@@ -6,10 +6,8 @@ import Signup from './containers/Signup';
 import Activate from './containers/Activate';
 import ResetPassword from './containers/ResetPassword';
 import ResetPasswordConfirm from './containers/ResetPasswordConfirm';
-import Cards from './containers/Cards';
 import LolForm from './containers/LolForm'
 import LolMatching from './containers/LolMatching';
-import MyLOLCard from './components/MyLOLCard';
 import MyPage from './containers/MyPage'
 import Matching from './containers/Matching'
 import LolUpdateForm from './containers/LolUpdateForm'
@@ -43,7 +41,6 @@ const App = () => (
                     <Route exact path='/matching' component={Auth(Matching, true)} />
                     <Route exact path='/lol-form' component={Auth(LolForm, true)}></Route>
                     <Route exact path='/lol-matching' component={Auth(LolMatching, true)} />
-                    <Route exact path='/my-lol-card' component={MyLOLCard} />
                     <Route exact path='/my-page' component={Auth(MyPage, true)} />
                     <Route exact path="/SignupSuccess" component={Auth(SignupSuccess, null)} />
                     <Route exact path='/lol-update-form' component={Auth(LolUpdateForm, true)} />

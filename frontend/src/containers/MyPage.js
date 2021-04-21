@@ -1,6 +1,5 @@
 import React , { useState, useEffect  }from 'react'
 import { Link, Redirect } from 'react-router-dom';
-import MyLoLCard from '../components/MyLOLCard'
 import ProfileToken from '../components/ProfileToken'
 import axios from 'axios'
 import { connect } from 'react-redux';
@@ -17,7 +16,6 @@ import IconButton from '@material-ui/core/IconButton';
 import UserDeleteButton from '../components/UserDeleteButton'
 import LOLMatchingList from '../components/LOLMatchingList'
 import EditIcon from '@material-ui/icons/Edit';
-import { set } from 'lodash';
 
 
 const MyPage = ({ isAuthenticated }) => {

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Card from '../components/LOLCard'
 import { connect } from 'react-redux';
-import LOLMatchingCards from '../components/LOLMatchingCards'
 import LOLAllMatchingCards from '../components/LOLAllMatchingCards'
 import LOLMatchingList from '../components/LOLMatchingList'
 import { Redirect } from 'react-router-dom';

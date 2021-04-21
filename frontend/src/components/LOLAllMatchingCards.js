@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import Card from './LOLCard'
 import './lolallmatchingcards.scss'
 import Button from '@material-ui/core/Button';
 import GroupIcon from '@material-ui/icons/Group';
