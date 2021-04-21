@@ -73,11 +73,14 @@ class LolUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSeri
 
     def get_odds(self, obj):
         print(obj)
-        lol_watcher = LolWatcher(RIOT_API_KEY)
-        region = obj.region
-        lol_name = obj.lol_name
-        user_account_data = lol_watcher.summoner.by_name(region, lol_name)
-        lol_id = user_account_data['id']
+        try:
+            lol_watcher = LolWatcher(RIOT_API_KEY)
+            region = obj.region
+            lol_name = obj.lol_name
+            user_account_data = lol_watcher.summoner.by_name(region, lol_name)
+            lol_id = user_account_data['id']
+        except ApiError as err:
+            return {'odds': '데이터 불러오기 실패'}
 
         try:
             spectator_data = lol_watcher.league.by_summoner(region, lol_id)
@@ -147,11 +150,16 @@ class LolMyUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSe
 
     def get_odds(self, obj):
         print(obj)
-        lol_watcher = LolWatcher(RIOT_API_KEY)
-        region = obj.region
-        lol_name = obj.lol_name
-        user_account_data = lol_watcher.summoner.by_name(region, lol_name)
-        lol_id = user_account_data['id']
+        try:
+            lol_watcher = LolWatcher(RIOT_API_KEY)
+            region = obj.region
+            lol_name = obj.lol_name
+            user_account_data = lol_watcher.summoner.by_name(region, lol_name)
+            lol_id = user_account_data['id']
+        except ApiError as err:
+            return {'odds': '데이터 불러오기 실패'}
+        
+        
 
         try:
             spectator_data = lol_watcher.league.by_summoner(region, lol_id)
