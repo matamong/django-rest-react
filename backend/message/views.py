@@ -26,7 +26,6 @@ class MyMessageRoomListView(generics.ListCreateAPIView):
 
         queryset = MessageRoom.objects.filter(Q(sender=self.request.user) | Q(receiver=self.request.user)).order_by('created_at')
         serializer = MessageRoomSerializer(queryset, many=True)
-        print(serializer.data)
 
         return Response(serializer.data)
 
@@ -41,8 +40,6 @@ class MyMessageRoomListView(generics.ListCreateAPIView):
         )
         if message_room_obj.exists():
             raise ValidationError('이미 존재하는 매칭방입니다.')
-
-        print(receiver_obj)
 
         serializer.save(
         sender = self.request.user,
@@ -81,7 +78,6 @@ class MyMessageListView(generics.ListCreateAPIView):
     pagination_class = None
 
     def list(self, request, **kwargs):
-        print('kwargs : ' , kwargs['message_room'])
         # 룸 있는지 확인
         try:
             message_room_obj = MessageRoom.objects.get(id=kwargs['message_room'])
@@ -93,8 +89,6 @@ class MyMessageListView(generics.ListCreateAPIView):
             queryset = Message.objects.filter(message_room=message_room_obj).order_by('time_stamp')
             serializer = MessageSerializer(queryset, many=True)
             
-            print(serializer.data)
-
             try:
                 sender_obj = UserAccount.objects.get(id=message_room_obj.sender.id)
                 sender_name = sender_obj.name
@@ -112,13 +106,9 @@ class MyMessageListView(generics.ListCreateAPIView):
         
 
     def perform_create(self, serializer):
-        print('kwargs : ' , self.kwargs['message_room'])
-        print('request id : ', self.request.user.id)
         # 룸 있는지 확인
         try:
             message_room_obj = MessageRoom.objects.get(id=self.kwargs['message_room'])
-            print('message_room_sender id : ', message_room_obj.sender.id)
-            print('message_room_receiver id : ', message_room_obj.receiver.id)
         except MessageRoom.DoesNotExist: 
             raise Http404
         

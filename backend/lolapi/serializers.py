@@ -72,7 +72,6 @@ class LolUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSeri
         }
 
     def get_odds(self, obj):
-        print(obj)
         try:
             lol_watcher = LolWatcher(RIOT_API_KEY)
             region = obj.region
@@ -90,7 +89,6 @@ class LolUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSeri
         if len(spectator_data) < 1 :
             return {'odds': '데이터 없음'}
         
-        print(spectator_data[0])
         total = spectator_data[0]['wins'] + spectator_data[0]['losses']
         odds = (spectator_data[0]['wins'] / total) * 100
 
@@ -149,7 +147,6 @@ class LolMyUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSe
     
 
     def get_odds(self, obj):
-        print(obj)
         try:
             lol_watcher = LolWatcher(RIOT_API_KEY)
             region = obj.region
@@ -169,7 +166,6 @@ class LolMyUserGameSerializer(WritableNestedModelSerializer, serializers.ModelSe
         if len(spectator_data) < 1 :
             return {'odds': '데이터 없음'}
         
-        print(spectator_data[0])
         total = spectator_data[0]['wins'] + spectator_data[0]['losses']
         odds = (spectator_data[0]['wins'] / total) * 100
 

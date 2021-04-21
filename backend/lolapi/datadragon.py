@@ -9,13 +9,11 @@ class DataDragon():
         # http://ddragon.leagueoflegends.com/cdn/10.24.1/data/en_US/champion.json
         with urllib.request.urlopen('http://ddragon.leagueoflegends.com/cdn/' + self.get_latest_version() + '/data/en_US/champion.json') as url:
             data = json.loads(url.read().decode())
-            print('get_champion >> : ', data['version'])
             return data['data']
 
     def get_champion_by_key(self, chamion_key):
         champions = self.get_champions()
         path_values = self.getpath(champions, str(chamion_key))
-        print(path_values)
         return champions[path_values[0]]
 
     # https://stackoverflow.com/questions/22162321/search-for-a-value-in-a-nested-dictionary-python
