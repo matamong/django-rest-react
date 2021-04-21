@@ -10,6 +10,8 @@ import axios from 'axios'
 import './lolform.scss'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Slider, { SliderTooltip } from 'rc-slider';
+import { withRouter } from 'react-router-dom';
+
 
 const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_usergame }) => {
     
@@ -182,7 +184,7 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
                 }
             }).then(function(result){
                 setTimeout(function() {
-                    history.goBack()
+                    history.push('/my-page');
                   }, 1500);
             })
             
@@ -199,7 +201,7 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
             }
         }).then(function(result){
             setTimeout(function() {
-                history.goBack()
+                history.push('/my-page');
               }, 1500);
         })
     }
@@ -397,4 +399,4 @@ const LolUpdateForm = ({ history, setAlert, update_lol_usergame, delete_lol_user
     )
 }
 
-export default connect(null, { setAlert, update_lol_usergame, delete_lol_usergame })(LolUpdateForm)
+export default withRouter(connect(null, { setAlert, update_lol_usergame, delete_lol_usergame })(LolUpdateForm))
