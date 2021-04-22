@@ -35,8 +35,6 @@ class LolUserGameMyRetrieveView(generics.RetrieveUpdateDestroyAPIView):
         user_rank_data = lol_watcher.league.by_summoner(request_region, lol_id)
         user_champion_mastery_data = lol_watcher.champion_mastery.by_summoner(request_region, lol_id)
 
-        print(user_rank_data)
-
         if len(user_rank_data) == 1 :
             solo_rank = user_rank_data[0]['tier']
             solo_tier = user_rank_data[0]['rank']
@@ -101,7 +99,6 @@ class LolUserGameRenewalView(generics.UpdateAPIView):
         lol_id = user_account_data['id']
         user_rank_data = lol_watcher.league.by_summoner(request_region, lol_id)
         user_champion_mastery_data = lol_watcher.champion_mastery.by_summoner(request_region, lol_id)
-        print(user_rank_data)
 
         if len(user_rank_data) == 1 :
             solo_rank = user_rank_data[0]['rank']
@@ -148,7 +145,6 @@ class LoLMatchingListView(generics.ListAPIView):
             usergame = None
         queryset = LolUserGame.objects.filter(solo_tier=usergame.solo_tier).exclude(user=self.request.user)
         serializer = LolUserGameSerializer(queryset, many=True)
-        print(serializer.data)
         return Response(serializer.data)
 
 class LoLRandomMatchingListView(generics.ListAPIView):
@@ -168,7 +164,6 @@ class LoLRandomMatchingListView(generics.ListAPIView):
         
         queryset = LolUserGame.objects.filter(solo_tier=usergame.solo_tier).exclude(user=self.request.user)
         serializer = LolUserGameSerializer(queryset, many=True)
-        print(serializer.data)
         return Response(serializer.data)
 
 
@@ -186,7 +181,6 @@ class LolUserGameListView(generics.ListCreateAPIView):
         
         queryset = LolUserGame.objects.all().exclude(user=self.request.user)
         serializer = LolUserGameSerializer(queryset, many=True)
-        print(serializer.data)
         return Response(serializer.data)
 
 
@@ -202,8 +196,6 @@ class LolUserGameListView(generics.ListCreateAPIView):
         user_rank_data = lol_watcher.league.by_summoner(request_region, lol_id)
         user_champion_mastery_data = lol_watcher.champion_mastery.by_summoner(request_region, lol_id)
 
-        print(user_rank_data)
-        print()
 
         if len(user_rank_data) == 1 :
             solo_rank = user_rank_data[0]['rank']

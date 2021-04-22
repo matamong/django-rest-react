@@ -31,7 +31,6 @@ class MatchingListView(generics.ListAPIView):
 
 # https://django-rest-multiple-models.readthedocs.io/en/latest/index.html
 class MyUsergamesListView(ObjectMultipleModelAPIView):
-    print('view 들어옴!')
     permission_classes = [IsOwnerAndAdminOnly]
     pagination_class = None
     def get_querylist(self):
