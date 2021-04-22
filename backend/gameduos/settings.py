@@ -106,10 +106,10 @@ WSGI_APPLICATION = 'gameduos.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gameduos2',# 임시데이터베이스
-        'USER': 'root', # 임시유저
-        'PASSWORD': 'root', # 임시비밀번호
-        'HOST': 'localhost',
+        'NAME': get_secret("DB_NAME"),# 임시데이터베이스
+        'USER': get_secret("DB_USER"), # 임시유저
+        'PASSWORD': get_secret("DB_PASSWORD"), # 임시비밀번호
+        'HOST': get_secret("DB_HOST"),
         'PORT': '3306'
     }
 }
