@@ -7,8 +7,6 @@ import ReactDOM from 'react-dom';
 const SocialAuthGoogle = ({ social_login }) => {
 
     const responseGoogle = (response) => {
-        console.log(response);
-        console.log(response.accessToken)
         social_login(response.accessToken, 'google-oauth2')
       }
 

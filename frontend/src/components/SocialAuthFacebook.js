@@ -7,8 +7,6 @@ import ReactDOM from 'react-dom';
 const SocialAuthFacebook = ({ social_login }) => {
     
     const responseFacebook = (response) => {
-        console.log(response);
-        console.log(response.accessToken)
         social_login(response.accessToken, 'facebook')
       }
 
