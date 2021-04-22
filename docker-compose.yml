@@ -3,9 +3,7 @@ version: '3'
 services:
     nginx:
         restart: unless-stopped
-        build:
-            context: .
-            dockerfile: ./docker/nginx/Dockerfile
+        image: frontend:v1.0
         ports:
             - 80:80
             - 443:443
