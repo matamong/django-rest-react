@@ -64,7 +64,7 @@ const ChatScreen = ({ history, props, isAuthenticated, user, send_matching_messa
         try {
             setChatContents(null);
             setLoading(true);
-            axios.get(`${process.env.REACT_APP_API_URL}/api/messages/` + messageroom_id, config)
+            axios.get("/api/messages/" + messageroom_id, config)
                 .then(function (response) {
                     setChatContents(response.data)
                 })
