@@ -40,9 +40,9 @@ SECRET_KEY = get_secret("SECRET_KEY")
 RIOT_API_KEY = get_secret("RIOT_API_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost', 'gameduos.net', 'www.gameduos.net', 'backend']
 
 
 # Application definition
@@ -152,14 +152,16 @@ PROTOCOL = "http"
 DOMAIN = "localhost:3000"
 if not DEBUG:
 	PROTOCOL = "https"
-	DOMAIN = "gameduos.net"
+	DOMAIN = "www.gameduos.net"
 
 # CORS 배포환경에서는 False하고 Whitelist 지정하기!!! https://github.com/adamchainz/django-cors-headers
 
 CORS_ALLOWED_ORIGINS = [
 	"http://localhost:3000",
 	"http://127.0.0.1:3000",
-	"http://0.0.0.0"
+	"http://0.0.0.0",
+        "https://gameduos.net",
+        "https://www.gameduos.net",
 ]
 # 정의해둔 유저모델을 정해준다.
 AUTH_USER_MODEL = 'accounts.UserAccount'  
@@ -270,3 +272,69 @@ STATIC_ROOT = BASE_DIR / 'django_static'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'formatters': {
+        'django.server': {
+            '()': 'django.utils.log.ServerFormatter',
+            'format': '[{server_time}] {message}',
+            'style': '{',
+        },
+        'standard': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+        },
+        'django.server': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'django.server',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'file': {
+            'level': 'INFO',
+            'encoding': 'utf-8',
+            'filters': ['require_debug_false'],
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': BASE_DIR / 'logs/mysite.log',
+            'maxBytes': 1024*1024*5,  # 5 MB
+            'backupCount': 5,
+            'formatter': 'standard',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'mail_admins', 'file'],
+            'level': 'INFO',
+        },
+        'django.server': {
+            'handlers': ['django.server'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'my': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+        },
+    }
+    }
+
