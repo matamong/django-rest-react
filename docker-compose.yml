@@ -31,6 +31,8 @@ services:
             - static_volume:/app/backend/django_static
         expose:
             - 8000
+        ports:
+            - 587:587
 
 volumes:
     static_volume: {} 
