@@ -1,0 +1,136 @@
+// .lolform__nickname {
+//   text-align: center;
+//   margin: 2rem;
+//   .lolform__nickname__message {
+//     color: red;
+//   }
+// }
+.lolform__title {
+  margin: 1em 0 1rem 0;
+}
+.lolform__nickname__message {
+  color: #ef4729;
+}
+.lolform__nicknameregion__container {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  margin: 6rem 0 0 0;
+
+  .lolform__nicnknameregion__items {
+    display: flex;
+    justify-content: center;
+  }
+
+  .lolform__nickname{
+    padding: 0.5rem;
+  }
+  .lolform__region{
+    padding: 0.5rem;
+  }
+}
+
+.lolform__bias__container {
+  text-align: center;
+  margin: 6rem 0 0 0;
+  width: 100%;
+
+  h5{
+    width: 100%;
+    color: darkgray;
+    margin: 1rem 0 1.5rem 0;
+  }
+  
+  .lolform__bias__preferstyle {
+    padding: 1rem;
+    width: 16rem;
+    margin: 0 auto;
+  }
+  .lolform__bias__prefermode {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap;
+    margin: 3rem 0 0 0;
+
+    div {
+      padding: 1rem;
+      margin: 0.2rem;
+    }
+  }
+  .lolform__bias__mic {
+    margin: 3rem 0 0 0;
+  }
+}
+
+.lolform__preferTime {
+  padding: 1rem;
+  text-align: center;
+  margin: 6rem 0 0 0;
+}
+
+.lolform__intro {
+  padding: 0 1rem 1rem 1rem;
+  text-align: center;
+  margin: 6rem 0 0 0;
+}
+
+.lolform__lane__container {
+  margin: 6rem 0 0 0;
+
+  img {
+    width: 3.5rem;
+    object-fit: cover;
+  }
+  h2{
+    text-align: center;
+  }
+
+  .lolform__lane__item {
+    display: flex;
+    width: 20rem;
+    margin: 1rem auto;
+  
+    .lolform__lane__slider {
+      padding-left: 3rem;
+      width: 12rem;
+      /* position: absolute; */
+      /* margin: auto; */
+      margin-top: 1.5rem;
+  
+    }
+  }
+}
+
+
+
+.lolform__button {
+  text-align: center;
+  margin: 6rem 0 6rem 0;
+  button {
+    margin: 1rem;
+    padding: 0.8rem;
+    width: 16rem;
+  }
+}
+
+.pow {
+  width: 100%;
+  height: auto;
+}
+
+.pow__button {
+  text-align: center;
+  margin: 1rem 0 1rem 0;
+  button {
+    margin: 1rem;
+    padding: 0.8rem;
+    width: 16rem;
+  }
+}
+
+.lolform__profile {
+  margin: 0 auto;
+  width: 90%;
+}

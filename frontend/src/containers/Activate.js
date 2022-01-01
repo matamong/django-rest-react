@@ -34,7 +34,7 @@ const Activate = (props) => {
                         type='button'
                         variant="contained"
                         color="primary">
-                        Verify
+                        인증
                     </Button>
                 </div>
             </div>

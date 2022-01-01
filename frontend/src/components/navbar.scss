@@ -1,0 +1,92 @@
+
+  .header{
+    height: 60px;
+    //background: #34495e;
+    padding: 0 20px;
+    color: darkgray;
+    border: 1px solid #f9f9f9;
+    margin-bottom: 3rem;
+  }
+  .logo{
+    font-weight: bold;
+    line-height: 60px;
+    float: left;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: darkgray;
+  }
+  
+  .menu{
+    float: right;
+    line-height: 60px;
+    z-index: 99;
+    font-weight: 600;
+  }
+  .menu a{
+    color: inherit;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0 10px;
+    transition: 0.4s;
+  }
+
+  .header__profile{
+    width: 8rem;
+    display: contents;
+    justify-content: space-between;
+}
+  .show-menu-btn,.hide-menu-btn{
+    transition: 0.4s;
+    font-size: 30px;
+    cursor: pointer;
+    display: none;
+  }
+  .show-menu-btn{
+    float: right;
+  }
+  .show-menu-btn i{
+    line-height: 100px;
+  }
+  .menu a:hover,
+  .show-menu-btn:hover,
+  .hide-menu-btn:hover{
+    color: #3498db;
+  }
+  
+  #chk{
+    position: absolute;
+    visibility: hidden;
+    z-index: -1111;
+  }
+
+  
+  @media screen and (max-width:800px) {
+    .show-menu-btn,.hide-menu-btn{
+      display: block;
+    }
+    .menu{
+      position: fixed;
+      width: 40%;
+      height: 100vh;
+      background: dimgrey;
+      right: -100%;
+      top: 0;
+      text-align: center;
+      padding: 80px 0;
+      line-height: normal;
+      transition: 0.7s;
+    }
+    .menu a{
+      display: block;
+      padding: 0.5rem;
+    }
+    .hide-menu-btn{
+      position: absolute;
+      top: 40px;
+      right: 40px;
+    }
+    #chk:checked ~ .menu{
+      right: 0;
+    }
+  }
+  

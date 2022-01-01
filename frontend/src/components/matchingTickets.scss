@@ -1,0 +1,144 @@
+
+
+.ticket__container {
+  background: #fff;
+}
+
+.ticket__etc__container {
+  display: flex;
+}
+
+@keyframes wave {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.music-card {
+  margin: 100px auto;
+  background: #fff;
+  box-shadow: 0px 8px 28px -9px rgba(0,0,0,0.45);
+  overflow: hidden;
+  position: relative;
+  width: 300px;
+  height: 550px;
+  border-radius: 6px;
+}
+
+.true__music-card {
+  margin: 100px auto;
+  background: #fff;
+  box-shadow: 0px 8px 28px -9px rgba(0,0,0,0.45);
+  overflow: hidden;
+  position: relative;
+  width: 300px;
+  height: 500px;
+  border-radius: 6px;
+  cursor: pointer;
+  .image:hover {
+    opacity: 10;
+  }
+}
+
+
+.image {
+  /* background: url('http://static1.squarespace.com/static/530b728de4b04fc9b23a5988/t/569880381a5203aa7d44c1a8/1452834873397/00.jpg?format=1000w') no-repeat 75%; */
+  background-size: cover;  
+  position: absolute;
+  z-index: 1;
+  opacity: 0.3;
+  width: 300px;
+  overflow: hidden; // 이거어어어엉
+  height: 340px;
+}
+
+.image__background {
+    width: 320px;
+}
+
+.image:after {
+  height: 100px;
+  content: '';
+  top: 250px;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+  background: linear-gradient(rgba(9, 2, 4, 0), #444);
+  
+}
+
+
+.wave {
+  position: absolute;
+  height: 750px;
+  width: 750px;
+  opacity: 0.6;
+  left: 0;
+  top: 0;
+  margin-left: -70%;
+  margin-top: -130%;
+  background: radial-gradient(#353535, #383737);
+}
+
+.wave:nth-child(2),
+.wave:nth-child(3) {
+  top: 10px;
+}
+
+.playing .wave {
+  border-radius: 40%;
+  animation: wave 3000ms infinite linear;
+}
+/* when stop */
+.wave {
+  border-radius: 40%;
+  animation: wave 55s infinite linear;
+}
+
+.playing .wave:nth-child(2) {
+  animation-duration: 4000ms;
+}
+/* when stop */
+.wave:nth-child(2) {
+  animation-duration: 50s;
+}
+
+.playing .wave:nth-child(3) {
+  animation-duration: 5000ms;
+}
+/* when stop */
+.wave:nth-child(3) {
+  animation-duration: 45s;
+}
+
+.info {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.title {
+  font-size: 1.4em;
+  font-weight: 400;
+  color: #333;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  font-family: 'Reem Kufi', sans-serif;
+}
+
+.artist {
+  color: #cfcfcf;
+  font-size: 1.2em;
+  letter-spacing: 0.08em;
+  font-family: 'Reem Kufi', sans-serif;
+  margin-top: -10px;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.artist__check {
+  margin: 2px;
+  margin-right: 0.45rem;
+}

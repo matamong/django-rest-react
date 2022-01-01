@@ -1,0 +1,30 @@
+.matchingChat__container {
+    width: 22rem;
+    margin: 0 auto;
+}
+.matchingChat__title {
+    text-align: center;
+    margin: 1rem auto;
+}
+.matchingChat__title__emoji {
+    font-size: 50px;
+}
+.matchingChat__title__second {
+    font-size: small;
+    font-weight: 500;
+    color: gray;
+}
+
+@media screen and (min-width: 481px) {
+    .matchingChat__container {
+        width: 30rem;
+        margin: 0 auto;
+    }
+ }
+
+ @media screen and (min-width: 769px) {
+    .matchingChat__container {
+        width: 50rem;
+        margin: 0 auto;
+    }
+ }

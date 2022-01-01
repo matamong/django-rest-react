@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.conf import settings
+
+
 
 class UserAccountManager(BaseUserManager):
     def create_user(self, email, name, password=None):
@@ -13,10 +16,19 @@ class UserAccountManager(BaseUserManager):
         user.save()
 
         return user
+    
+    def create_superuser(self, email, name, password):
+        user = self.create_user(email, name, password)
+
+        user.is_superuser = True
+        user.is_staff = True
+        user.save()
+
+        return user
 
 class UserAccount(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -33,3 +45,17 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     
     def __str__(self):
         return self.email
+
+class Avatar(models.Model):
+    name = models.CharField(max_length=50)
+    url = models.CharField(max_length=200)
+
+class Title(models.Model):
+    name = models.CharField(max_length=20, default="게임듀오인")
+
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, unique=True, on_delete=models.CASCADE)
+    avatar = models.ForeignKey(Avatar, on_delete=models.SET_NULL, null=True)
+    title = models.ForeignKey(Title, on_delete=models.SET_NULL, null=True)
+
+

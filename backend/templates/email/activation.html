@@ -1,0 +1,28 @@
+{% load i18n %}
+
+{% block subject %}
+{% blocktrans %}{{ site_name }} - 이메일 인증을 완료해주세요.{% endblocktrans %}
+{% endblock subject %}
+
+{% block text_body %}
+{% blocktrans %} {{ site_name }} 회원가입을 축하드립니다! {% endblocktrans %}
+
+{% trans "인증을 완료하려면 아래 링크를 눌러주세요." %}
+{{ protocol }}://{{ domain }}/{{ url|safe }}
+
+{% trans "Thanks for using our site!" %}
+
+{% blocktrans %}The {{ site_name }} team{% endblocktrans %}
+{% endblock text_body %}
+
+{% block html_body %}
+<p>{% blocktrans %}{{ site_name }} 회원가입을 축하드립니다!{% endblocktrans %}</p>
+
+<p>{% trans "인증을 완료하려면 아래 링크를 눌러주세요." %}</p>
+<p><a href="{{ protocol }}://{{ domain }}/{{ url|safe }}">{{ protocol }}://{{ domain }}/{{ url|safe }}</a></p>
+
+<p>{% trans "Thanks for using our site!" %}</p>
+
+<p>{% blocktrans %}The {{ site_name }} team{% endblocktrans %}</p>
+
+{% endblock html_body %}

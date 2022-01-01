@@ -1,0 +1,135 @@
+
+@mixin animated($timein: null, $delay: null) { 
+    transition: all $timein ease-in-out;
+     transition-delay: $delay; 
+   }
+   
+@mixin dimensions($width: null, $height: null) { width: $width; min-height: $height; }
+
+$maincolor: #009688;
+
+
+.profileToken{
+    %reset { margin: 0; padding: 0; }
+    %flex { display: flex; justify-content: center;	align-items: center; }
+    box-sizing: border-box;
+}
+
+.profileToken__content {
+    position: relative; 
+    animation: animatop 0.9s  cubic-bezier(0.425, 1.140, 0.470, 1.125) forwards ;
+}
+
+.profileToken__card {  
+    @include dimensions( 500px,  100px);
+    //
+     width: 16rem;
+     padding: 0.8rem;
+    //
+     border-radius: 3px;
+     background-color: white;
+     box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
+     position: relative;
+     overflow: hidden;
+     &:after {
+       content: '';
+       display: block;
+       width: 10.5rem;
+       height: 22rem;
+       background: cadetblue;
+       
+       position: absolute;
+       animation: rotatemagic 0.75s cubic-bezier(0.425, 1.040, 0.470, 1.105) 1s both;
+   }
+   }
+
+   .profileToken__badgescard{
+     //
+     width: 16.5rem; 
+     left: 0.6rem; 
+     margin-bottom: 1rem;
+     //
+    border-radius: 3px;
+    background-color: #ECECEC;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    z-index: -1; 
+    // bottom: 10px;
+    @extend %flex; 
+    animation: animainfos 0.5s cubic-bezier(0.425, 1.040, 0.470, 1.105) 0.75s forwards;
+    span {
+    font-size: 1.6em;
+    margin: -0.2rem 6px;
+    opacity: 0.6;
+    }
+  }   
+
+  .profileToken__card__firstinfo{
+    @extend %flex;
+    flex-direction: row;  
+    z-index:2;
+    position: relative;
+    //
+    height: 5.5rem;
+    word-break: break-all;
+    //
+    img{ 
+      border-radius: 50%;
+      width: 3.5rem;
+      height: 3.5rem;
+    }
+    .profileToken__card__profileinfo{
+      // padding: 0 1.7rem;
+      // 
+      margin-left: 1rem;
+      width: 15rem;
+      //
+      .profileToken__card__name { margin-top: 2rem; }
+      .profileToken__card__title { 
+        //font-size: 1.2em;
+        color: $maincolor;
+      }
+      .profileToken__card__bio{
+        //padding: 10px 0px;
+        color: #5A5A5A;
+        line-height: 1.2;
+        font-style: initial;
+        //
+        font-size: smaller;
+        text-align: right;
+        color: #ec6c6c;
+        //
+      }  
+    }
+  }
+
+  @keyframes animatop{
+    0%{ 
+      opacity: 0;
+      bottom: -500px;}
+    100%{  
+     opacity: 1;  
+    bottom: 0px;}
+  }
+   
+  @keyframes animainfos{
+    0%{
+      bottom:  10px;}
+    100%{
+    bottom: -42px;}
+  }
+  
+  @keyframes rotatemagic{
+    0%{
+      opacity: 0;
+      transform: rotate(-0deg);
+      top: -24px;
+      left: -253px;
+    }
+    100%{
+      
+      transform: rotate(-30deg);
+      top: -24px;
+      left: -78px;
+    }
+  }
