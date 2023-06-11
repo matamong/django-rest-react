@@ -1,7 +1,7 @@
 # **Game Duos 2**
 **Java Spring Boot**로 배포중인 Game Duos의 두번째 버전. <br>
 
-**Python Django Restframework** 와 **React**를 이용한 커뮤니티
+**Python Django Restframework** 와 **React**를 이용한 커뮤니티 <br><br>
 :exclamation: AWS 프리티어 기한이 지난 관계로 현재 배포되어있지않습니다. :exclamation:
 <br><br>
 
